@@ -7605,4 +7605,18 @@ paths:
                 dateFormat: dd.mm.yy
                 firstRunAfterUpdate: false
                 configured: true
+  
+  /api/currency:
+    get:
+      description: return unknown
+      tags:
+        - Undocumented
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                value: 0
+                currency: ''
                 
