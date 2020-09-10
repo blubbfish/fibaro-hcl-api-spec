@@ -7578,4 +7578,31 @@ paths:
                   userId: 2
                   type: HCUser
   
-  
+  /api/home:
+    get:
+      description: return unknown
+      tags:
+        - Undocumented
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                timestamp: 1599744796
+                defaultSensors:
+                  temperature: 10
+                  humidity: 0
+                  light: 11
+                notificationClient:
+                  marketingNotificationAllowed: true
+                hcName: Fib-Philip
+                weatherProvider: 3
+                currency: ''
+                fireAlarmTemperature: 60
+                freezeAlarmTemperature: 1
+                timeFormat: 24
+                dateFormat: dd.mm.yy
+                firstRunAfterUpdate: false
+                configured: true
+                
