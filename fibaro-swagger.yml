@@ -3817,7 +3817,7 @@ paths:
     get:
       parameters:
         - name: last
-          description: number of items
+          description: number of the last getted item
           in: query
           required: true
           schema:
@@ -4184,4 +4184,3398 @@ paths:
                   - 133.9
                 - - 1599743008000
                   - 133.9
+  
+  /api/zwaveSettings:
+    get:
+      description: return unknown
+      tags:
+        - Undocumented
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                globalPollingEnabled: true
+                globalPollingInterval: 125000
+                minDevicePollingInterval: 5000
+                minGlobalPollingInterval: 125000
+  
+  /api/devices/{deviceid}:
+    get:
+      parameters:
+        - name: deviceid
+          in: path
+          description: id of the device
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      description: return unknown
+      tags:
+        - Undocumented
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                id: 1
+                name: zwave
+                roomID: 0
+                type: com.fibaro.zwavePrimaryController
+                baseType: ''
+                enabled: true
+                visible: false
+                isPlugin: false
+                parentId: 0
+                remoteGatewayId: 0
+                interfaces:
+                  - zwave
+                properties:
+                  UIMessageSendTime: '0'
+                  autoConfig: '0'
+                  configured: true
+                  date: a
+                  dead: 'false'
+                  deviceControlType: '0'
+                  deviceIcon: '28'
+                  disabled: '1'
+                  emailNotificationID: '0'
+                  emailNotificationType: '0'
+                  endPoint: '0'
+                  endPointId: '0'
+                  homeIdHash: cebf407769af35003e6d21896cc320726501e4cb
+                  log: ''
+                  logTemp: ''
+                  manufacturer: ''
+                  markAsDead: 'true'
+                  model: ''
+                  nodeID: '1'
+                  nodeId: '0'
+                  parameters: []
+                  parametersTemplate: '0'
+                  pollingDeadDevice: 'true'
+                  pollingTime: '1354829138'
+                  pollingTimeNext: '1354837724'
+                  pollingTimeSec: 125
+                  productInfo: ''
+                  pushNotificationID: '0'
+                  pushNotificationType: '0'
+                  remoteGatewayId: '0'
+                  requestNodeNeighborStat: '0'
+                  requestNodeNeighborStatTimeStemp: ''
+                  requestNodeNeighborState: ''
+                  requestNodeNeighborStateTimeStemp: ''
+                  saveLogs: 'true'
+                  serialNumber: ''
+                  showChildren: '1'
+                  smsNotificationID: '0'
+                  smsNotificationType: '0'
+                  status: STAT_IDLE
+                  sunriseHour: '06:59'
+                  sunsetHour: '19:55'
+                  useTemplate: 'true'
+                  userDescription: ''
+                  value: '0'
+                  zwaveBuildVersion: '3.67'
+                  zwaveCompany: Unknown
+                  zwaveInfo: ''
+                  zwaveRegion: EU
+                  zwaveVersion: '4.33'
+                actions:
+                  pollingDeadDevice: 1
+                  pollingTimeSec: 1
+                  reconfigure: 0
+                  requestNodeNeighborUpdate: 1
+                  turnOff: 0
+                  turnOn: 0
+                created: 1598718830
+                modified: 1598718830
+                sortOrder: 1
+  
+  /api/update:
+    get:
+      description: return unknown
+      tags:
+        - Undocumented
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                updates:
+                  stable:
+                    available: false
+                    version: '4.600'
+                  beta:
+                    available: false
+                    version: '4.582'
+                  alpha:
+                    available: false
+                    version: '4.500'
+                conditions:
+                  storage: true
+                  allConditionsMet: true
+                updateStableAvailable: false
+                updateBetaAvailable: false
+                newestStableVersion: '4.600'
+                newestBetaVersion: '4.582'
+                allConditionsMet: true
+  
+  /api/interface/data:
+    get:
+      description: return unknown
+      tags:
+        - Undocumented
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                info:
+                  serialNumber: HCL-076130
+                  mac: 'ac:17:02:03:65:2d'
+                  zwaveVersion: '4.33'
+                  serverStatus: 1598718825
+                  defaultLanguage: de
+                  sunsetHour: '19:55'
+                  sunriseHour: '06:59'
+                  hotelMode: false
+                  smsManagement: false
+                  forwardNotificationsToPushMessages: true
+                home:
+                  timestamp: 1599744495
+                  defaultSensors:
+                    temperature: 10
+                    humidity: 0
+                    light: 11
+                  notificationClient:
+                    marketingNotificationAllowed: true
+                  hcName: Fib-Philip
+                  weatherProvider: 3
+                  currency: ''
+                  fireAlarmTemperature: 60
+                  freezeAlarmTemperature: 1
+                  timeFormat: 24
+                  dateFormat: dd.mm.yy
+                  firstRunAfterUpdate: false
+                  configured: true
+                weather:
+                  ConditionCode: '32'
+                  ConditionCodeConverted: '32'
+                  Humidity: '42.80'
+                  Pressure: '1020.90'
+                  Temperature: '20.5'
+                  TemperatureUnit: C
+                  WeatherCondition: clear
+                  WindUnit: km/h
+                  Wind: 6.84
+                  categories: '["other"]'
+                  dead: 'false'
+                  deadReason: ''
+                  deviceControlType: '0'
+                  deviceIcon: '28'
+                  emailNotificationID: '0'
+                  emailNotificationType: '0'
+                  hidden: 'false'
+                  log: ''
+                  logTemp: ''
+                  manufacturer: ''
+                  model: ''
+                  pushNotificationID: '0'
+                  pushNotificationType: '0'
+                  remoteGatewayId: '0'
+                  saveLogs: 'true'
+                  smsNotificationID: '0'
+                  smsNotificationType: '0'
+                  ui.Current_Weather_Label.caption: |-
+                    Temp.: 20.5°C
+                
+                    Humidity: 42.8%
+                
+                    Wind: 6.8km/h
+                  ui.config.hidden.caption: i18n_visibleLabel
+                  ui.config.hidden.enabled: 'true'
+                  ui.config.section1.caption: i18n_section1
+                  ui.config.section1.enabled: 'true'
+                  userDescription: ''
+                devices:
+                  - id: 1
+                    name: zwave
+                    roomID: 0
+                    type: com.fibaro.zwavePrimaryController
+                    baseType: ''
+                    enabled: true
+                    visible: false
+                    isPlugin: false
+                    parentId: 0
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - zwave
+                    properties:
+                      UIMessageSendTime: '0'
+                      autoConfig: '0'
+                      configured: true
+                      date: a
+                      dead: 'false'
+                      deviceControlType: '0'
+                      deviceIcon: '28'
+                      disabled: '1'
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      endPoint: '0'
+                      endPointId: '0'
+                      homeIdHash: cebf407769af35003e6d21896cc320726501e4cb
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      markAsDead: 'true'
+                      model: ''
+                      nodeID: '1'
+                      nodeId: '0'
+                      parameters: []
+                      parametersTemplate: '0'
+                      pollingDeadDevice: 'true'
+                      pollingTime: '1354829138'
+                      pollingTimeNext: '1354837724'
+                      pollingTimeSec: 125
+                      productInfo: ''
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      requestNodeNeighborStat: '0'
+                      requestNodeNeighborStatTimeStemp: ''
+                      requestNodeNeighborState: ''
+                      requestNodeNeighborStateTimeStemp: ''
+                      saveLogs: 'true'
+                      serialNumber: ''
+                      showChildren: '1'
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      status: STAT_IDLE
+                      sunriseHour: '06:59'
+                      sunsetHour: '19:55'
+                      useTemplate: 'true'
+                      userDescription: ''
+                      value: '0'
+                      zwaveBuildVersion: '3.67'
+                      zwaveCompany: Unknown
+                      zwaveInfo: ''
+                      zwaveRegion: EU
+                      zwaveVersion: '4.33'
+                    actions:
+                      pollingDeadDevice: 1
+                      pollingTimeSec: 1
+                      reconfigure: 0
+                      requestNodeNeighborUpdate: 1
+                      turnOff: 0
+                      turnOn: 0
+                    created: 1598718830
+                    modified: 1598718830
+                    sortOrder: 1
+                  - id: 2
+                    name: philip.schell@fit.fraunhofer.de
+                    roomID: 0
+                    type: HC_user
+                    baseType: com.fibaro.voipUser
+                    enabled: true
+                    visible: true
+                    isPlugin: false
+                    parentId: 0
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - voip
+                    properties:
+                      Email: philip.schell@fit.fraunhofer.de
+                      HotelModeRoom: '0'
+                      LastPwdChange: '1598369555'
+                      Latitude: '52.43'
+                      Location: 52.4320294933;16.8449900900
+                      LocationTime: '2012-12-06 12:15'
+                      LocationTimestamp: '1354792521'
+                      Longitude: '16.84'
+                      PreviousLatitude: '52.43'
+                      PreviousLocation: 52.4320252015;16.8449947542
+                      PreviousLocationTime: '2012-12-06 12:14'
+                      PreviousLocationTimestamp: '1354792461'
+                      PreviousLongitude: '16.84'
+                      SendNotifications: 'true'
+                      TrackUser: '0'
+                      UserType: superuser
+                      atHome: 'false'
+                      deviceIcon: '91'
+                      fidUuid: ''
+                      firmwareUpdateLevel: '0'
+                      initialWizard: 'false'
+                      saveLogs: '1'
+                      sipDisplayName: _
+                      sipUserID: '1'
+                      sipUserPassword: ''
+                      useOptionalArmPin: 'false'
+                      usePin: 'false'
+                    actions:
+                      sendEmail: 2
+                      sendPush: 1
+                      setSipDisplayName: 1
+                      setSipUserID: 1
+                      setSipUserPassword: 1
+                    created: 1598718833
+                    modified: 1598718833
+                    sortOrder: 2
+                  - id: 3
+                    name: YR Weather
+                    roomID: 222
+                    type: com.fibaro.yrWeather
+                    baseType: com.fibaro.weather
+                    enabled: true
+                    visible: true
+                    isPlugin: true
+                    parentId: 0
+                    remoteGatewayId: 0
+                    viewXml: true
+                    configXml: true
+                    interfaces: []
+                    view: []
+                    properties:
+                      ConditionCode: '32'
+                      ConditionCodeConverted: '32'
+                      Humidity: '42.80'
+                      Pressure: '1020.90'
+                      Temperature: '20.50'
+                      WeatherCondition: clear
+                      Wind: '6.84'
+                      categories: '["other"]'
+                      dead: 'false'
+                      deadReason: ''
+                      deviceControlType: '0'
+                      deviceIcon: '28'
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      hidden: 'false'
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      model: ''
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      saveLogs: 'true'
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      ui.Current_Weather_Label.caption: |-
+                        Temp.: 20.5°C
+                
+                        Humidity: 42.8%
+                
+                        Wind: 6.8km/h
+                      ui.config.hidden.caption: This device is hidden in the system.
+                      ui.config.hidden.enabled: true
+                      ui.config.section1.caption: Configuration
+                      ui.config.section1.enabled: true
+                      userDescription: ''
+                    actions: {}
+                    created: 1598718833
+                    modified: 1598718833
+                    sortOrder: 3
+                  - id: 4
+                    name: Wall Plug
+                    roomID: 220
+                    type: com.fibaro.zwaveDevice
+                    baseType: com.fibaro.device
+                    enabled: true
+                    visible: false
+                    isPlugin: false
+                    parentId: 1
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - polling
+                      - zwave
+                      - zwaveAssociation
+                      - zwaveConfiguration
+                      - zwaveMultiChannelAssociation
+                      - zwaveSlaveRouting
+                    properties:
+                      categories: '["other"]'
+                      configured: true
+                      dead: 'false'
+                      deadReason: ''
+                      deviceControlType: '0'
+                      deviceIcon: '28'
+                      deviceSpecificData: ''
+                      deviceSpecificIdType: ''
+                      deviceState: Configured
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      endPointId: '0'
+                      lastWorkingRoute: '[1]'
+                      lastWorkingRouteRequestStatus: ok
+                      lastWorkingRouteRequestTimestamp: '0'
+                      lastWorkingRouteResponseTimestamp: '1598773844'
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      markAsDead: 'true'
+                      model: ''
+                      neighborList: '[1,6,13,18,22]'
+                      neighborListRequestStatus: error
+                      neighborListRequestTimestamp: '0'
+                      neighborListResponseTimestamp: '1598718854'
+                      nodeId: '2'
+                      parameters:
+                        - id: 1
+                          size: 1
+                        - id: 16
+                          size: 1
+                        - id: 34
+                          size: 1
+                        - id: 35
+                          size: 1
+                        - id: 39
+                          size: 2
+                        - id: 40
+                          size: 1
+                        - id: 42
+                          size: 1
+                        - id: 43
+                          size: 1
+                        - id: 45
+                          size: 1
+                        - id: 47
+                          size: 2
+                        - id: 49
+                          size: 1
+                        - id: 50
+                          size: 2
+                        - id: 51
+                          size: 2
+                        - id: 52
+                          size: 1
+                        - id: 60
+                          size: 2
+                        - id: 61
+                          size: 1
+                        - id: 62
+                          size: 1
+                        - id: 63
+                          size: 1
+                        - id: 70
+                          size: 2
+                      parametersTemplate: '718'
+                      pollingInterval: '0'
+                      pollingTimeSec: 0
+                      productInfo: '1,15,6,0,16,0,25,25'
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      saveLogs: 'true'
+                      serialNumber: ''
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      useTemplate: 'true'
+                      userDescription: ''
+                      zwaveCompany: Fibargroup
+                      zwaveInfo: '3,3,52'
+                      zwaveSoftwareVersion: '{}'
+                      zwaveVersion: '25.25'
+                    actions:
+                      getLastWorkingRoute: 0
+                      getNeighborList: 0
+                      getParameter: 1
+                      poll: 0
+                      reconfigure: 0
+                      requestNodeNeighborUpdate: 0
+                      setParameter: 2
+                    created: 1598718833
+                    modified: 1598718833
+                    sortOrder: 4
+                  - id: 5
+                    name: Fridge
+                    roomID: 220
+                    type: com.fibaro.FGWP101
+                    baseType: com.fibaro.FGWP
+                    enabled: true
+                    visible: true
+                    isPlugin: false
+                    parentId: 4
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - deviceGrouping
+                      - energy
+                      - fibaroFirmwareUpdate
+                      - power
+                      - zwave
+                      - zwaveMultiChannelAssociation
+                    properties:
+                      pollingTimeSec: 0
+                      zwaveCompany: Fibargroup
+                      zwaveInfo: '3,3,52'
+                      zwaveVersion: '25.25'
+                      categories: '["lights"]'
+                      color: white
+                      configured: true
+                      dead: 'false'
+                      deadReason: ''
+                      deviceControlType: '20'
+                      deviceGroup: '[]'
+                      deviceGroupMaster: '0'
+                      deviceIcon: '124'
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      endPointId: '0'
+                      energy: '5.85'
+                      firmwareUpdate: '{"info":"","progress":0,"status":"UpToDate","updateVersion":"25.25"}'
+                      icon: '{"path":"fibaro/icons/com.fibaro.FGWP_EU/plug1.png","source":"HC"}'
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      markAsDead: 'true'
+                      model: ''
+                      nodeId: '2'
+                      parametersTemplate: '718'
+                      power: '36.30'
+                      productInfo: '1,15,6,0,16,0,25,25'
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      saveLogs: 'true'
+                      serialNumber: ''
+                      showEnergy: 'true'
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      updateVersion: ''
+                      useTemplate: 'true'
+                      userDescription: ''
+                      value: 'true'
+                    actions:
+                      abortUpdate: 1
+                      reconfigure: 0
+                      reset: 0
+                      retryUpdate: 1
+                      startUpdate: 1
+                      turnOff: 0
+                      turnOn: 0
+                      updateFirmware: 1
+                    created: 1598718833
+                    modified: 1598718833
+                    sortOrder: 5
+                  - id: 6
+                    name: Wall Plug
+                    roomID: 222
+                    type: com.fibaro.zwaveDevice
+                    baseType: com.fibaro.device
+                    enabled: true
+                    visible: false
+                    isPlugin: false
+                    parentId: 1
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - polling
+                      - zwave
+                      - zwaveAssociation
+                      - zwaveConfiguration
+                      - zwaveMultiChannelAssociation
+                      - zwaveSlaveRouting
+                    properties:
+                      categories: '["other"]'
+                      configured: true
+                      dead: 'false'
+                      deadReason: ''
+                      deviceControlType: '0'
+                      deviceIcon: '28'
+                      deviceSpecificData: ''
+                      deviceSpecificIdType: ''
+                      deviceState: Configured
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      endPointId: '0'
+                      lastWorkingRoute: '[1]'
+                      lastWorkingRouteRequestStatus: ok
+                      lastWorkingRouteRequestTimestamp: '0'
+                      lastWorkingRouteResponseTimestamp: '1598943927'
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      markAsDead: 'true'
+                      model: ''
+                      neighborList: '[1,13,22]'
+                      neighborListRequestStatus: ok
+                      neighborListRequestTimestamp: '1598943926'
+                      neighborListResponseTimestamp: '1598943927'
+                      nodeId: '3'
+                      parameters:
+                        - id: 1
+                          size: 1
+                        - id: 16
+                          size: 1
+                        - id: 34
+                          size: 1
+                        - id: 35
+                          size: 1
+                        - id: 39
+                          size: 2
+                        - id: 40
+                          size: 1
+                        - id: 42
+                          size: 1
+                        - id: 43
+                          size: 1
+                        - id: 45
+                          size: 1
+                        - id: 47
+                          size: 2
+                        - id: 49
+                          size: 1
+                        - id: 50
+                          size: 2
+                        - id: 51
+                          size: 2
+                        - id: 52
+                          size: 1
+                        - id: 60
+                          size: 2
+                        - id: 61
+                          size: 1
+                        - id: 62
+                          size: 1
+                        - id: 63
+                          size: 1
+                        - id: 70
+                          size: 2
+                      parametersTemplate: '718'
+                      pollingInterval: '0'
+                      pollingTimeSec: 0
+                      productInfo: '1,15,6,0,16,0,25,25'
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      saveLogs: 'true'
+                      serialNumber: ''
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      useTemplate: 'true'
+                      userDescription: ''
+                      zwaveCompany: Fibargroup
+                      zwaveInfo: '3,3,52'
+                      zwaveSoftwareVersion: '{}'
+                      zwaveVersion: '25.25'
+                    actions:
+                      getLastWorkingRoute: 0
+                      getNeighborList: 0
+                      getParameter: 1
+                      poll: 0
+                      reconfigure: 0
+                      requestNodeNeighborUpdate: 0
+                      setParameter: 2
+                    created: 1598718833
+                    modified: 1598718833
+                    sortOrder: 6
+                  - id: 7
+                    name: Computer
+                    roomID: 222
+                    type: com.fibaro.FGWP101
+                    baseType: com.fibaro.FGWP
+                    enabled: true
+                    visible: true
+                    isPlugin: false
+                    parentId: 6
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - deviceGrouping
+                      - energy
+                      - fibaroFirmwareUpdate
+                      - power
+                      - zwave
+                      - zwaveMultiChannelAssociation
+                    properties:
+                      pollingTimeSec: 0
+                      zwaveCompany: Fibargroup
+                      zwaveInfo: '3,3,52'
+                      zwaveVersion: '25.25'
+                      categories: '["lights"]'
+                      color: green
+                      configured: true
+                      dead: 'false'
+                      deadReason: ''
+                      deviceControlType: '20'
+                      deviceGroup: '[]'
+                      deviceGroupMaster: '0'
+                      deviceIcon: '124'
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      endPointId: '0'
+                      energy: '17.82'
+                      firmwareUpdate: '{"info":"","progress":0,"status":"UpToDate","updateVersion":"25.25"}'
+                      icon: '{"path":"fibaro/icons/com.fibaro.FGWP_EU/plug3.png","source":"HC"}'
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      markAsDead: 'true'
+                      model: ''
+                      nodeId: '3'
+                      parametersTemplate: '718'
+                      power: '231.60'
+                      productInfo: '1,15,6,0,16,0,25,25'
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      saveLogs: 'true'
+                      serialNumber: ''
+                      showEnergy: 'true'
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      updateVersion: ''
+                      useTemplate: 'true'
+                      userDescription: ''
+                      value: 'true'
+                    actions:
+                      abortUpdate: 1
+                      reconfigure: 0
+                      reset: 0
+                      retryUpdate: 1
+                      startUpdate: 1
+                      turnOff: 0
+                      turnOn: 0
+                      updateFirmware: 1
+                    created: 1598718833
+                    modified: 1598718833
+                    sortOrder: 7
+                  - id: 8
+                    name: Motion Sensor
+                    roomID: 220
+                    type: com.fibaro.zwaveDevice
+                    baseType: com.fibaro.device
+                    enabled: true
+                    visible: false
+                    isPlugin: false
+                    parentId: 1
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - battery
+                      - zwave
+                      - zwaveAssociation
+                      - zwaveConfiguration
+                      - zwaveMultiChannelAssociation
+                      - zwaveSlaveRouting
+                      - zwaveWakeup
+                    properties:
+                      batteryLevel: '100'
+                      batteryLowNotification: 'true'
+                      categories: '["other"]'
+                      configured: true
+                      dead: 'false'
+                      deadReason: ''
+                      defInterval: '0'
+                      deviceControlType: '0'
+                      deviceIcon: '28'
+                      deviceSpecificData: ''
+                      deviceSpecificIdType: ''
+                      deviceState: Configured
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      endPointId: '0'
+                      lastWorkingRoute: '[1]'
+                      lastWorkingRouteRequestStatus: ok
+                      lastWorkingRouteRequestTimestamp: '0'
+                      lastWorkingRouteResponseTimestamp: '1598787241'
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      markAsDead: 'true'
+                      maxInterval: '0'
+                      minInterval: '0'
+                      model: ''
+                      neighborList: '[4]'
+                      neighborListRequestStatus: ok
+                      neighborListRequestTimestamp: '0'
+                      neighborListResponseTimestamp: '1598787241'
+                      nodeId: '4'
+                      parameters:
+                        - id: 1
+                          size: 1
+                          value: 10
+                        - id: 2
+                          size: 1
+                          value: 2
+                        - id: 3
+                          size: 1
+                          value: 1
+                        - id: 4
+                          size: 1
+                          value: 2
+                        - id: 6
+                          size: 2
+                          value: 5
+                        - id: 8
+                          size: 1
+                          value: 0
+                        - id: 9
+                          size: 2
+                          value: 200
+                        - id: 12
+                          size: 1
+                          value: 0
+                        - id: 14
+                          size: 1
+                          value: 255
+                        - id: 16
+                          size: 1
+                          value: 0
+                        - id: 20
+                          size: 1
+                          value: 15
+                        - id: 22
+                          size: 2
+                          value: 30
+                        - id: 24
+                          size: 1
+                          value: 0
+                        - id: 26
+                          size: 1
+                          value: 0
+                        - id: 40
+                          size: 2
+                          value: 200
+                        - id: 42
+                          size: 2
+                          value: 0
+                        - id: 60
+                          size: 1
+                          value: 10
+                        - id: 62
+                          size: 2
+                          value: 900
+                        - id: 64
+                          size: 2
+                          value: 0
+                        - id: 66
+                          size: 2
+                          value: 0
+                        - id: 80
+                          size: 1
+                          value: 10
+                        - id: 81
+                          size: 1
+                          value: 50
+                        - id: 82
+                          size: 2
+                          value: 100
+                        - id: 83
+                          size: 2
+                          value: 1000
+                        - id: 86
+                          size: 1
+                          value: 18
+                        - id: 87
+                          size: 1
+                          value: 28
+                        - id: 89
+                          size: 1
+                          value: 1
+                      parametersTemplate: '270'
+                      pollingTimeSec: 0
+                      productInfo: '1,15,8,0,16,1,2,8'
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      saveLogs: 'true'
+                      serialNumber: ''
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      stepInterval: '0'
+                      useTemplate: 'true'
+                      userDescription: ''
+                      wakeUpTime: 18000
+                      zwaveCompany: Fibargroup
+                      zwaveInfo: '3,3,67'
+                      zwaveSoftwareVersion: '{}'
+                      zwaveVersion: '2.8'
+                    actions:
+                      getLastWorkingRoute: 0
+                      getNeighborList: 0
+                      getParameter: 1
+                      reconfigure: 0
+                      requestNodeNeighborUpdate: 0
+                      setInterval: 1
+                      setParameter: 2
+                    created: 1598718833
+                    modified: 1598718833
+                    sortOrder: 8
+                  - id: 9
+                    name: Move
+                    roomID: 220
+                    type: com.fibaro.FGMS001
+                    baseType: com.fibaro.motionSensor
+                    enabled: true
+                    visible: true
+                    isPlugin: false
+                    parentId: 8
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - battery
+                      - fibaroAlarm
+                      - fibaroAlarmArm
+                      - fibaroBreach
+                      - fibaroFirmwareUpdate
+                      - tamper
+                      - zwave
+                      - zwaveMultiChannelAssociation
+                      - zwaveWakeup
+                    properties:
+                      pollingTimeSec: 0
+                      wakeUpTime: 18000
+                      zwaveCompany: Fibargroup
+                      zwaveInfo: '3,3,67'
+                      zwaveVersion: '2.8'
+                      alarmDelay: '0'
+                      alarmExclude: 'true'
+                      alarmTimeTimestamp: '0'
+                      armConditions: '{"auto":false,"devices":[{"id":9,"propertyName":"value","propertyValue":"0"}],"time":0}'
+                      armConfig: '0'
+                      armDelay: '0'
+                      armError: '{}'
+                      armTimeTimestamp: '0'
+                      armed: 'false'
+                      batteryLevel: '100'
+                      batteryLowNotification: 'true'
+                      categories: '["security"]'
+                      configured: true
+                      dead: 'false'
+                      deadReason: ''
+                      defInterval: '0'
+                      deviceControlType: '0'
+                      deviceIcon: '90'
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      endPointId: '0'
+                      fibaroAlarm: 'false'
+                      firmwareUpdate: '{"info":"","progress":0,"status":"UpToDate","updateVersion":"2.8"}'
+                      lastBreached: '1599737704'
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      markAsDead: 'true'
+                      maxInterval: '0'
+                      minInterval: '0'
+                      model: ''
+                      nodeId: '4'
+                      parametersTemplate: '270'
+                      productInfo: '1,15,8,0,16,1,2,8'
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      saveLogs: 'true'
+                      serialNumber: ''
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      stepInterval: '0'
+                      tamper: 'false'
+                      updateVersion: ''
+                      useTemplate: 'true'
+                      userDescription: ''
+                      value: 'false'
+                    actions:
+                      abortUpdate: 1
+                      forceArm: 0
+                      meetArmConditions: 0
+                      reconfigure: 0
+                      retryUpdate: 1
+                      setArmed: 1
+                      setInterval: 1
+                      startUpdate: 1
+                      updateFirmware: 1
+                    created: 1598718833
+                    modified: 1598718833
+                    sortOrder: 9
+                  - id: 10
+                    name: Temperatur
+                    roomID: 220
+                    type: com.fibaro.temperatureSensor
+                    baseType: com.fibaro.multilevelSensor
+                    enabled: true
+                    visible: true
+                    isPlugin: false
+                    parentId: 8
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - zwave
+                    properties:
+                      pollingTimeSec: 0
+                      wakeUpTime: 18000
+                      zwaveCompany: Fibargroup
+                      zwaveInfo: '3,3,67'
+                      zwaveVersion: '2.8'
+                      categories: '["climate"]'
+                      configured: true
+                      dead: 'false'
+                      deadReason: ''
+                      deviceControlType: '0'
+                      deviceIcon: '30'
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      endPointId: '0'
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      markAsDead: 'true'
+                      model: ''
+                      nodeId: '4'
+                      offset: '0.00'
+                      parametersTemplate: '270'
+                      productInfo: '1,15,8,0,16,1,2,8'
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      saveLogs: 'true'
+                      serialNumber: ''
+                      showFireAlarm: 'true'
+                      showFreezeAlarm: 'false'
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      unit: C
+                      useTemplate: 'true'
+                      userDescription: ''
+                      value: '22.60'
+                    actions:
+                      reconfigure: 0
+                    created: 1598718833
+                    modified: 1598718833
+                    sortOrder: 10
+                  - id: 11
+                    name: Light
+                    roomID: 220
+                    type: com.fibaro.lightSensor
+                    baseType: com.fibaro.multilevelSensor
+                    enabled: true
+                    visible: true
+                    isPlugin: false
+                    parentId: 8
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - zwave
+                    properties:
+                      pollingTimeSec: 0
+                      wakeUpTime: 18000
+                      zwaveCompany: Fibargroup
+                      zwaveInfo: '3,3,67'
+                      zwaveVersion: '2.8'
+                      categories: '["ambience"]'
+                      configured: true
+                      dead: 'false'
+                      deadReason: ''
+                      deviceControlType: '0'
+                      deviceIcon: '32'
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      endPointId: '0'
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      markAsDead: 'true'
+                      model: ''
+                      nodeId: '4'
+                      parametersTemplate: '270'
+                      productInfo: '1,15,8,0,16,1,2,8'
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      saveLogs: 'true'
+                      serialNumber: ''
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      unit: lux
+                      useTemplate: 'true'
+                      userDescription: ''
+                      value: '30.00'
+                    actions:
+                      reconfigure: 0
+                    created: 1598718834
+                    modified: 1598718834
+                    sortOrder: 11
+                  - id: 12
+                    name: Vibration
+                    roomID: 220
+                    type: com.fibaro.seismometer
+                    baseType: com.fibaro.multilevelSensor
+                    enabled: true
+                    visible: true
+                    isPlugin: false
+                    parentId: 8
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - zwave
+                    properties:
+                      pollingTimeSec: 0
+                      wakeUpTime: 18000
+                      zwaveCompany: Fibargroup
+                      zwaveInfo: '3,3,67'
+                      zwaveVersion: '2.8'
+                      categories: '["other"]'
+                      configured: true
+                      dead: 'false'
+                      deadReason: ''
+                      deviceControlType: '0'
+                      deviceIcon: '89'
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      endPointId: '0'
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      markAsDead: 'true'
+                      model: ''
+                      nodeId: '4'
+                      parametersTemplate: '270'
+                      productInfo: '1,15,8,0,16,1,2,8'
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      saveLogs: 'true'
+                      serialNumber: ''
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      unit: ''
+                      useTemplate: 'true'
+                      userDescription: ''
+                      value: '0.00'
+                    actions:
+                      reconfigure: 0
+                    created: 1598718834
+                    modified: 1598718834
+                    sortOrder: 12
+                  - id: 13
+                    name: Window Sensor 2
+                    roomID: 219
+                    type: com.fibaro.zwaveDevice
+                    baseType: com.fibaro.device
+                    enabled: true
+                    visible: false
+                    isPlugin: false
+                    parentId: 1
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - battery
+                      - zwave
+                      - zwaveAssociation
+                      - zwaveConfiguration
+                      - zwaveMultiChannelAssociation
+                      - zwaveSecurity
+                      - zwaveSlaveRouting
+                      - zwaveWakeup
+                    properties:
+                      batteryLevel: '85'
+                      batteryLowNotification: 'true'
+                      categories: '["other"]'
+                      configured: true
+                      dead: 'false'
+                      deadReason: ''
+                      defInterval: '0'
+                      deviceControlType: '0'
+                      deviceIcon: '28'
+                      deviceSpecificData: ''
+                      deviceSpecificIdType: ''
+                      deviceState: Configured
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      endPointId: '0'
+                      lastWorkingRoute: '[1]'
+                      lastWorkingRouteRequestStatus: ok
+                      lastWorkingRouteRequestTimestamp: '0'
+                      lastWorkingRouteResponseTimestamp: '1598789868'
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      markAsDead: 'true'
+                      maxInterval: '0'
+                      minInterval: '0'
+                      model: ''
+                      neighborList: '[1,4,6,18]'
+                      neighborListRequestStatus: ok
+                      neighborListRequestTimestamp: '0'
+                      neighborListResponseTimestamp: '1598789868'
+                      nodeId: '5'
+                      parameters:
+                        - id: 1
+                          size: 1
+                          value: 0
+                        - id: 2
+                          size: 1
+                          value: 7
+                        - id: 3
+                          size: 1
+                          value: 3
+                        - id: 11
+                          size: 1
+                          value: 0
+                        - id: 12
+                          size: 2
+                          value: 255
+                        - id: 13
+                          size: 2
+                          value: 0
+                        - id: 14
+                          size: 2
+                          value: 0
+                        - id: 15
+                          size: 2
+                          value: 0
+                        - id: 30
+                          size: 2
+                          value: 5
+                        - id: 31
+                          size: 1
+                          value: 1
+                        - id: 50
+                          size: 2
+                          value: 300
+                        - id: 51
+                          size: 2
+                          value: 10
+                        - id: 52
+                          size: 2
+                          value: 0
+                        - id: 53
+                          size: 2
+                          value: 0
+                        - id: 54
+                          size: 1
+                          value: 3
+                        - id: 55
+                          size: 2
+                          value: 350
+                        - id: 56
+                          size: 2
+                          value: 100
+                      parametersTemplate: '802'
+                      pollingTimeSec: 0
+                      productInfo: '1,15,7,2,16,0,3,2'
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      saveLogs: 'true'
+                      securitySchemes: '[]'
+                      serialNumber: ''
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      stepInterval: '0'
+                      useTemplate: 'true'
+                      userDescription: ''
+                      wakeUpTime: 21600
+                      zwaveCompany: Fibargroup
+                      zwaveInfo: '3,4,38'
+                      zwaveSoftwareVersion: '{}'
+                      zwaveVersion: '3.2'
+                    actions:
+                      getLastWorkingRoute: 0
+                      getNeighborList: 0
+                      reconfigure: 0
+                      requestNodeNeighborUpdate: 0
+                    created: 1598718834
+                    modified: 1598718834
+                    sortOrder: 13
+                  - id: 15
+                    name: Window
+                    roomID: 219
+                    type: com.fibaro.windowSensor
+                    baseType: com.fibaro.doorWindowSensor
+                    enabled: true
+                    visible: true
+                    isPlugin: false
+                    parentId: 13
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - battery
+                      - fibaroAlarm
+                      - fibaroAlarmArm
+                      - fibaroBreach
+                      - fibaroFirmwareUpdate
+                      - tamper
+                      - zwave
+                      - zwaveAlarm
+                      - zwaveMultiChannelAssociation
+                      - zwaveWakeup
+                    properties:
+                      pollingTimeSec: 0
+                      wakeUpTime: 21600
+                      zwaveCompany: Fibargroup
+                      zwaveInfo: '3,4,38'
+                      zwaveVersion: '3.2'
+                      alarmDelay: '0'
+                      alarmExclude: 'true'
+                      alarmLevel: '0'
+                      alarmTimeTimestamp: '0'
+                      alarmType: '0'
+                      armConditions: '{"auto":false,"devices":[{"id":15,"propertyName":"value","propertyValue":"0"}],"time":0}'
+                      armConfig: '0'
+                      armDelay: '0'
+                      armError: '{}'
+                      armTimeTimestamp: '0'
+                      armed: 'false'
+                      batteryLevel: '85'
+                      batteryLowNotification: 'true'
+                      categories: '["security"]'
+                      configured: true
+                      dead: 'false'
+                      deadReason: ''
+                      defInterval: '0'
+                      deviceControlType: '0'
+                      deviceIcon: '53'
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      endPointId: '0'
+                      fibaroAlarm: 'false'
+                      firmwareUpdate: '{"info":"","progress":0,"status":"UpToDate","updateVersion":"3.2"}'
+                      lastBreached: '1599573946'
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      markAsDead: 'true'
+                      maxInterval: '0'
+                      minInterval: '0'
+                      model: ''
+                      nodeId: '5'
+                      parametersTemplate: '802'
+                      productInfo: '1,15,7,2,16,0,3,2'
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      saveLogs: 'true'
+                      serialNumber: ''
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      stepInterval: '0'
+                      tamper: 'true'
+                      updateVersion: ''
+                      useTemplate: 'true'
+                      userDescription: ''
+                      value: 'true'
+                    actions:
+                      abortUpdate: 1
+                      forceArm: 0
+                      meetArmConditions: 0
+                      reconfigure: 0
+                      retryUpdate: 1
+                      setArmed: 1
+                      setInterval: 1
+                      startUpdate: 1
+                      updateFirmware: 1
+                    created: 1598718834
+                    modified: 1598718834
+                    sortOrder: 14
+                  - id: 16
+                    name: Temperatur
+                    roomID: 219
+                    type: com.fibaro.temperatureSensor
+                    baseType: com.fibaro.multilevelSensor
+                    enabled: true
+                    visible: true
+                    isPlugin: false
+                    parentId: 13
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - battery
+                      - zwave
+                      - zwaveWakeup
+                    properties:
+                      pollingTimeSec: 0
+                      wakeUpTime: 21600
+                      zwaveCompany: Fibargroup
+                      zwaveInfo: '3,4,38'
+                      zwaveVersion: '3.2'
+                      batteryLevel: '85'
+                      batteryLowNotification: 'true'
+                      categories: '["climate"]'
+                      configured: true
+                      dead: 'false'
+                      deadReason: ''
+                      defInterval: '0'
+                      deviceControlType: '0'
+                      deviceIcon: '30'
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      endPointId: '0'
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      markAsDead: 'true'
+                      maxInterval: '0'
+                      minInterval: '0'
+                      model: ''
+                      nodeId: '5'
+                      offset: '0.00'
+                      parametersTemplate: '802'
+                      productInfo: '1,15,7,2,16,0,3,2'
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      saveLogs: 'true'
+                      serialNumber: ''
+                      showFireAlarm: 'true'
+                      showFreezeAlarm: 'false'
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      stepInterval: '0'
+                      unit: C
+                      useTemplate: 'true'
+                      userDescription: ''
+                      value: '21.30'
+                    actions:
+                      reconfigure: 0
+                      setInterval: 1
+                    created: 1598718834
+                    modified: 1598718834
+                    sortOrder: 15
+                  - id: 17
+                    name: Heatalarm
+                    roomID: 219
+                    type: com.fibaro.heatDetector
+                    baseType: com.fibaro.lifeDangerSensor
+                    enabled: true
+                    visible: true
+                    isPlugin: false
+                    parentId: 13
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - battery
+                      - fibaroBreach
+                      - zwave
+                      - zwaveWakeup
+                    properties:
+                      pollingTimeSec: 0
+                      wakeUpTime: 21600
+                      zwaveCompany: Fibargroup
+                      zwaveInfo: '3,4,38'
+                      zwaveVersion: '3.2'
+                      batteryLevel: '85'
+                      batteryLowNotification: 'true'
+                      categories: '["safety"]'
+                      configured: true
+                      dead: 'false'
+                      deadReason: ''
+                      defInterval: '0'
+                      deviceControlType: '0'
+                      deviceIcon: '88'
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      endPointId: '0'
+                      lastBreached: '0'
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      markAsDead: 'true'
+                      maxInterval: '0'
+                      minInterval: '0'
+                      model: ''
+                      nodeId: '5'
+                      parametersTemplate: '802'
+                      productInfo: '1,15,7,2,16,0,3,2'
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      saveLogs: 'true'
+                      serialNumber: ''
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      stepInterval: '0'
+                      useTemplate: 'true'
+                      userDescription: ''
+                      value: 'false'
+                    actions:
+                      forceArm: 0
+                      meetArmConditions: 0
+                      reconfigure: 0
+                      setArmed: 1
+                      setInterval: 1
+                    created: 1598718834
+                    modified: 1598718834
+                    sortOrder: 16
+                  - id: 18
+                    name: Wall Plug
+                    roomID: 221
+                    type: com.fibaro.zwaveDevice
+                    baseType: com.fibaro.device
+                    enabled: true
+                    visible: false
+                    isPlugin: false
+                    parentId: 1
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - polling
+                      - zwave
+                      - zwaveAssociation
+                      - zwaveConfiguration
+                      - zwaveMultiChannelAssociation
+                      - zwaveSlaveRouting
+                    properties:
+                      categories: '["other"]'
+                      configured: true
+                      dead: 'true'
+                      deadReason: power
+                      deviceControlType: '0'
+                      deviceIcon: '28'
+                      deviceSpecificData: ''
+                      deviceSpecificIdType: ''
+                      deviceState: Configured
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      endPointId: '0'
+                      lastWorkingRoute: '[]'
+                      lastWorkingRouteRequestStatus: ok
+                      lastWorkingRouteRequestTimestamp: '0'
+                      lastWorkingRouteResponseTimestamp: '1598718855'
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      markAsDead: 'true'
+                      model: ''
+                      neighborList: '[1,4,6]'
+                      neighborListRequestStatus: error
+                      neighborListRequestTimestamp: '1598377812'
+                      neighborListResponseTimestamp: '1598718855'
+                      nodeId: '6'
+                      parameters:
+                        - id: 1
+                          size: 1
+                          value: 0
+                        - id: 16
+                          size: 1
+                          value: 1
+                        - id: 34
+                          size: 1
+                          value: 63
+                        - id: 35
+                          size: 1
+                          value: 0
+                        - id: 39
+                          size: 2
+                          value: 600
+                        - id: 40
+                          size: 1
+                          value: 80
+                        - id: 42
+                          size: 1
+                          value: 15
+                        - id: 43
+                          size: 1
+                          value: 30
+                        - id: 45
+                          size: 1
+                          value: 10
+                        - id: 47
+                          size: 2
+                          value: 3600
+                        - id: 49
+                          size: 1
+                          value: 0
+                        - id: 50
+                          size: 2
+                          value: 300
+                        - id: 51
+                          size: 2
+                          value: 500
+                        - id: 52
+                          size: 1
+                          value: 6
+                        - id: 60
+                          size: 2
+                          value: 25000
+                        - id: 61
+                          size: 1
+                          value: 1
+                        - id: 62
+                          size: 1
+                          value: 8
+                        - id: 63
+                          size: 1
+                          value: 1
+                        - id: 70
+                          size: 2
+                          value: 65535
+                      parametersTemplate: '718'
+                      pollingInterval: '0'
+                      pollingTimeSec: 0
+                      productInfo: '1,15,6,0,16,0,25,25'
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      saveLogs: 'true'
+                      serialNumber: ''
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      useTemplate: 'true'
+                      userDescription: ''
+                      zwaveCompany: Fibargroup
+                      zwaveInfo: '3,3,52'
+                      zwaveSoftwareVersion: '{}'
+                      zwaveVersion: '25.25'
+                    actions:
+                      getLastWorkingRoute: 0
+                      getNeighborList: 0
+                      getParameter: 1
+                      poll: 0
+                      reconfigure: 0
+                      requestNodeNeighborUpdate: 0
+                      setParameter: 2
+                    created: 1598718834
+                    modified: 1598718834
+                    sortOrder: 17
+                  - id: 19
+                    name: Wahser
+                    roomID: 221
+                    type: com.fibaro.FGWP101
+                    baseType: com.fibaro.FGWP
+                    enabled: true
+                    visible: true
+                    isPlugin: false
+                    parentId: 18
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - deviceGrouping
+                      - energy
+                      - fibaroFirmwareUpdate
+                      - power
+                      - zwave
+                      - zwaveMultiChannelAssociation
+                    properties:
+                      pollingTimeSec: 0
+                      zwaveCompany: Fibargroup
+                      zwaveInfo: '3,3,52'
+                      zwaveVersion: '25.25'
+                      categories: '["lights"]'
+                      color: white
+                      configured: true
+                      dead: 'true'
+                      deadReason: unplugged
+                      deviceControlType: '20'
+                      deviceGroup: '[]'
+                      deviceGroupMaster: '0'
+                      deviceIcon: '124'
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      endPointId: '0'
+                      energy: '2.10'
+                      firmwareUpdate: '{"info":"","progress":0,"status":"UpToDate","updateVersion":"25.25"}'
+                      icon: '{"path":"fibaro/icons/com.fibaro.FGWP_EU/plug1.png","source":"HC"}'
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      markAsDead: 'true'
+                      model: ''
+                      nodeId: '6'
+                      parametersTemplate: '718'
+                      power: '0.00'
+                      productInfo: '1,15,6,0,16,0,25,25'
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      saveLogs: 'true'
+                      serialNumber: ''
+                      showEnergy: 'true'
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      updateVersion: ''
+                      useTemplate: 'true'
+                      userDescription: ''
+                      value: 'true'
+                    actions:
+                      abortUpdate: 1
+                      reconfigure: 0
+                      reset: 0
+                      retryUpdate: 1
+                      startUpdate: 1
+                      turnOff: 0
+                      turnOn: 0
+                      updateFirmware: 1
+                    created: 1598718834
+                    modified: 1598718834
+                    sortOrder: 18
+                  - id: 22
+                    name: Co Sensor
+                    roomID: 221
+                    type: com.fibaro.zwaveDevice
+                    baseType: com.fibaro.device
+                    enabled: true
+                    visible: false
+                    isPlugin: false
+                    parentId: 1
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - battery
+                      - zwave
+                      - zwaveAssociation
+                      - zwaveConfiguration
+                      - zwaveMultiChannelAssociation
+                      - zwaveSecurity
+                      - zwaveSlaveRouting
+                      - zwaveWakeup
+                    properties:
+                      batteryLevel: '90'
+                      batteryLowNotification: 'true'
+                      categories: '["other"]'
+                      configured: true
+                      dead: 'false'
+                      deadReason: ''
+                      defInterval: '0'
+                      deviceControlType: '0'
+                      deviceIcon: '28'
+                      deviceSpecificData: h'0000000000003766
+                      deviceSpecificIdType: Serial Number
+                      deviceState: Configured
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      endPointId: '0'
+                      lastWorkingRoute: '[1]'
+                      lastWorkingRouteRequestStatus: ok
+                      lastWorkingRouteRequestTimestamp: '0'
+                      lastWorkingRouteResponseTimestamp: '1598790617'
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      markAsDead: 'true'
+                      maxInterval: '0'
+                      minInterval: '0'
+                      model: ''
+                      neighborList: '[1,4,6]'
+                      neighborListRequestStatus: ok
+                      neighborListRequestTimestamp: '0'
+                      neighborListResponseTimestamp: '1598790617'
+                      nodeId: '9'
+                      parameters:
+                        - id: 2
+                          size: 1
+                        - id: 3
+                          size: 1
+                          value: 0
+                        - id: 4
+                          size: 1
+                          value: 0
+                        - id: 7
+                          size: 1
+                          value: 63
+                        - id: 10
+                          size: 1
+                          value: 3
+                        - id: 11
+                          size: 2
+                          value: 255
+                        - id: 12
+                          size: 2
+                          value: 0
+                        - id: 13
+                          size: 1
+                          value: 3
+                        - id: 14
+                          size: 2
+                          value: 40
+                        - id: 15
+                          size: 2
+                          value: 0
+                        - id: 16
+                          size: 2
+                          value: 255
+                        - id: 17
+                          size: 2
+                          value: 25
+                        - id: 19
+                          size: 2
+                          value: 0
+                        - id: 20
+                          size: 2
+                          value: 0
+                        - id: 21
+                          size: 1
+                          value: 2
+                        - id: 22
+                          size: 1
+                          value: 55
+                        - id: 23
+                          size: 1
+                          value: 1
+                        - id: 25
+                          size: 1
+                          value: 2
+                        - id: 26
+                          size: 2
+                          value: 30
+                      parametersTemplate: '783'
+                      pollingTimeSec: 0
+                      productInfo: '1,15,18,1,16,1,3,2'
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      saveLogs: 'true'
+                      securitySchemes: '["Security0"]'
+                      serialNumber: h'0000000000003766
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      stepInterval: '0'
+                      useTemplate: 'true'
+                      userDescription: ''
+                      wakeUpTime: 21600
+                      zwaveCompany: Fibargroup
+                      zwaveInfo: '3,4,38'
+                      zwaveSoftwareVersion: '{}'
+                      zwaveVersion: '3.2'
+                    actions:
+                      getLastWorkingRoute: 0
+                      getNeighborList: 0
+                      getParameter: 1
+                      reconfigure: 0
+                      requestNodeNeighborUpdate: 0
+                      setInterval: 1
+                      setParameter: 2
+                    created: 1598718834
+                    modified: 1598718834
+                    sortOrder: 19
+                  - id: 23
+                    name: CO - Level
+                    roomID: 221
+                    type: com.fibaro.FGCD001
+                    baseType: com.fibaro.coDetector
+                    enabled: true
+                    visible: true
+                    isPlugin: false
+                    parentId: 22
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - battery
+                      - fibaroBreach
+                      - fibaroFirmwareUpdate
+                      - tamper
+                      - zwave
+                      - zwaveAlarm
+                      - zwaveMultiChannelAssociation
+                      - zwaveWakeup
+                    properties:
+                      pollingTimeSec: 0
+                      wakeUpTime: 21600
+                      zwaveCompany: Fibargroup
+                      zwaveInfo: '3,4,38'
+                      zwaveVersion: '3.2'
+                      alarmLevel: '0'
+                      alarmType: '0'
+                      batteryLevel: '90'
+                      batteryLowNotification: 'true'
+                      categories: '["safety"]'
+                      concentration: '0'
+                      configured: true
+                      dead: 'false'
+                      deadReason: ''
+                      defInterval: '0'
+                      deviceControlType: '0'
+                      deviceIcon: '118'
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      endPointId: '0'
+                      firmwareUpdate: '{"info":"","progress":0,"status":"UpToDate","updateVersion":"3.2"}'
+                      icon: '{"path":"fibaro/icons/com.fibaro.FGCD001/com.fibaro.FGCD001-healthy.png","source":"HC"}'
+                      lastBreached: '0'
+                      lastHealthy: '0'
+                      lastModerate: '0'
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      markAsDead: 'true'
+                      maxConcentration: '0'
+                      maxInterval: '0'
+                      minInterval: '0'
+                      model: ''
+                      nodeId: '9'
+                      parametersTemplate: '783'
+                      productInfo: '1,15,18,1,16,1,3,2'
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      saveLogs: 'true'
+                      serialNumber: h'0000000000003766
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      state: '0'
+                      stepInterval: '0'
+                      tamper: 'false'
+                      unit: ''
+                      updateVersion: ''
+                      useTemplate: 'true'
+                      userDescription: ''
+                      value: 'false'
+                      warningNotificationActive: 'true'
+                    actions:
+                      abortUpdate: 1
+                      forceArm: 0
+                      meetArmConditions: 0
+                      reconfigure: 0
+                      reset: 0
+                      retryUpdate: 1
+                      setArmed: 1
+                      setInterval: 1
+                      startUpdate: 1
+                      updateFirmware: 1
+                    created: 1598718834
+                    modified: 1598718834
+                    sortOrder: 20
+                  - id: 24
+                    name: Temperatur
+                    roomID: 221
+                    type: com.fibaro.temperatureSensor
+                    baseType: com.fibaro.multilevelSensor
+                    enabled: true
+                    visible: true
+                    isPlugin: false
+                    parentId: 22
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - battery
+                      - zwave
+                      - zwaveWakeup
+                    properties:
+                      pollingTimeSec: 0
+                      wakeUpTime: 21600
+                      zwaveCompany: Fibargroup
+                      zwaveInfo: '3,4,38'
+                      zwaveVersion: '3.2'
+                      batteryLevel: '90'
+                      batteryLowNotification: 'true'
+                      categories: '["climate"]'
+                      configured: true
+                      dead: 'false'
+                      deadReason: ''
+                      defInterval: '0'
+                      deviceControlType: '0'
+                      deviceIcon: '30'
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      endPointId: '0'
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      markAsDead: 'true'
+                      maxInterval: '0'
+                      minInterval: '0'
+                      model: ''
+                      nodeId: '9'
+                      offset: '0.00'
+                      parametersTemplate: '783'
+                      productInfo: '1,15,18,1,16,1,3,2'
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      saveLogs: 'true'
+                      serialNumber: h'0000000000003766
+                      showFireAlarm: 'true'
+                      showFreezeAlarm: 'false'
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      stepInterval: '0'
+                      unit: C
+                      useTemplate: 'true'
+                      userDescription: ''
+                      value: '22.40'
+                    actions:
+                      reconfigure: 0
+                      setInterval: 1
+                    created: 1598718834
+                    modified: 1598718834
+                    sortOrder: 21
+                  - id: 25
+                    name: Heatalarm
+                    roomID: 221
+                    type: com.fibaro.heatDetector
+                    baseType: com.fibaro.lifeDangerSensor
+                    enabled: true
+                    visible: true
+                    isPlugin: false
+                    parentId: 22
+                    remoteGatewayId: 0
+                    viewXml: false
+                    configXml: false
+                    interfaces:
+                      - battery
+                      - fibaroBreach
+                      - zwave
+                      - zwaveWakeup
+                    properties:
+                      pollingTimeSec: 0
+                      wakeUpTime: 21600
+                      zwaveCompany: Fibargroup
+                      zwaveInfo: '3,4,38'
+                      zwaveVersion: '3.2'
+                      batteryLevel: '90'
+                      batteryLowNotification: 'true'
+                      categories: '["safety"]'
+                      configured: true
+                      dead: 'false'
+                      deadReason: ''
+                      defInterval: '0'
+                      deviceControlType: '0'
+                      deviceIcon: '88'
+                      emailNotificationID: '0'
+                      emailNotificationType: '0'
+                      endPointId: '0'
+                      lastBreached: '0'
+                      log: ''
+                      logTemp: ''
+                      manufacturer: ''
+                      markAsDead: 'true'
+                      maxInterval: '0'
+                      minInterval: '0'
+                      model: ''
+                      nodeId: '9'
+                      parametersTemplate: '783'
+                      productInfo: '1,15,18,1,16,1,3,2'
+                      pushNotificationID: '0'
+                      pushNotificationType: '0'
+                      remoteGatewayId: '0'
+                      saveLogs: 'true'
+                      serialNumber: h'0000000000003766
+                      smsNotificationID: '0'
+                      smsNotificationType: '0'
+                      stepInterval: '0'
+                      useTemplate: 'true'
+                      userDescription: ''
+                      value: 'false'
+                    actions:
+                      forceArm: 0
+                      meetArmConditions: 0
+                      reconfigure: 0
+                      setArmed: 1
+                      setInterval: 1
+                    created: 1598718834
+                    modified: 1598718834
+                    sortOrder: 22
+                sections:
+                  - id: 219
+                    name: Basement
+                    sortOrder: 1
+                  - id: 220
+                    name: Upper floor
+                    sortOrder: 2
+                rooms:
+                  - id: 219
+                    name: Bathroom
+                    sectionID: 220
+                    icon: room_wanna
+                    defaultSensors:
+                      temperature: 16
+                      humidity: 0
+                      light: 0
+                    defaultThermostat: 0
+                    sortOrder: 1
+                    category: bathroom
+                  - id: 220
+                    name: Kitchen
+                    sectionID: 220
+                    icon: room_dining
+                    defaultSensors:
+                      temperature: 10
+                      humidity: 0
+                      light: 11
+                    defaultThermostat: 0
+                    sortOrder: 2
+                    category: kitchen
+                  - id: 221
+                    name: Washroom
+                    sectionID: 219
+                    icon: room_laundry
+                    defaultSensors:
+                      temperature: 24
+                      humidity: 0
+                      light: 0
+                    defaultThermostat: 0
+                    sortOrder: 3
+                    category: laundryRoom
+                  - id: 222
+                    name: Office
+                    sectionID: 220
+                    icon: room_office
+                    defaultSensors:
+                      temperature: 0
+                      humidity: 0
+                      light: 0
+                    defaultThermostat: 0
+                    sortOrder: 4
+                    category: office
+                scenes: []
+                icons:
+                  device:
+                    - id: 1
+                      deviceType: com.fibaro.binarySwitch
+                      iconSetName: light
+                    - id: 2
+                      deviceType: com.fibaro.binarySwitch
+                      iconSetName: onoff
+                    - id: 3
+                      deviceType: com.fibaro.binarySwitch
+                      iconSetName: lampka_nocna
+                    - id: 4
+                      deviceType: com.fibaro.binarySwitch
+                      iconSetName: czajnik
+                    - id: 5
+                      deviceType: com.fibaro.binarySwitch
+                      iconSetName: kinkiet
+                    - id: 6
+                      deviceType: com.fibaro.binarySwitch
+                      iconSetName: klimatyzator
+                    - id: 7
+                      deviceType: com.fibaro.binarySwitch
+                      iconSetName: alarm
+                    - id: 8
+                      deviceType: com.fibaro.binarySwitch
+                      iconSetName: kawa
+                    - id: 9
+                      deviceType: com.fibaro.binarySwitch
+                      iconSetName: lampa_ogrodowa
+                    - id: 10
+                      deviceType: com.fibaro.binarySwitch
+                      iconSetName: tv
+                    - id: 11
+                      deviceType: com.fibaro.binarySwitch
+                      iconSetName: wiatrak_sufitowy
+                    - id: 12
+                      deviceType: com.fibaro.binarySwitch
+                      iconSetName: toster
+                    - id: 13
+                      deviceType: com.fibaro.binarySwitch
+                      iconSetName: radio
+                    - id: 14
+                      deviceType: com.fibaro.binarySwitch
+                      iconSetName: okno_dachowe
+                    - id: 15
+                      deviceType: com.fibaro.multilevelSwitch
+                      iconSetName: light
+                    - id: 16
+                      deviceType: com.fibaro.multilevelSwitch
+                      iconSetName: sciemniacz
+                    - id: 17
+                      deviceType: com.fibaro.multilevelSwitch
+                      iconSetName: garaz
+                    - id: 18
+                      deviceType: com.fibaro.multilevelSwitch
+                      iconSetName: roleta_zew
+                    - id: 19
+                      deviceType: com.fibaro.multilevelSwitch
+                      iconSetName: roleta_wew
+                    - id: 20
+                      deviceType: com.fibaro.rollerShutter
+                      iconSetName: roleta
+                    - id: 21
+                      deviceType: com.fibaro.motionSensor
+                      iconSetName: czujnik_ruchu
+                    - id: 22
+                      deviceType: com.fibaro.motionSensor
+                      iconSetName: czujnik_zalania
+                    - id: 23
+                      deviceType: com.fibaro.motionSensor
+                      iconSetName: drzwi
+                    - id: 24
+                      deviceType: com.fibaro.motionSensor
+                      iconSetName: drzwiB
+                    - id: 25
+                      deviceType: com.fibaro.motionSensor
+                      iconSetName: drzwi_frontowe
+                    - id: 26
+                      deviceType: com.fibaro.rollerShutter
+                      iconSetName: markiza
+                    - id: 27
+                      deviceType: com.fibaro.rollerShutter
+                      iconSetName: zaslony
+                    - id: 28
+                      deviceType: com.fibaro.device
+                      iconSetName: nieznane
+                    - id: 29
+                      deviceType: com.fibaro.device
+                      iconSetName: unknown
+                    - id: 30
+                      deviceType: com.fibaro.temperatureSensor
+                      iconSetName: termometr
+                    - id: 31
+                      deviceType: com.fibaro.humiditySensor
+                      iconSetName: wilgotnosc
+                    - id: 32
+                      deviceType: com.fibaro.lightSensor
+                      iconSetName: swiatlo
+                    - id: 33
+                      deviceType: combo_device
+                      iconSetName: combo_device
+                    - id: 34
+                      deviceType: com.fibaro.thermostatDanfoss
+                      iconSetName: danfoss
+                    - id: 35
+                      deviceType: combo_device
+                      iconSetName: ezmotion
+                    - id: 36
+                      deviceType: combo_device
+                      iconSetName: as2_rf
+                    - id: 37
+                      deviceType: com.fibaro.binarySwitch
+                      iconSetName: asr_rf
+                    - id: 38
+                      deviceType: com.fibaro.binarySwitch
+                      iconSetName: hr4asr_zw
+                    - id: 39
+                      deviceType: com.fibaro.thermostatDanfoss
+                      iconSetName: hr4_zw
+                    - id: 40
+                      deviceType: com.fibaro.binarySwitch
+                      iconSetName: zraszacz
+                    - id: 41
+                      deviceType: com.fibaro.motionSensor
+                      iconSetName: czujnik_dymu
+                    - id: 42
+                      deviceType: com.fibaro.doorSensor
+                      iconSetName: drzwi
+                    - id: 43
+                      deviceType: com.fibaro.doorSensor
+                      iconSetName: drzwiB
+                    - id: 44
+                      deviceType: com.fibaro.doorSensor
+                      iconSetName: drzwi_frontowe
+                    - id: 45
+                      deviceType: com.fibaro.floodSensor
+                      iconSetName: czujnik_zalania
+                    - id: 46
+                      deviceType: com.fibaro.smokeSensor
+                      iconSetName: czujnik_dymu
+                    - id: 47
+                      deviceType: com.fibaro.multilevelSensor
+                      iconSetName: unknown_sensor
+                    - id: 48
+                      deviceType: com.fibaro.floodSensor
+                      iconSetName: flood_detector
+                    - id: 49
+                      deviceType: com.fibaro.rollerShutter
+                      iconSetName: garaz
+                    - id: 50
+                      deviceType: com.fibaro.multimedia
+                      iconSetName: multimedia
+                    - id: 51
+                      deviceType: com.fibaro.player
+                      iconSetName: player
+                    - id: 52
+                      deviceType: com.fibaro.receiver
+                      iconSetName: receiver
+                    - id: 53
+                      deviceType: com.fibaro.windowSensor
+                      iconSetName: okno_dachowe
+                    - id: 55
+                      deviceType: com.fibaro.matrix
+                      iconSetName: matrix
+                    - id: 56
+                      deviceType: com.fibaro.pioneerAmplifier
+                      iconSetName: matrix_pioneer
+                    - id: 57
+                      deviceType: com.fibaro.sonosSpeaker
+                      iconSetName: receiver_sonos2
+                    - id: 58
+                      deviceType: com.fibaro.denonAmplifier
+                      iconSetName: matrix_denon
+                    - id: 59
+                      deviceType: com.fibaro.harmanKardon
+                      iconSetName: matrix
+                    - id: 60
+                      deviceType: com.fibaro.onkyoAmplifier
+                      iconSetName: matrix_onkyo
+                    - id: 61
+                      deviceType: com.fibaro.panasonicTv
+                      iconSetName: receiver_panasonic
+                    - id: 62
+                      deviceType: com.fibaro.samsungTv
+                      iconSetName: receiver_samsung
+                    - id: 63
+                      deviceType: com.fibaro.sharpTv
+                      iconSetName: receiver_sharp
+                    - id: 64
+                      deviceType: com.fibaro.lgDvd
+                      iconSetName: player_lg_dvd
+                    - id: 65
+                      deviceType: com.fibaro.lgBluray
+                      iconSetName: player_lg_bluray
+                    - id: 66
+                      deviceType: com.fibaro.pioneerDvd
+                      iconSetName: player_pioneer_dvd
+                    - id: 67
+                      deviceType: com.fibaro.pioneerBluray
+                      iconSetName: player_pioneer_bluray
+                    - id: 68
+                      deviceType: com.fibaro.samsungDvd
+                      iconSetName: player_samsung_dvd
+                    - id: 69
+                      deviceType: com.fibaro.FGSS001
+                      iconSetName: smoke_sensor
+                    - id: 70
+                      deviceType: com.fibaro.operatingMode
+                      iconSetName: thermostat_mode
+                    - id: 71
+                      deviceType: com.fibaro.setPoint
+                      iconSetName: thermostat_setpoint
+                    - id: 72
+                      deviceType: com.fibaro.hvac
+                      iconSetName: thermostat
+                    - id: 73
+                      deviceType: com.fibaro.fanMode
+                      iconSetName: thermostat_fan_mode
+                    - id: 74
+                      deviceType: com.fibaro.thermostatState
+                      iconSetName: thermostat_state
+                    - id: 75
+                      deviceType: com.fibaro.fanMode
+                      iconSetName: thermostat_fan_state
+                    - id: 76
+                      deviceType: com.fibaro.operatingMode
+                      iconSetName: thermostat_state
+                    - id: 77
+                      deviceType: com.fibaro.FGFS101
+                      iconSetName: flood_detector
+                    - id: 78
+                      deviceType: com.fibaro.zwaveDevice
+                      iconSetName: zwave_device
+                    - id: 79
+                      deviceType: com.fibaro.doorLock
+                      iconSetName: door_lock
+                    - id: 80
+                      deviceType: com.fibaro.kwikset
+                      iconSetName: kwikset
+                    - id: 81
+                      deviceType: com.fibaro.polyControl
+                      iconSetName: poly_control
+                    - id: 82
+                      deviceType: com.fibaro.schlage
+                      iconSetName: schlage
+                    - id: 83
+                      deviceType: com.fibaro.sonyBluray
+                      iconSetName: player_sony_bluray
+                    - id: 84
+                      deviceType: com.fibaro.sonyTv
+                      iconSetName: receiver_sony
+                    - id: 85
+                      deviceType: com.fibaro.philipsBluray
+                      iconSetName: player_philips_bluray
+                    - id: 86
+                      deviceType: com.fibaro.philipsTv
+                      iconSetName: receiver
+                    - id: 87
+                      deviceType: com.fibaro.FGRM222
+                      iconSetName: roleta
+                    - id: 88
+                      deviceType: com.fibaro.heatDetector
+                      iconSetName: heat_detector
+                    - id: 89
+                      deviceType: com.fibaro.seismometer
+                      iconSetName: seismometer
+                    - id: 90
+                      deviceType: com.fibaro.FGMS001
+                      iconSetName: motion_sensor
+                    - id: 91
+                      deviceType: com.fibaro.voipUser
+                      iconSetName: voip_user_1
+                    - id: 92
+                      deviceType: com.fibaro.voipUser
+                      iconSetName: voip_user_2
+                    - id: 93
+                      deviceType: com.fibaro.voipUser
+                      iconSetName: voip_user_3
+                    - id: 94
+                      deviceType: com.fibaro.tamperDetector
+                      iconSetName: tamper_detector
+                    - id: 95
+                      deviceType: com.fibaro.davisVantage
+                      iconSetName: plugin_davis
+                    - id: 96
+                      deviceType: com.fibaro.philipsHue
+                      iconSetName: plugin_philipsHue
+                    - id: 97
+                      deviceType: com.fibaro.philipsHueLight
+                      iconSetName: plugin_philipsHueLight
+                    - id: 98
+                      deviceType: com.fibaro.ncPlus
+                      iconSetName: plugin_ncPlus
+                    - id: 99
+                      deviceType: com.fibaro.xbmc
+                      iconSetName: plugin_xbmc
+                    - id: 100
+                      deviceType: com.fibaro.lgTv
+                      iconSetName: plugin_lgTv
+                    - id: 101
+                      deviceType: com.fibaro.zwaveController
+                      iconSetName: zwave_controller
+                    - id: 102
+                      deviceType: com.fibaro.energyMeter
+                      iconSetName: energy_meter
+                    - id: 103
+                      deviceType: com.fibaro.remoteController
+                      iconSetName: pilot
+                    - id: 104
+                      deviceType: com.fibaro.barrier
+                      iconSetName: barrier
+                    - id: 105
+                      deviceType: com.fibaro.coDetector
+                      iconSetName: co_detector
+                    - id: 106
+                      deviceType: com.fibaro.accelerometer
+                      iconSetName: accelerometer
+                    - id: 107
+                      deviceType: com.fibaro.FGGC001
+                      iconSetName: com.fibaro.FGGC001
+                    - id: 108
+                      deviceType: com.fibaro.FGGC001
+                      iconSetName: com.fibaro.FGGC001_white
+                    - id: 109
+                      deviceType: com.fibaro.FGPB101
+                      iconSetName: com.fibaro.FGPB101
+                    - id: 110
+                      deviceType: com.fibaro.FGPB101
+                      iconSetName: com.fibaro.FGPB101_black
+                    - id: 111
+                      deviceType: com.fibaro.FGPB101
+                      iconSetName: com.fibaro.FGPB101_blue
+                    - id: 112
+                      deviceType: com.fibaro.FGPB101
+                      iconSetName: com.fibaro.FGPB101_brown
+                    - id: 113
+                      deviceType: com.fibaro.FGPB101
+                      iconSetName: com.fibaro.FGPB101_green
+                    - id: 114
+                      deviceType: com.fibaro.FGPB101
+                      iconSetName: com.fibaro.FGPB101_orange
+                    - id: 115
+                      deviceType: com.fibaro.FGPB101
+                      iconSetName: com.fibaro.FGPB101_white
+                    - id: 116
+                      deviceType: com.fibaro.FGPB101
+                      iconSetName: com.fibaro.FGPB101_yellow
+                    - id: 117
+                      deviceType: com.fibaro.FGKF601
+                      iconSetName: com.fibaro.FGKF601
+                    - id: 118
+                      deviceType: com.fibaro.FGCD001
+                      iconSetName: com.fibaro.FGCD001
+                    - id: 119
+                      deviceType: com.fibaro.gerda
+                      iconSetName: gerdaLock
+                    - id: 120
+                      deviceType: com.fibaro.FGDW002
+                      iconSetName: drzwi
+                    - id: 121
+                      deviceType: com.fibaro.FGDW002
+                      iconSetName: drzwiB
+                    - id: 122
+                      deviceType: com.fibaro.FGDW002
+                      iconSetName: drzwi_frontowe
+                    - id: 123
+                      deviceType: com.fibaro.FGMS001v2
+                      iconSetName: motion_sensor
+                    - id: 124
+                      deviceType: com.fibaro.FGWP101
+                      iconSetName: com.fibaro.FGWP_EU
+                    - id: 125
+                      deviceType: com.fibaro.FGWP102
+                      iconSetName: com.fibaro.FGWP_EU
+                    - id: 126
+                      deviceType: com.fibaro.FGWPB121
+                      iconSetName: com.fibaro.FGWP_US
+                    - id: 127
+                      deviceType: com.fibaro.FGWPI121
+                      iconSetName: com.fibaro.FGWP_ANZ
+                    - id: 128
+                      deviceType: com.fibaro.FGWPG121
+                      iconSetName: com.fibaro.FGWP_UK
+                    - id: 129
+                      deviceType: com.fibaro.FGT001
+                      iconSetName: com.fibaro.FGT001
+                    - id: 130
+                      deviceType: com.fibaro.usbPort
+                      iconSetName: com.fibaro.usbPort
+                    - id: 131
+                      deviceType: com.fibaro.rainDetector
+                      iconSetName: rain_detector
+                    - id: 132
+                      deviceType: com.fibaro.rollerShutter
+                      iconSetName: fakro
+                    - id: 133
+                      deviceType: com.fibaro.gasDetector
+                      iconSetName: com.fibaro.gasDetector
+                    - id: 134
+                      deviceType: com.fibaro.FGBS222
+                      iconSetName: FGBS222
+                    - id: 195
+                      deviceType: com.fibaro.tubularMotor
+                      iconSetName: tubularNice
+                    - id: 196
+                      deviceType: com.fibaro.baseShutter
+                      iconSetName: garageDoor_sectional
+                    - id: 197
+                      deviceType: com.fibaro.baseShutter
+                      iconSetName: garageDoor_swing
+                    - id: 198
+                      deviceType: com.fibaro.baseShutter
+                      iconSetName: garageDoor_tilt
+                    - id: 199
+                      deviceType: com.fibaro.baseShutter
+                      iconSetName: gate_doubleLeaf
+                    - id: 200
+                      deviceType: com.fibaro.baseShutter
+                      iconSetName: gate_singleLeaf
+                    - id: 201
+                      deviceType: com.fibaro.baseShutter
+                      iconSetName: gate_sliding
+                  room:
+                    - id: 1
+                      iconName: room_baby
+                    - id: 2
+                      iconName: room_baczek
+                    - id: 3
+                      iconName: room_bathroom
+                    - id: 4
+                      iconName: room_bedroom
+                    - id: 5
+                      iconName: room_bile
+                    - id: 6
+                      iconName: room_boy
+                    - id: 7
+                      iconName: room_butymeskie
+                    - id: 8
+                      iconName: room_child
+                    - id: 9
+                      iconName: room_cinema
+                    - id: 10
+                      iconName: room_dining
+                    - id: 11
+                      iconName: room_drzwiwejsciowe
+                    - id: 12
+                      iconName: room_garage
+                    - id: 13
+                      iconName: room_guest
+                    - id: 14
+                      iconName: room_jadalnia
+                    - id: 15
+                      iconName: room_kapelusz
+                    - id: 16
+                      iconName: room_kawa
+                    - id: 17
+                      iconName: room_kitchen
+                    - id: 18
+                      iconName: room_klocki
+                    - id: 19
+                      iconName: room_kominek
+                    - id: 20
+                      iconName: room_konik
+                    - id: 21
+                      iconName: room_ksiazki
+                    - id: 22
+                      iconName: room_laundry
+                    - id: 23
+                      iconName: room_luxurychair
+                    - id: 24
+                      iconName: room_office
+                    - id: 25
+                      iconName: room_organizer
+                    - id: 26
+                      iconName: room_pillow
+                    - id: 27
+                      iconName: room_pioro
+                    - id: 28
+                      iconName: room_polkabuty
+                    - id: 29
+                      iconName: room_prysznic
+                    - id: 30
+                      iconName: room_recznik
+                    - id: 31
+                      iconName: room_schody
+                    - id: 32
+                      iconName: room_schody2
+                    - id: 33
+                      iconName: room_schody3
+                    - id: 34
+                      iconName: room_sofa
+                    - id: 35
+                      iconName: room_sypialnia
+                    - id: 36
+                      iconName: room_sypialnia2
+                    - id: 37
+                      iconName: room_szczoteczki
+                    - id: 38
+                      iconName: room_toilet
+                    - id: 39
+                      iconName: room_wanna
+                    - id: 40
+                      iconName: room_wardrobe
+                  scene:
+                    - id: 1
+                      iconName: scene_dinner
+                    - id: 2
+                      iconName: scene_entrance
+                    - id: 3
+                      iconName: scene_exit
+                    - id: 4
+                      iconName: scene_movie
+                    - id: 5
+                      iconName: scene_block
+                    - id: 6
+                      iconName: scene_lua
+                  virtualDevice:
+                    - id: 1
+                      iconName: light
+                users:
+                  - id: 2
+                    name: philip.schell@fit.fraunhofer.de
+                    type: superuser
+                    email: philip.schell@fit.fraunhofer.de
+                    hasGPS: false
+                    deviceRights: []
+                    sceneRights: []
+                    heatingZoneRights: []
+                    alarmZoneRights: []
+                    hotelRoom: 0
+                    sendNotifications: true
+                    tracking: 0
+                    atHome: false
+                    useOptionalArmPin: false
+                    initialWizard: false
+                linkedDevices: []
+                alarm: []
+                satelPartitions: []
+                favoriteColors:
+                  - id: 1
+                    r: 255
+                    g: 35
+                    b: 35
+                    w: 35
+                    brightness: 99
+                  - id: 2
+                    r: 0
+                    g: 144
+                    b: 255
+                    w: 0
+                    brightness: 99
+                  - id: 3
+                    r: 108
+                    g: 202
+                    b: 5
+                    w: 5
+                    brightness: 99
+                  - id: 4
+                    r: 248
+                    g: 231
+                    b: 28
+                    w: 28
+                    brightness: 99
+                  - id: 5
+                    r: 255
+                    g: 255
+                    b: 255
+                    w: 255
+                    brightness: 99
+                  - id: 6
+                    r: 255
+                    g: 255
+                    b: 255
+                    w: 255
+                    brightness: 99
+                  - id: 7
+                    r: 248
+                    g: 231
+                    b: 28
+                    w: 28
+                    brightness: 99
+                  - id: 8
+                    r: 108
+                    g: 202
+                    b: 5
+                    w: 5
+                    brightness: 99
+                  - id: 9
+                    r: 0
+                    g: 144
+                    b: 255
+                    w: 0
+                    brightness: 99
+                  - id: 10
+                    r: 255
+                    g: 35
+                    b: 35
+                    w: 35
+                    brightness: 99
+                RGBPrograms:
+                  - id: 1
+                    name: Fireplace
+                    steps:
+                      - color:
+                          r: 43
+                          g: 30
+                          b: 0
+                          w: 0
+                        duration: 100
+                        transitionTime: 0
+                      - color:
+                          r: 68
+                          g: 47
+                          b: 0
+                          w: 0
+                        duration: 40
+                        transitionTime: 100
+                      - color:
+                          r: 25
+                          g: 16
+                          b: 0
+                          w: 0
+                        duration: 40
+                        transitionTime: 0
+                      - color:
+                          r: 51
+                          g: 35
+                          b: 0
+                          w: 0
+                        duration: 40
+                        transitionTime: 100
+                      - color:
+                          r: 28
+                          g: 19
+                          b: 0
+                          w: 0
+                        duration: 200
+                        transitionTime: 0
+                      - color:
+                          r: 61
+                          g: 42
+                          b: 0
+                          w: 0
+                        duration: 40
+                        transitionTime: 100
+                      - color:
+                          r: 22
+                          g: 16
+                          b: 0
+                          w: 0
+                        duration: 40
+                        transitionTime: 0
+                      - color:
+                          r: 68
+                          g: 48
+                          b: 0
+                          w: 0
+                        duration: 100
+                        transitionTime: 100
+                      - color:
+                          r: 38
+                          g: 26
+                          b: 0
+                          w: 0
+                        duration: 40
+                        transitionTime: 0
+                      - color:
+                          r: 81
+                          g: 57
+                          b: 0
+                          w: 0
+                        duration: 60
+                        transitionTime: 100
+                      - color:
+                          r: 33
+                          g: 23
+                          b: 0
+                          w: 0
+                        duration: 100
+                        transitionTime: 0
+                      - color:
+                          r: 62
+                          g: 36
+                          b: 0
+                          w: 0
+                        duration: 60
+                        transitionTime: 200
+                      - color:
+                          r: 28
+                          g: 17
+                          b: 0
+                          w: 0
+                        duration: 200
+                        transitionTime: 0
+                      - color:
+                          r: 74
+                          g: 51
+                          b: 0
+                          w: 0
+                        duration: 20
+                        transitionTime: 100
+                      - color:
+                          r: 48
+                          g: 29
+                          b: 0
+                          w: 0
+                        duration: 40
+                        transitionTime: 0
+                      - color:
+                          r: 96
+                          g: 65
+                          b: 0
+                          w: 0
+                        duration: 20
+                        transitionTime: 100
+                      - color:
+                          r: 20
+                          g: 12
+                          b: 0
+                          w: 0
+                        duration: 100
+                        transitionTime: 0
+                      - color:
+                          r: 80
+                          g: 53
+                          b: 0
+                          w: 0
+                        duration: 20
+                        transitionTime: 20
+                      - color:
+                          r: 28
+                          g: 17
+                          b: 0
+                          w: 0
+                        duration: 40
+                        transitionTime: 0
+                      - color:
+                          r: 70
+                          g: 51
+                          b: 0
+                          w: 0
+                        duration: 20
+                        transitionTime: 200
+                    totalDurationTime: 2440
+                    created: 1598718830
+                    modified: 1598718830
+                  - id: 2
+                    name: Storm
+                    steps:
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 48
+                          w: 0
+                        duration: 1000
+                        transitionTime: 6000
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 10
+                          w: 0
+                        duration: 1000
+                        transitionTime: 0
+                      - color:
+                          r: 255
+                          g: 255
+                          b: 255
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 0
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 255
+                          g: 255
+                          b: 255
+                          w: 255
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 12
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 255
+                          g: 255
+                          b: 255
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 0
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 255
+                          g: 255
+                          b: 255
+                          w: 0
+                        duration: 40
+                        transitionTime: 40
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 46
+                          w: 0
+                        duration: 500
+                        transitionTime: 4000
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 6
+                          w: 0
+                        duration: 1000
+                        transitionTime: 0
+                      - color:
+                          r: 255
+                          g: 255
+                          b: 255
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 0
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 255
+                          g: 255
+                          b: 255
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 0
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 255
+                          g: 255
+                          b: 255
+                          w: 0
+                        duration: 40
+                        transitionTime: 40
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 62
+                          w: 0
+                        duration: 20
+                        transitionTime: 3000
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 4
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 255
+                          g: 255
+                          b: 255
+                          w: 255
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 12
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 255
+                          g: 255
+                          b: 255
+                          w: 0
+                        duration: 40
+                        transitionTime: 40
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 60
+                          w: 0
+                        duration: 20
+                        transitionTime: 500
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 0
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 255
+                          g: 255
+                          b: 255
+                          w: 255
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 0
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 255
+                          g: 255
+                          b: 255
+                          w: 0
+                        duration: 40
+                        transitionTime: 40
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 56
+                          w: 0
+                        duration: 500
+                        transitionTime: 4000
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 30
+                          w: 0
+                        duration: 20
+                        transitionTime: 4000
+                    totalDurationTime: 26200
+                    created: 1598718830
+                    modified: 1598718830
+                  - id: 3
+                    name: Rainbow
+                    steps:
+                      - color:
+                          r: 255
+                          g: 0
+                          b: 0
+                          w: 0
+                        duration: 1000
+                        transitionTime: 8000
+                      - color:
+                          r: 255
+                          g: 255
+                          b: 0
+                          w: 0
+                        duration: 1000
+                        transitionTime: 8000
+                      - color:
+                          r: 0
+                          g: 255
+                          b: 0
+                          w: 0
+                        duration: 1000
+                        transitionTime: 8000
+                      - color:
+                          r: 0
+                          g: 255
+                          b: 255
+                          w: 0
+                        duration: 1000
+                        transitionTime: 8000
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 255
+                          w: 0
+                        duration: 1000
+                        transitionTime: 8000
+                      - color:
+                          r: 255
+                          g: 0
+                          b: 255
+                          w: 0
+                        duration: 1000
+                        transitionTime: 8000
+                    totalDurationTime: 54000
+                    created: 1598718830
+                    modified: 1598718830
+                  - id: 4
+                    name: Aurora
+                    steps:
+                      - color:
+                          r: 197
+                          g: 0
+                          b: 209
+                          w: 0
+                        duration: 1000
+                        transitionTime: 9000
+                      - color:
+                          r: 2
+                          g: 169
+                          b: 209
+                          w: 0
+                        duration: 1000
+                        transitionTime: 9000
+                      - color:
+                          r: 0
+                          g: 187
+                          b: 82
+                          w: 0
+                        duration: 1000
+                        transitionTime: 9000
+                      - color:
+                          r: 0
+                          g: 255
+                          b: 133
+                          w: 0
+                        duration: 1000
+                        transitionTime: 7000
+                    totalDurationTime: 38000
+                    created: 1598718830
+                    modified: 1598718830
+                  - id: 5
+                    name: LPD
+                    steps:
+                      - color:
+                          r: 255
+                          g: 0
+                          b: 0
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 0
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 255
+                          g: 0
+                          b: 0
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 0
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 255
+                          g: 255
+                          b: 255
+                          w: 0
+                        duration: 60
+                        transitionTime: 0
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 0
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 255
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 0
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 255
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                      - color:
+                          r: 0
+                          g: 0
+                          b: 0
+                          w: 0
+                        duration: 20
+                        transitionTime: 0
+                    totalDurationTime: 240
+                    created: 1598718830
+                    modified: 1598718830
+                notifications: []
+                fibaroAlarm:
+                  lastAlarmTime: 0
+                  triggerActions:
+                    - id: 1
+                      name: Panic
+                      description: 'Switch on selected lights, close selected blinds, send selected cameras screens and selected notifications.'
+                      time: 0
+                      isPredefined: true
+                      isActive: false
+                      properties:
+                        conditions:
+                          - type: com.fibaro.binarySwitch
+                            properties:
+                              - name: isLight
+                                value: '1'
+                          - type: com.fibaro.multilevelSwitch
+                            properties:
+                              - name: isLight
+                                value: '1'
+                          - type: com.fibaro.rollerShutter
+                            properties: []
+                          - type: com.fibaro.ipCamera
+                            properties: []
+                        devices:
+                          - 0
+                        notifications:
+                          - 0
+                    - id: 2
+                      name: Lights On
+                      description: Switch on selected lights or all lights in the house.
+                      time: 0
+                      isPredefined: true
+                      isActive: false
+                      properties:
+                        conditions:
+                          - type: com.fibaro.binarySwitch
+                            properties:
+                              - name: isLight
+                                value: '1'
+                          - type: com.fibaro.multilevelSwitch
+                            properties:
+                              - name: isLight
+                                value: '1'
+                        devices:
+                          - 0
+                    - id: 3
+                      name: Blinds close
+                      description: Close selected blinds or all blinds in the house.
+                      time: 0
+                      isPredefined: true
+                      isActive: false
+                      properties:
+                        conditions:
+                          - type: com.fibaro.rollerShutter
+                            properties: []
+                        devices:
+                          - 0
+                    - id: 4
+                      name: Emergency lights
+                      description: Switch selected lights or all lights in the house to emergency mode.
+                      time: 0
+                      isPredefined: true
+                      isActive: false
+                      properties:
+                        conditions:
+                          - type: com.fibaro.binarySwitch
+                            properties:
+                              - name: isLight
+                                value: '1'
+                          - type: com.fibaro.multilevelSwitch
+                            properties:
+                              - name: isLight
+                                value: '1'
+                        devices:
+                          - 0
+                    - id: 5
+                      name: Send screens
+                      description: Send screens from selected cameras or all cameras in the house.
+                      time: 0
+                      isPredefined: true
+                      isActive: false
+                      properties:
+                        conditions:
+                          - type: com.fibaro.ipCamera
+                            properties: []
+                        devices:
+                          - 0
+                    - id: 7
+                      name: Send notifications
+                      description: Send selected or all notifications defined in the system.
+                      time: 0
+                      isPredefined: true
+                      isActive: false
+                      properties:
+                        notifications:
+                          - 0
+                  fastAccessActors: []
+                  rooms: []
+                  armed: true
+                  fibaroAlarm: false
+                  alarmEnabled: false
+                globalVariables: []
+  
+  /api/notificationCenter:
+    get:
+      description: return unknown
+      tags:
+        - Undocumented
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+  
+  /api/userActivity:
+    get:
+      description: return unknown
+      tags:
+        - Undocumented
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                - email: philip.schell@fit.fraunhofer.de
+                  user: philip.schell@fit.fraunhofer.de
+                  lastActivity: 0
+                  userId: 2
+                  type: HCUser
+  
   
