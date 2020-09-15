@@ -1506,6 +1506,763 @@ paths:
   
   
   
+  /panels/favoriteColors:
+    get:
+      description: Get favorite colors
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+    post:
+      description: Create favorite colors object
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+    put:
+      description: Modify favorite colors object
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+    delete:
+      description: Delete favorite colors
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+  
+  /panels/sms:
+    get:
+      description: Get sms object
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                smsCount: 0
+                phones:
+                  - ''
+    put:
+      description: Modify sms object
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+  
+  /panels/location:
+    get:
+      description: Get a list of all available locations
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                - id: 0
+                  name: ''
+                  latitude: 0
+                  longitude: 0
+                  created: 0
+                  modified: 0
+    post:
+      description: Create location
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+  
+  /panels/location/{locationID}:
+    get:
+      description: Get location
+      parameters:
+        - name: locationID
+          in: path
+          description: ID of an existing location
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                id: 0
+                name: ''
+                latitude: 0
+                longitude: 0
+                created: 0
+                modified: 0
+    put:
+      description: Modify location
+      parameters:
+        - name: locationID
+          in: path
+          description: ID of an existing location
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+    delete:
+      description: Delete location
+      parameters:
+        - name: locationID
+          in: path
+          description: ID of an existing location
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+  
+  /panels/history:
+    get:
+      parameters:
+        - name: from
+          description: unix timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+        - name: to
+          description: unix timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+      description: Get history
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                - id: 6
+                  deviceID: 24
+                  timestamp: 1598855829
+                  value: '22.9'
+  
+  /panels/notifications:
+    get:
+      description: Get a list of all available notifications
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+    post:
+      description: Create notification
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+  
+  /panels/notifications/{notificationID}:
+    get:
+      description: Get notification
+      parameters:
+        - name: notificationID
+          in: path
+          description: ID of an existing notification
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+    put:
+      description: Modify notification
+      parameters:
+        - name: notificationID
+          in: path
+          description: ID of an existing notification
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+    delete:
+      description: Delete notification
+      parameters:
+        - name: notificationID
+          in: path
+          description: ID of an existing notification
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+  
+  /panels/heating:
+    get:
+      description: Get a list of all available heating objects
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                id: 0
+                name: ''
+                properties:
+                  handTemperature: 0
+                  handTimestamp: 0
+                  vacationTemperature: 0
+    post:
+      description: Create heating
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+  
+  /panels/heating/{heatingID}:
+    get:
+      description: Get heating object
+      parameters:
+        - name: heatingID
+          in: path
+          description: ID of an existing heating object
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                id: 0
+                name: ''
+                properties:
+                  monday:
+                    morning:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    day:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    evening:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    night:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                  tuesday:
+                    morning:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    day:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    evening:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    night:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                  wednesday:
+                    morning:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    day:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    evening:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    night:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                  thursday:
+                    morning:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    day:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    evening:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    night:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                  friday:
+                    morning:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    day:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    evening:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    night:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                  saturday:
+                    morning:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    day:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    evening:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    night:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                  sunday:
+                    morning:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    day:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    evening:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    night:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                  handTemperature: 0
+                  handTimestamp: 0
+                  vacationTemperature: 0
+                  rooms:
+                    - null
+                created: 0
+                modified: 0
+    put:
+      description: Modify heating
+      parameters:
+        - name: heatingID
+          in: path
+          description: ID of an existing heating object
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+    delete:
+      description: Delete heating
+      parameters:
+        - name: heatingID
+          in: path
+          description: ID of an existing heating object
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+  
+  /panels/cooling:
+    get:
+      description: Get a list of all available cooling objects
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                id: 0
+                name: ''
+                properties:
+                  handTemperature: 0
+                  handTimestamp: 0
+                  vacationTemperature: 0
+                
+    post:
+      description: Create cooling
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+  
+  /panels/cooling/{coolingID}:
+    get:
+      description: Get cooling object
+      parameters:
+        - name: coolingID
+          in: path
+          description: ID of an existing cooling object
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                id: 0
+                name: ''
+                properties:
+                  monday:
+                    morning:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    day:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    evening:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    night:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                  tuesday:
+                    morning:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    day:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    evening:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    night:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                  wednesday:
+                    morning:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    day:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    evening:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    night:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                  thursday:
+                    morning:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    day:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    evening:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    night:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                  friday:
+                    morning:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    day:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    evening:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    night:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                  saturday:
+                    morning:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    day:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    evening:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    night:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                  sunday:
+                    morning:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    day:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    evening:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                    night:
+                      hour: 0
+                      minute: 0
+                      temperature: 0
+                  handTemperature: 0
+                  handTimestamp: 0
+                  vacationTemperature: 0
+                  rooms:
+                    - null
+                created: 0
+                modified: 0
+    put:
+      description: Modify cooling
+      parameters:
+        - name: coolingID
+          in: path
+          description: ID of an existing cooling object
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+    delete:
+      description: Delete cooling
+      parameters:
+        - name: coolingID
+          in: path
+          description: ID of an existing cooling object
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+  
+  /panels/humidity:
+    get:
+      description: Get a list of all available humidity objects
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                id: 0
+                name: ''
+                properties:
+                  handHumidity: 0
+                  handTimestamp: 0
+                  vacationHumidity: 0
+    post:
+      description: Create humidity
+      tags:
+        - panels
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+  
+  
+  
+  
   /api/RGBPrograms:
     get:
       description: return unknown
@@ -2166,109 +2923,17 @@ paths:
   
   
   
-  /api/panels/location:
-    get:
-      description: return unknown
-      tags:
-        - Panels
-      responses:
-        '200':
-          description: ok
-          content:
-            application/json:
-              example:
-                - id: 219
-                  name: Fib-Philip
-                  latitude: 50.7493303755436
-                  longitude: 7.20393838780908
-                  radius: 150
-                  created: 1598718836
-                  modified: 1598718836
-                  home: true
   
-  /api/panels/history:
-    get:
-      parameters:
-        - name: from
-          description: unix timestamp
-          in: query
-          required: true
-          schema:
-            type: integer
-            format: int32
-          example: 1
-        - name: to
-          description: unix timestamp
-          in: query
-          required: true
-          schema:
-            type: integer
-            format: int32
-      description: return values for a device
-      tags:
-        - Panels
-      responses:
-        '200':
-          description: ok
-          content:
-            application/json:
-              example:
-                - id: 6
-                  deviceID: 24
-                  timestamp: 1598855829
-                  value: '22.9'
   
-  /api/panels/notifications:
-    get:
-      description: return unknown
-      tags:
-        - Panels
-      responses:
-        '200':
-          description: ok
-          content:
-            application/json:
-              example:
-                []
   
-  /api/panels/heating:
-    get:
-      description: return unknown
-      tags:
-        - Panels
-      responses:
-        '200':
-          description: ok
-          content:
-            application/json:
-              example:
-                []
   
-  /api/panels/cooling:
-    get:
-      description: return unknown
-      tags:
-        - Panels
-      responses:
-        '200':
-          description: ok
-          content:
-            application/json:
-              example:
-                []
   
-  /api/panels/humidity:
-    get:
-      description: return unknown
-      tags:
-        - Panels
-      responses:
-        '200':
-          description: ok
-          content:
-            application/json:
-              example:
-                []
+  
+  
+  
+  
+  
+  
   
   /api/panels/alarm:
     get:
@@ -2299,77 +2964,7 @@ paths:
                 cycles: 5
                 drenchers: []
   
-  /api/panels/favoriteColors:
-    get:
-      description: return unknown
-      tags:
-        - Panels
-      responses:
-        '200':
-          description: ok
-          content:
-            application/json:
-              example:
-                - id: 1
-                  r: 255
-                  g: 35
-                  b: 35
-                  w: 35
-                  brightness: 99
-                - id: 2
-                  r: 0
-                  g: 144
-                  b: 255
-                  w: 0
-                  brightness: 99
-                - id: 3
-                  r: 108
-                  g: 202
-                  b: 5
-                  w: 5
-                  brightness: 99
-                - id: 4
-                  r: 248
-                  g: 231
-                  b: 28
-                  w: 28
-                  brightness: 99
-                - id: 5
-                  r: 255
-                  g: 255
-                  b: 255
-                  w: 255
-                  brightness: 99
-                - id: 6
-                  r: 255
-                  g: 255
-                  b: 255
-                  w: 255
-                  brightness: 99
-                - id: 7
-                  r: 248
-                  g: 231
-                  b: 28
-                  w: 28
-                  brightness: 99
-                - id: 8
-                  r: 108
-                  g: 202
-                  b: 5
-                  w: 5
-                  brightness: 99
-                - id: 9
-                  r: 0
-                  g: 144
-                  b: 255
-                  w: 0
-                  brightness: 99
-                - id: 10
-                  r: 255
-                  g: 35
-                  b: 35
-                  w: 35
-                  brightness: 99
+  
   
   /api/panels/fibaroAlarm:
     get:
