@@ -907,69 +907,98 @@ paths:
               example:
                []
   
-  
-  
-  /api/rooms:
+  /sections/{sectionID}:
     get:
-      description: return the rooms
+      description: Get section object
+      parameters:
+        - name: sectionID
+          in: path
+          description: ID of an existing section
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
       tags:
-        - General
+        - sections
       responses:
         '200':
           description: ok
           content:
             application/json:
               example:
-                - id: 219
-                  name: Bathroom
-                  sectionID: 220
-                  icon: room_wanna
-                  defaultSensors:
-                    temperature: 16
-                    humidity: 0
-                    light: 0
-                  defaultThermostat: 0
-                  sortOrder: 1
-                  category: bathroom
-                - id: 220
-                  name: Kitchen
-                  sectionID: 220
-                  icon: room_dining
-                  defaultSensors:
-                    temperature: 10
-                    humidity: 0
-                    light: 11
-                  defaultThermostat: 0
-                  sortOrder: 2
-                  category: kitchen
-                - id: 221
-                  name: Washroom
-                  sectionID: 219
-                  icon: room_laundry
-                  defaultSensors:
-                    temperature: 24
-                    humidity: 0
-                    light: 0
-                  defaultThermostat: 0
-                  sortOrder: 3
-                  category: laundryRoom
-                - id: 222
-                  name: Office
-                  sectionID: 220
-                  icon: room_office
-                  defaultSensors:
-                    temperature: 0
-                    humidity: 0
-                    light: 0
-                  defaultThermostat: 0
-                  sortOrder: 4
-                  category: office
-  
-  /api/scenes:
-    get:
-      description: return unknown
+               id: 0
+               name: ''
+               created: 0
+               modified: 0
+               sortOrder: 0
+    put:
+      description: Modify section
+      parameters:
+        - name: sectionID
+          in: path
+          description: ID of an existing section
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
       tags:
-        - General
+        - sections
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+               []
+    delete:
+      description: Delete section
+      parameters:
+        - name: sectionID
+          in: path
+          description: ID of an existing section
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - sections
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+               []
+  
+  
+  
+  /rooms:
+    get:
+      description: Get a list of all available rooms
+      tags:
+        - rooms
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                - id: 0
+                  name: ''
+                  sectionID: 0
+                  icon: ''
+                  defaultSensors: 0
+                  defaultThermostat: DefaulSensors
+                  created: 0
+                  modified: 0
+                  sortOrder: 0
+    post:
+      description: Get a list of all available rooms
+      tags:
+        - rooms
       responses:
         '200':
           description: ok
@@ -978,38 +1007,186 @@ paths:
               example:
                 []
   
-  /api/users:
+  /rooms/{roomID}:
     get:
-      description: return storaged users
+      description: Delete room
+      parameters:
+        - name: roomID
+          in: path
+          description: ID of an existing room
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
       tags:
-        - General
+        - rooms
       responses:
         '200':
           description: ok
           content:
             application/json:
               example:
-                - id: 2
-                  name: philip.schell@fit.fraunhofer.de
-                  type: superuser
-                  email: philip.schell@fit.fraunhofer.de
-                  hasGPS: false
-                  deviceRights: []
-                  sceneRights: []
-                  heatingZoneRights: []
-                  alarmZoneRights: []
+               id: 0
+               name: ''
+               sectionID: 0
+               icon: ''
+               defaultSensors: 0
+               defaultThermostat: DefaulSensors
+               created: 0
+               modified: 0
+               sortOrder: 0
+    put:
+      description: Delete room
+      parameters:
+        - name: roomID
+          in: path
+          description: ID of an existing room
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - rooms
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+               []
+    delete:
+      description: Delete room
+      parameters:
+        - name: roomID
+          in: path
+          description: ID of an existing room
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - rooms
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+               []
+  
+  
+  
+  /users:
+    get:
+      description: Get a list of all available users
+      tags:
+        - users
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                - id: 0
+                  name: ''
+                  type: ''
+                  email: ''
+                  hasGPS: bool
+                  deviceRights:
+                    - null
+                  sceneRights:
+                    - null
                   hotelRoom: 0
-                  sendNotifications: true
+                  sendNotifications: bool
                   tracking: 0
-                  atHome: false
-                  useOptionalArmPin: false
-                  initialWizard: false
+                  useOptionalArmPin: bool
+                  initialWizard: bool
   
-  /api/globalVariables:
+  /users/{userID}:
     get:
-      description: return unknown
+      description: Get user object
+      parameters:
+        - name: userID
+          in: path
+          description: ID of a existing user
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
       tags:
-        - General
+        - users
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                id: 0
+                name: ''
+                type: ''
+                email: ''
+                hasGPS: bool
+                deviceRights:
+                  - null
+                sceneRights:
+                  - null
+                hotelRoom: 0
+                sendNotifications: bool
+                tracking: 0
+                useOptionalArmPin: bool
+                initialWizard: bool
+    put:
+      description: Modify user
+      parameters:
+        - name: userID
+          in: path
+          description: ID of a existing user
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - users
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+               []
+    delete:
+      description: Delete user
+      parameters:
+        - name: userID
+          in: path
+          description: ID of a existing user
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - users
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+               []
+  
+  
+  
+  /globalVariables:
+    get:
+      description: Get a list of all available global variables
+      tags:
+        - globalVariables
       responses:
         '200':
           description: ok
@@ -1017,6 +1194,317 @@ paths:
             application/json:
               example:
                 []
+  
+  /globalVariables/{globalVariableID}:
+    get:
+      description: Get global variable
+      parameters:
+        - name: globalVariableID
+          in: path
+          description: ID of a existing global variable
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - globalVariables
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+               []
+    put:
+      description: Modify global variable
+      parameters:
+        - name: globalVariableID
+          in: path
+          description: ID of a existing global variable
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - globalVariables
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+               []
+    delete:
+      description: Delete global variable
+      parameters:
+        - name: globalVariableID
+          in: path
+          description: ID of a existing global variable
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - globalVariables
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+               []
+  
+  
+  
+  /scenes:
+    get:
+      description: Get a list of all available scenes
+      tags:
+        - scenes
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                - id: 0
+                  name: ''
+                  type: ''
+                  roomID: 0
+                  iconID: 0
+                  enabled: bool
+                  autostart: bool
+                  protectedByPIN: bool
+                  killable: bool
+                  runningInstances: 0
+                  visible: bool
+                  isLua: bool
+                  lua: ''
+                  properties: ''
+                  html: ''
+                  triggers:
+                    properties:
+                      - null
+                    globals:
+                      - null
+                  sortOrder: 0
+    post:
+      description: Create scene
+      tags:
+        - scenes
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+  
+  /scenes/{sceneID}:
+    get:
+      description: Get scene object
+      parameters:
+        - name: sceneID
+          in: path
+          description: ID of an existing scene
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - scenes
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                id: 0
+                name: ''
+                type: ''
+                roomID: 0
+                iconID: 0
+                enabled: bool
+                autostart: bool
+                protectedByPIN: bool
+                killable: bool
+                runningInstances: 0
+                visible: bool
+                isLua: bool
+                lua: ''
+                properties: ''
+                html: ''
+                triggers:
+                  properties:
+                    - null
+                  globals:
+                    - null
+                sortOrder: 0
+    put:
+      description: Modify scene
+      parameters:
+        - name: sceneID
+          in: path
+          description: ID of an existing scene
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - scenes
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+    delete:
+      description: Delete scene
+      parameters:
+        - name: sceneID
+          in: path
+          description: ID of an existing scene
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - scenes
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+  
+  /scenes/{sceneID}/action/{action}:
+    post:
+      description: Scene action
+      parameters:
+        - name: sceneID
+          in: path
+          description: ID of an existing scene
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+        - name: action
+          in: path
+          description: action
+          required: true
+          schema:
+            type: string
+      tags:
+        - scenes
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+  
+  /scenes/{sceneID}/debugMessages:
+    get:
+      description: Get debug message
+      parameters:
+        - name: sceneID
+          in: path
+          description: ID of an existing scene
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      tags:
+        - scenes
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+  
+  
+  
+  /icons:
+    get:
+      description: Get a list of all available icons
+      tags:
+        - icons
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                device:
+                  - id: 0
+                    deviceType: ''
+                    iconSetName: ''
+                room:
+                  - id: 0
+                    iconName: ''
+                scene:
+                  - id: 0
+                    iconName: ''
+  
+  
+  
+  /iosDevices:
+    get:
+      description: Get a list of all available iosDevices
+      tags:
+        - iosDevices
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                - id: 0
+                  name: ''
+                  udid: ''
+                  push: bool
+  
+  
+  
+  /weather:
+    get:
+      description: Get weather object
+      tags:
+        - weather
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                ConditionCode: ''
+                Humidity: ''
+                PreviousConditionCode: ''
+                PreviousHumidity: ''
+                PreviousTemperature: ''
+                PreviousWeatherConditionConverted: ''
+                PreviousWind: ''
+                Temperature: ''
+                WeatherCondition: ''
+                WeatherConditionConverted: ''
+                Wind: ''
+                saveLogs: ''
+                TemperatureUnit: ''
+  
+  
   
   /api/RGBPrograms:
     get:
@@ -1659,19 +2147,6 @@ paths:
               example:
                 []
   
-  /api/iosDevices:
-    get:
-      description: return unknown
-      tags:
-        - General
-      responses:
-        '200':
-          description: ok
-          content:
-            application/json:
-              example:
-                []
-  
   /api/voip:
     get:
       description: return unknown
@@ -1689,535 +2164,7 @@ paths:
                     sipUserID: '1'
                     deviceIcon: '91'
   
-  /api/icons:
-    get:
-      description: return unknown
-      tags:
-        - General
-      responses:
-        '200':
-          description: ok
-          content:
-            application/json:
-              example:
-                device:
-                  - id: 1
-                    deviceType: com.fibaro.binarySwitch
-                    iconSetName: light
-                  - id: 2
-                    deviceType: com.fibaro.binarySwitch
-                    iconSetName: onoff
-                  - id: 3
-                    deviceType: com.fibaro.binarySwitch
-                    iconSetName: lampka_nocna
-                  - id: 4
-                    deviceType: com.fibaro.binarySwitch
-                    iconSetName: czajnik
-                  - id: 5
-                    deviceType: com.fibaro.binarySwitch
-                    iconSetName: kinkiet
-                  - id: 6
-                    deviceType: com.fibaro.binarySwitch
-                    iconSetName: klimatyzator
-                  - id: 7
-                    deviceType: com.fibaro.binarySwitch
-                    iconSetName: alarm
-                  - id: 8
-                    deviceType: com.fibaro.binarySwitch
-                    iconSetName: kawa
-                  - id: 9
-                    deviceType: com.fibaro.binarySwitch
-                    iconSetName: lampa_ogrodowa
-                  - id: 10
-                    deviceType: com.fibaro.binarySwitch
-                    iconSetName: tv
-                  - id: 11
-                    deviceType: com.fibaro.binarySwitch
-                    iconSetName: wiatrak_sufitowy
-                  - id: 12
-                    deviceType: com.fibaro.binarySwitch
-                    iconSetName: toster
-                  - id: 13
-                    deviceType: com.fibaro.binarySwitch
-                    iconSetName: radio
-                  - id: 14
-                    deviceType: com.fibaro.binarySwitch
-                    iconSetName: okno_dachowe
-                  - id: 15
-                    deviceType: com.fibaro.multilevelSwitch
-                    iconSetName: light
-                  - id: 16
-                    deviceType: com.fibaro.multilevelSwitch
-                    iconSetName: sciemniacz
-                  - id: 17
-                    deviceType: com.fibaro.multilevelSwitch
-                    iconSetName: garaz
-                  - id: 18
-                    deviceType: com.fibaro.multilevelSwitch
-                    iconSetName: roleta_zew
-                  - id: 19
-                    deviceType: com.fibaro.multilevelSwitch
-                    iconSetName: roleta_wew
-                  - id: 20
-                    deviceType: com.fibaro.rollerShutter
-                    iconSetName: roleta
-                  - id: 21
-                    deviceType: com.fibaro.motionSensor
-                    iconSetName: czujnik_ruchu
-                  - id: 22
-                    deviceType: com.fibaro.motionSensor
-                    iconSetName: czujnik_zalania
-                  - id: 23
-                    deviceType: com.fibaro.motionSensor
-                    iconSetName: drzwi
-                  - id: 24
-                    deviceType: com.fibaro.motionSensor
-                    iconSetName: drzwiB
-                  - id: 25
-                    deviceType: com.fibaro.motionSensor
-                    iconSetName: drzwi_frontowe
-                  - id: 26
-                    deviceType: com.fibaro.rollerShutter
-                    iconSetName: markiza
-                  - id: 27
-                    deviceType: com.fibaro.rollerShutter
-                    iconSetName: zaslony
-                  - id: 28
-                    deviceType: com.fibaro.device
-                    iconSetName: nieznane
-                  - id: 29
-                    deviceType: com.fibaro.device
-                    iconSetName: unknown
-                  - id: 30
-                    deviceType: com.fibaro.temperatureSensor
-                    iconSetName: termometr
-                  - id: 31
-                    deviceType: com.fibaro.humiditySensor
-                    iconSetName: wilgotnosc
-                  - id: 32
-                    deviceType: com.fibaro.lightSensor
-                    iconSetName: swiatlo
-                  - id: 33
-                    deviceType: combo_device
-                    iconSetName: combo_device
-                  - id: 34
-                    deviceType: com.fibaro.thermostatDanfoss
-                    iconSetName: danfoss
-                  - id: 35
-                    deviceType: combo_device
-                    iconSetName: ezmotion
-                  - id: 36
-                    deviceType: combo_device
-                    iconSetName: as2_rf
-                  - id: 37
-                    deviceType: com.fibaro.binarySwitch
-                    iconSetName: asr_rf
-                  - id: 38
-                    deviceType: com.fibaro.binarySwitch
-                    iconSetName: hr4asr_zw
-                  - id: 39
-                    deviceType: com.fibaro.thermostatDanfoss
-                    iconSetName: hr4_zw
-                  - id: 40
-                    deviceType: com.fibaro.binarySwitch
-                    iconSetName: zraszacz
-                  - id: 41
-                    deviceType: com.fibaro.motionSensor
-                    iconSetName: czujnik_dymu
-                  - id: 42
-                    deviceType: com.fibaro.doorSensor
-                    iconSetName: drzwi
-                  - id: 43
-                    deviceType: com.fibaro.doorSensor
-                    iconSetName: drzwiB
-                  - id: 44
-                    deviceType: com.fibaro.doorSensor
-                    iconSetName: drzwi_frontowe
-                  - id: 45
-                    deviceType: com.fibaro.floodSensor
-                    iconSetName: czujnik_zalania
-                  - id: 46
-                    deviceType: com.fibaro.smokeSensor
-                    iconSetName: czujnik_dymu
-                  - id: 47
-                    deviceType: com.fibaro.multilevelSensor
-                    iconSetName: unknown_sensor
-                  - id: 48
-                    deviceType: com.fibaro.floodSensor
-                    iconSetName: flood_detector
-                  - id: 49
-                    deviceType: com.fibaro.rollerShutter
-                    iconSetName: garaz
-                  - id: 50
-                    deviceType: com.fibaro.multimedia
-                    iconSetName: multimedia
-                  - id: 51
-                    deviceType: com.fibaro.player
-                    iconSetName: player
-                  - id: 52
-                    deviceType: com.fibaro.receiver
-                    iconSetName: receiver
-                  - id: 53
-                    deviceType: com.fibaro.windowSensor
-                    iconSetName: okno_dachowe
-                  - id: 55
-                    deviceType: com.fibaro.matrix
-                    iconSetName: matrix
-                  - id: 56
-                    deviceType: com.fibaro.pioneerAmplifier
-                    iconSetName: matrix_pioneer
-                  - id: 57
-                    deviceType: com.fibaro.sonosSpeaker
-                    iconSetName: receiver_sonos2
-                  - id: 58
-                    deviceType: com.fibaro.denonAmplifier
-                    iconSetName: matrix_denon
-                  - id: 59
-                    deviceType: com.fibaro.harmanKardon
-                    iconSetName: matrix
-                  - id: 60
-                    deviceType: com.fibaro.onkyoAmplifier
-                    iconSetName: matrix_onkyo
-                  - id: 61
-                    deviceType: com.fibaro.panasonicTv
-                    iconSetName: receiver_panasonic
-                  - id: 62
-                    deviceType: com.fibaro.samsungTv
-                    iconSetName: receiver_samsung
-                  - id: 63
-                    deviceType: com.fibaro.sharpTv
-                    iconSetName: receiver_sharp
-                  - id: 64
-                    deviceType: com.fibaro.lgDvd
-                    iconSetName: player_lg_dvd
-                  - id: 65
-                    deviceType: com.fibaro.lgBluray
-                    iconSetName: player_lg_bluray
-                  - id: 66
-                    deviceType: com.fibaro.pioneerDvd
-                    iconSetName: player_pioneer_dvd
-                  - id: 67
-                    deviceType: com.fibaro.pioneerBluray
-                    iconSetName: player_pioneer_bluray
-                  - id: 68
-                    deviceType: com.fibaro.samsungDvd
-                    iconSetName: player_samsung_dvd
-                  - id: 69
-                    deviceType: com.fibaro.FGSS001
-                    iconSetName: smoke_sensor
-                  - id: 70
-                    deviceType: com.fibaro.operatingMode
-                    iconSetName: thermostat_mode
-                  - id: 71
-                    deviceType: com.fibaro.setPoint
-                    iconSetName: thermostat_setpoint
-                  - id: 72
-                    deviceType: com.fibaro.hvac
-                    iconSetName: thermostat
-                  - id: 73
-                    deviceType: com.fibaro.fanMode
-                    iconSetName: thermostat_fan_mode
-                  - id: 74
-                    deviceType: com.fibaro.thermostatState
-                    iconSetName: thermostat_state
-                  - id: 75
-                    deviceType: com.fibaro.fanMode
-                    iconSetName: thermostat_fan_state
-                  - id: 76
-                    deviceType: com.fibaro.operatingMode
-                    iconSetName: thermostat_state
-                  - id: 77
-                    deviceType: com.fibaro.FGFS101
-                    iconSetName: flood_detector
-                  - id: 78
-                    deviceType: com.fibaro.zwaveDevice
-                    iconSetName: zwave_device
-                  - id: 79
-                    deviceType: com.fibaro.doorLock
-                    iconSetName: door_lock
-                  - id: 80
-                    deviceType: com.fibaro.kwikset
-                    iconSetName: kwikset
-                  - id: 81
-                    deviceType: com.fibaro.polyControl
-                    iconSetName: poly_control
-                  - id: 82
-                    deviceType: com.fibaro.schlage
-                    iconSetName: schlage
-                  - id: 83
-                    deviceType: com.fibaro.sonyBluray
-                    iconSetName: player_sony_bluray
-                  - id: 84
-                    deviceType: com.fibaro.sonyTv
-                    iconSetName: receiver_sony
-                  - id: 85
-                    deviceType: com.fibaro.philipsBluray
-                    iconSetName: player_philips_bluray
-                  - id: 86
-                    deviceType: com.fibaro.philipsTv
-                    iconSetName: receiver
-                  - id: 87
-                    deviceType: com.fibaro.FGRM222
-                    iconSetName: roleta
-                  - id: 88
-                    deviceType: com.fibaro.heatDetector
-                    iconSetName: heat_detector
-                  - id: 89
-                    deviceType: com.fibaro.seismometer
-                    iconSetName: seismometer
-                  - id: 90
-                    deviceType: com.fibaro.FGMS001
-                    iconSetName: motion_sensor
-                  - id: 91
-                    deviceType: com.fibaro.voipUser
-                    iconSetName: voip_user_1
-                  - id: 92
-                    deviceType: com.fibaro.voipUser
-                    iconSetName: voip_user_2
-                  - id: 93
-                    deviceType: com.fibaro.voipUser
-                    iconSetName: voip_user_3
-                  - id: 94
-                    deviceType: com.fibaro.tamperDetector
-                    iconSetName: tamper_detector
-                  - id: 95
-                    deviceType: com.fibaro.davisVantage
-                    iconSetName: plugin_davis
-                  - id: 96
-                    deviceType: com.fibaro.philipsHue
-                    iconSetName: plugin_philipsHue
-                  - id: 97
-                    deviceType: com.fibaro.philipsHueLight
-                    iconSetName: plugin_philipsHueLight
-                  - id: 98
-                    deviceType: com.fibaro.ncPlus
-                    iconSetName: plugin_ncPlus
-                  - id: 99
-                    deviceType: com.fibaro.xbmc
-                    iconSetName: plugin_xbmc
-                  - id: 100
-                    deviceType: com.fibaro.lgTv
-                    iconSetName: plugin_lgTv
-                  - id: 101
-                    deviceType: com.fibaro.zwaveController
-                    iconSetName: zwave_controller
-                  - id: 102
-                    deviceType: com.fibaro.energyMeter
-                    iconSetName: energy_meter
-                  - id: 103
-                    deviceType: com.fibaro.remoteController
-                    iconSetName: pilot
-                  - id: 104
-                    deviceType: com.fibaro.barrier
-                    iconSetName: barrier
-                  - id: 105
-                    deviceType: com.fibaro.coDetector
-                    iconSetName: co_detector
-                  - id: 106
-                    deviceType: com.fibaro.accelerometer
-                    iconSetName: accelerometer
-                  - id: 107
-                    deviceType: com.fibaro.FGGC001
-                    iconSetName: com.fibaro.FGGC001
-                  - id: 108
-                    deviceType: com.fibaro.FGGC001
-                    iconSetName: com.fibaro.FGGC001_white
-                  - id: 109
-                    deviceType: com.fibaro.FGPB101
-                    iconSetName: com.fibaro.FGPB101
-                  - id: 110
-                    deviceType: com.fibaro.FGPB101
-                    iconSetName: com.fibaro.FGPB101_black
-                  - id: 111
-                    deviceType: com.fibaro.FGPB101
-                    iconSetName: com.fibaro.FGPB101_blue
-                  - id: 112
-                    deviceType: com.fibaro.FGPB101
-                    iconSetName: com.fibaro.FGPB101_brown
-                  - id: 113
-                    deviceType: com.fibaro.FGPB101
-                    iconSetName: com.fibaro.FGPB101_green
-                  - id: 114
-                    deviceType: com.fibaro.FGPB101
-                    iconSetName: com.fibaro.FGPB101_orange
-                  - id: 115
-                    deviceType: com.fibaro.FGPB101
-                    iconSetName: com.fibaro.FGPB101_white
-                  - id: 116
-                    deviceType: com.fibaro.FGPB101
-                    iconSetName: com.fibaro.FGPB101_yellow
-                  - id: 117
-                    deviceType: com.fibaro.FGKF601
-                    iconSetName: com.fibaro.FGKF601
-                  - id: 118
-                    deviceType: com.fibaro.FGCD001
-                    iconSetName: com.fibaro.FGCD001
-                  - id: 119
-                    deviceType: com.fibaro.gerda
-                    iconSetName: gerdaLock
-                  - id: 120
-                    deviceType: com.fibaro.FGDW002
-                    iconSetName: drzwi
-                  - id: 121
-                    deviceType: com.fibaro.FGDW002
-                    iconSetName: drzwiB
-                  - id: 122
-                    deviceType: com.fibaro.FGDW002
-                    iconSetName: drzwi_frontowe
-                  - id: 123
-                    deviceType: com.fibaro.FGMS001v2
-                    iconSetName: motion_sensor
-                  - id: 124
-                    deviceType: com.fibaro.FGWP101
-                    iconSetName: com.fibaro.FGWP_EU
-                  - id: 125
-                    deviceType: com.fibaro.FGWP102
-                    iconSetName: com.fibaro.FGWP_EU
-                  - id: 126
-                    deviceType: com.fibaro.FGWPB121
-                    iconSetName: com.fibaro.FGWP_US
-                  - id: 127
-                    deviceType: com.fibaro.FGWPI121
-                    iconSetName: com.fibaro.FGWP_ANZ
-                  - id: 128
-                    deviceType: com.fibaro.FGWPG121
-                    iconSetName: com.fibaro.FGWP_UK
-                  - id: 129
-                    deviceType: com.fibaro.FGT001
-                    iconSetName: com.fibaro.FGT001
-                  - id: 130
-                    deviceType: com.fibaro.usbPort
-                    iconSetName: com.fibaro.usbPort
-                  - id: 131
-                    deviceType: com.fibaro.rainDetector
-                    iconSetName: rain_detector
-                  - id: 132
-                    deviceType: com.fibaro.rollerShutter
-                    iconSetName: fakro
-                  - id: 133
-                    deviceType: com.fibaro.gasDetector
-                    iconSetName: com.fibaro.gasDetector
-                  - id: 134
-                    deviceType: com.fibaro.FGBS222
-                    iconSetName: FGBS222
-                  - id: 195
-                    deviceType: com.fibaro.tubularMotor
-                    iconSetName: tubularNice
-                  - id: 196
-                    deviceType: com.fibaro.baseShutter
-                    iconSetName: garageDoor_sectional
-                  - id: 197
-                    deviceType: com.fibaro.baseShutter
-                    iconSetName: garageDoor_swing
-                  - id: 198
-                    deviceType: com.fibaro.baseShutter
-                    iconSetName: garageDoor_tilt
-                  - id: 199
-                    deviceType: com.fibaro.baseShutter
-                    iconSetName: gate_doubleLeaf
-                  - id: 200
-                    deviceType: com.fibaro.baseShutter
-                    iconSetName: gate_singleLeaf
-                  - id: 201
-                    deviceType: com.fibaro.baseShutter
-                    iconSetName: gate_sliding
-                room:
-                  - id: 1
-                    iconName: room_baby
-                  - id: 2
-                    iconName: room_baczek
-                  - id: 3
-                    iconName: room_bathroom
-                  - id: 4
-                    iconName: room_bedroom
-                  - id: 5
-                    iconName: room_bile
-                  - id: 6
-                    iconName: room_boy
-                  - id: 7
-                    iconName: room_butymeskie
-                  - id: 8
-                    iconName: room_child
-                  - id: 9
-                    iconName: room_cinema
-                  - id: 10
-                    iconName: room_dining
-                  - id: 11
-                    iconName: room_drzwiwejsciowe
-                  - id: 12
-                    iconName: room_garage
-                  - id: 13
-                    iconName: room_guest
-                  - id: 14
-                    iconName: room_jadalnia
-                  - id: 15
-                    iconName: room_kapelusz
-                  - id: 16
-                    iconName: room_kawa
-                  - id: 17
-                    iconName: room_kitchen
-                  - id: 18
-                    iconName: room_klocki
-                  - id: 19
-                    iconName: room_kominek
-                  - id: 20
-                    iconName: room_konik
-                  - id: 21
-                    iconName: room_ksiazki
-                  - id: 22
-                    iconName: room_laundry
-                  - id: 23
-                    iconName: room_luxurychair
-                  - id: 24
-                    iconName: room_office
-                  - id: 25
-                    iconName: room_organizer
-                  - id: 26
-                    iconName: room_pillow
-                  - id: 27
-                    iconName: room_pioro
-                  - id: 28
-                    iconName: room_polkabuty
-                  - id: 29
-                    iconName: room_prysznic
-                  - id: 30
-                    iconName: room_recznik
-                  - id: 31
-                    iconName: room_schody
-                  - id: 32
-                    iconName: room_schody2
-                  - id: 33
-                    iconName: room_schody3
-                  - id: 34
-                    iconName: room_sofa
-                  - id: 35
-                    iconName: room_sypialnia
-                  - id: 36
-                    iconName: room_sypialnia2
-                  - id: 37
-                    iconName: room_szczoteczki
-                  - id: 38
-                    iconName: room_toilet
-                  - id: 39
-                    iconName: room_wanna
-                  - id: 40
-                    iconName: room_wardrobe
-                scene:
-                  - id: 1
-                    iconName: scene_dinner
-                  - id: 2
-                    iconName: scene_entrance
-                  - id: 3
-                    iconName: scene_exit
-                  - id: 4
-                    iconName: scene_movie
-                  - id: 5
-                    iconName: scene_block
-                  - id: 6
-                    iconName: scene_lua
-                virtualDevice:
-                  - id: 1
-                    iconName: light
+  
   
   /api/panels/location:
     get:
@@ -2614,24 +2561,7 @@ paths:
   
   
   
-  /api/weather:
-    get:
-      description: return unknown
-      tags:
-        - Other
-      responses:
-        '200':
-          description: ok
-          content:
-            application/json:
-              example:
-                Temperature: 19.7
-                TemperatureUnit: C
-                Humidity: 46.7
-                Wind: 5.04
-                WindUnit: km/h
-                WeatherCondition: clear
-                ConditionCode: 32
+  
   
   /api/diagnostics:
     get:
