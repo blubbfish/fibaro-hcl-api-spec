@@ -258,39 +258,22 @@ paths:
           content:
             application/json:
               example: 
-                serialNumber: HCL-076130
-                hcName: Fib-Philip
-                mac: 'ac:17:02:03:65:2d'
-                zwaveVersion: '4.33'
-                timeFormat: 24
-                zwaveRegion: EU
-                serverStatus: 1598718825
-                defaultLanguage: de
-                sunsetHour: '19:55'
-                sunriseHour: '06:59'
-                hotelMode: false
-                temperatureUnit: C
-                batteryLowNotification: false
-                smsManagement: false
-                forwardNotificationsToPushMessages: true
-                date: '12:50 | 10.9.2020'
-                softVersion: '4.600'
-                beta: false
-                currentVersion:
-                  version: '4.600'
-                  type: stable
-                installVersion:
-                  version: ''
-                  type: ''
-                  status: ''
-                  progress: 0
-                timestamp: 1599735047
-                online: true
-                tosAccepted: true
-                updateStableAvailable: false
-                updateBetaAvailable: false
-                newestStableVersion: '4.600'
-                newestBetaVersion: '4.582'
+                serialNumber: ''
+                mac: ''
+                softVersion: ''
+                beta: bool
+                zwaveVersion: ''
+                zwaveRegion: ''
+                serverStatus: 0
+                defaultLanguage: ''
+                sunsetHour: ''
+                sunriseHour: ''
+                hotelMode: bool
+                updateStableAvailable: bool
+                temperatureUnit: ''
+                updateBetaAvailable: bool
+                batteryLowNotification: bool
+                smsManagement: bool
     put:
       description: Modify current settings
       tags:
@@ -310,14 +293,12 @@ paths:
           content:
             application/json:
               example:
-                - totalSpace: 500.0M
-                  usedSpace: 0.0B
-                  usedSpacePercentage: 0%
-                  type: remote
-                  status: online
-                  backups: []
-                - type: remoteOld
-                  backups: []
+                id: 0
+                timestamp: 0
+                devices: 0
+                rooms: 0
+                scenes: 0
+                description: ''
   
   /settings/location:
     get:
@@ -330,26 +311,24 @@ paths:
           content:
             application/json:
               example: 
-                houseNumber: 3
-                timezone: Europe/Warsaw
-                timezoneOffset: 7200
-                ntp: true
-                ntpServer: pool.ntp.org
+                houseNumber: 0
+                timezone: ''
+                ntp: bool
+                ntpServer: ''
                 date:
-                  day: 10
-                  month: 9
-                  year: 2020
+                  day: 0
+                  month: 0
+                  year: 0
                 time:
-                  hour: 13
-                  minute: 1
-                latitude: 50.7493303755436
-                longitude: 7.20393838780908
-                city: Poznan
-                temperatureUnit: C
-                windUnit: km/h
-                timeFormat: 24
-                dateFormat: dd.mm.yy
-                decimalMark: .
+                  hour: 0
+                  minute: 0
+                latitude: ''
+                longitude: ''
+                city: ''
+                temperatureUnit: ''
+                windUnit: ''
+                timeFormat: 0
+                dateFormat: ''
     put:
       description: Modify current location
       tags:
@@ -369,13 +348,13 @@ paths:
           content:
             application/json:
               example: 
-                dhcp: true
-                ip: 192.168.1.220
-                mask: 255.255.255.0
-                gateway: 192.168.1.1
-                dns: 192.168.1.1
-                remoteAccess: true
-                remoteAccessSupport: 0
+                dhcp: bool
+                ip: ''
+                mask: ''
+                gateway: ''
+                dns: ''
+                remoteAccess: bool
+                remoteAccessSupport: int32
     put:
       description: Modify current network settings
       tags:
@@ -2965,37 +2944,11 @@ paths:
   
   
   
-  /api/linkedDevices:
+  /voip:
     get:
-      description: return unknown
+      description: Get list of all available voip devices
       tags:
-        - General
-      responses:
-        '200':
-          description: ok
-          content:
-            application/json:
-              example:
-                []
-  
-  /api/virtualDevices:
-    get:
-      description: return unknown
-      tags:
-        - General
-      responses:
-        '200':
-          description: ok
-          content:
-            application/json:
-              example:
-                []
-  
-  /api/voip:
-    get:
-      description: return unknown
-      tags:
-        - General
+        - voip
       responses:
         '200':
           description: ok
@@ -3003,15 +2956,86 @@ paths:
             application/json:
               example:
                 voipDevices:
-                  - id: 2
-                    sipDisplayName: _
-                    sipUserID: '1'
-                    deviceIcon: '91'
-  
-
+                  - id: 0
+                    sipDisplayName: ''
+                    sipUserID: ''
+                    deviceIcon: ''
   
   
-  /api/panels/event:
+  
+  /passwordForgotten:
+    get:
+      parameters:
+        - name: login
+          description: Username
+          in: query
+          required: true
+          schema:
+            type: string
+          example: admin
+      description: Password Forgotten
+      tags:
+        - passwordForgotten
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                status: OK
+                
+  
+  
+  /networkDiscovery/arp:
+    post:
+      description: Network Discovery
+      requestBody:
+        description: Optional description in *Markdown*
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      tags:
+        - networkDiscovery
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                - ip: Ip-Address
+                  mac: 'MAC-Address'
+                  vendor: Vendor
+  
+  
+  /linkedDevices:
+    get:
+      description: return unknown
+      tags:
+        - General
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+  
+  /virtualDevices:
+    get:
+      description: return unknown
+      tags:
+        - General
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+  
+  /panels/event:
     get:
       parameters:
         - name: from
@@ -3048,7 +3072,7 @@ paths:
                   newValue: 22.9
                   icon: null
   
-  /api/plugins/types:
+  /plugins/types:
     get:
       description: return unknown
       tags:
@@ -3065,7 +3089,7 @@ paths:
                   - name: com.fibaro.yrWeather
                     predefined: true
   
-  /api/plugins/installed:
+  /plugins/installed:
     get:
       description: return unknown
       tags:
@@ -3081,9 +3105,7 @@ paths:
                 - name: com.fibaro.yrWeather
                   predefined: true
   
-
-  
-  /api/zwaveSettings:
+  /zwaveSettings:
     get:
       description: return unknown
       tags:
@@ -3099,101 +3121,7 @@ paths:
                 minDevicePollingInterval: 5000
                 minGlobalPollingInterval: 125000
   
-  /api/devices/{deviceid}:
-    get:
-      parameters:
-        - name: deviceid
-          in: path
-          description: id of the device
-          required: true
-          schema:
-            type: integer
-            format: int32
-          example: 1
-      description: return unknown
-      tags:
-        - Undocumented
-      responses:
-        '200':
-          description: ok
-          content:
-            application/json:
-              example:
-                id: 1
-                name: zwave
-                roomID: 0
-                type: com.fibaro.zwavePrimaryController
-                baseType: ''
-                enabled: true
-                visible: false
-                isPlugin: false
-                parentId: 0
-                remoteGatewayId: 0
-                interfaces:
-                  - zwave
-                properties:
-                  UIMessageSendTime: '0'
-                  autoConfig: '0'
-                  configured: true
-                  date: a
-                  dead: 'false'
-                  deviceControlType: '0'
-                  deviceIcon: '28'
-                  disabled: '1'
-                  emailNotificationID: '0'
-                  emailNotificationType: '0'
-                  endPoint: '0'
-                  endPointId: '0'
-                  homeIdHash: cebf407769af35003e6d21896cc320726501e4cb
-                  log: ''
-                  logTemp: ''
-                  manufacturer: ''
-                  markAsDead: 'true'
-                  model: ''
-                  nodeID: '1'
-                  nodeId: '0'
-                  parameters: []
-                  parametersTemplate: '0'
-                  pollingDeadDevice: 'true'
-                  pollingTime: '1354829138'
-                  pollingTimeNext: '1354837724'
-                  pollingTimeSec: 125
-                  productInfo: ''
-                  pushNotificationID: '0'
-                  pushNotificationType: '0'
-                  remoteGatewayId: '0'
-                  requestNodeNeighborStat: '0'
-                  requestNodeNeighborStatTimeStemp: ''
-                  requestNodeNeighborState: ''
-                  requestNodeNeighborStateTimeStemp: ''
-                  saveLogs: 'true'
-                  serialNumber: ''
-                  showChildren: '1'
-                  smsNotificationID: '0'
-                  smsNotificationType: '0'
-                  status: STAT_IDLE
-                  sunriseHour: '06:59'
-                  sunsetHour: '19:55'
-                  useTemplate: 'true'
-                  userDescription: ''
-                  value: '0'
-                  zwaveBuildVersion: '3.67'
-                  zwaveCompany: Unknown
-                  zwaveInfo: ''
-                  zwaveRegion: EU
-                  zwaveVersion: '4.33'
-                actions:
-                  pollingDeadDevice: 1
-                  pollingTimeSec: 1
-                  reconfigure: 0
-                  requestNodeNeighborUpdate: 1
-                  turnOff: 0
-                  turnOn: 0
-                created: 1598718830
-                modified: 1598718830
-                sortOrder: 1
-  
-  /api/update:
+  /update:
     get:
       description: return unknown
       tags:
@@ -3223,7 +3151,7 @@ paths:
                 newestBetaVersion: '4.582'
                 allConditionsMet: true
   
-  /api/interface/data:
+  /interface/data:
     get:
       description: return unknown
       tags:
@@ -6446,7 +6374,7 @@ paths:
                   alarmEnabled: false
                 globalVariables: []
   
-  /api/notificationCenter:
+  /notificationCenter:
     get:
       description: return unknown
       tags:
@@ -6459,7 +6387,7 @@ paths:
               example:
                 []
   
-  /api/userActivity:
+  /userActivity:
     get:
       description: return unknown
       tags:
@@ -6476,7 +6404,7 @@ paths:
                   userId: 2
                   type: HCUser
   
-  /api/home:
+  /home:
     get:
       description: return unknown
       tags:
@@ -6504,7 +6432,7 @@ paths:
                 firstRunAfterUpdate: false
                 configured: true
   
-  /api/currency:
+  /currency:
     get:
       description: return unknown
       tags:
@@ -6517,6 +6445,3 @@ paths:
               example:
                 value: 0
                 currency: ''
-  
-  
-                
