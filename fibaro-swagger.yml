@@ -10,13 +10,248 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 servers:
-  - url: http://gateway.linksmart.eu:8090/
+  - url: http://gateway.linksmart.eu:8090/api
 paths:
-  /api/settings/info:
+  /panels/energy:
     get:
-      description: Respond the status of the GW
+      parameters: 
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+          examples:
+            rooms:
+              value: rooms
+            devices:
+              value: devices
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      description: Get energy
       tags:
-        - Settings
+        - consumption
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                - id: 7
+                  powerH: 0.07
+                  powerD: 0.87
+                  powerW: 5.29
+                  powerM: 14.09
+                  costH: 0
+                  costD: 0
+                  costW: 0
+                  costM: 0
+  
+  /panels/temperature:
+    get:
+      parameters: 
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+          examples:
+            rooms:
+              value: rooms
+            devices:
+              value: devices
+        - name: method
+          in: query
+          required: true
+          schema:
+            type: string
+          examples: 
+            single:
+              value: single
+            compare:
+              value: compare
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      description: Get temperature
+      tags:
+        - consumption
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                - id: 16
+                  temperatureH: 21.3
+                  temperatureD: 18.85
+                  temperatureW: 20.01
+                  temperatureM: 20.48
+  
+  /energy/{from}/{to}/{dataset}/{type}/{unit}/{deviceid}:
+    get:
+      parameters:
+        - name: from
+          in: path
+          description: Can be unix timestamp or now-seconds = "now-15"
+          required: true
+          schema:
+              anyOf:
+                - type: string
+                - type: integer
+          example: now-15
+        - name: to
+          in: path
+          description: Can be unix timestamp or now-seconds = "now-15"
+          required: true
+          schema:
+              anyOf:
+                - type: string
+                - type: integer
+          example: now
+        - name: dataset
+          in: path
+          description: Type of set data
+          required: true
+          schema:
+            type: string
+          examples:
+            summary:
+              value: summary-graph
+            compare:
+              value: compare
+        - name: type
+          in: path
+          description: Type of monitored section
+          required: true
+          schema:
+            type: string
+          examples:
+            rooms:
+              value: rooms
+            devices:
+              value: devices
+        - name: unit
+          in: path
+          description: Unit what we wanna get
+          required: true
+          schema:
+            type: string
+          examples:
+            money:
+              value: money
+            power:
+              value: power
+        - name: deviceid
+          in: path
+          description: id of the device
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      description: Get energy from/to
+      tags:
+        - consumption
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                - - 1599742993000
+                  - 245.5
+                - - 1599743003000
+                  - 133.9
+                - - 1599743008000
+                  - 133.9
+  
+  /temperature/{from}/{to}/{dataset}/{type}/temperature/{deviceid}:
+    get:
+      parameters:
+        - name: from
+          in: path
+          description: Can be unix timestamp or now-seconds = "now-15"
+          required: true
+          schema:
+              anyOf:
+                - type: string
+                - type: integer
+          example: now-15
+        - name: to
+          in: path
+          description: Can be unix timestamp or now-seconds = "now-15"
+          required: true
+          schema:
+              anyOf:
+                - type: string
+                - type: integer
+          example: now
+        - name: dataset
+          in: path
+          description: Type of set data
+          required: true
+          schema:
+            type: string
+          examples:
+            summary:
+              value: summary-graph
+            compare:
+              value: compare
+        - name: type
+          in: path
+          description: Type of monitored section
+          required: true
+          schema:
+            type: string
+          examples:
+            rooms:
+              value: rooms
+            devices:
+              value: devices
+        - name: deviceid
+          in: path
+          description: id of the device
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      description: Get temperature from/to
+      tags:
+        - consumption
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                - - 1600097238000
+                  - 30.5
+                - - 1600110016000
+                  - 24.1
+                - - 1600130618000
+                  - 19.9
+                - - 1600151135000
+                  - 17.3
+                - - 1600157238000
+                  - 17.3
+  
+  
+  
+  /settings/info:
+    get:
+      description: Get current settings
+      tags:
+        - settings
       responses:
         '200':
           description: ok
@@ -56,12 +291,39 @@ paths:
                 updateBetaAvailable: false
                 newestStableVersion: '4.600'
                 newestBetaVersion: '4.582'
-  
-  /api/settings/location:
-    get:
-      description: retrun the location of the gw
+    put:
+      description: Modify current settings
       tags:
-        - Settings
+        - settings
+      responses:
+        '200':
+          description: ok
+  
+  /service/backups:
+    get:
+      description: Get current backup settings
+      tags:
+        - settings
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                - totalSpace: 500.0M
+                  usedSpace: 0.0B
+                  usedSpacePercentage: 0%
+                  type: remote
+                  status: online
+                  backups: []
+                - type: remoteOld
+                  backups: []
+  
+  /settings/location:
+    get:
+      description: Get current location
+      tags:
+        - settings
       responses:
         '200':
           description: ok
@@ -88,12 +350,19 @@ paths:
                 timeFormat: 24
                 dateFormat: dd.mm.yy
                 decimalMark: .
-  
-  /api/settings/network:
-    get:
-      description: return the ip settings of the gw
+    put:
+      description: Modify current location
       tags:
-        - Settings
+        - settings
+      responses:
+        '200':
+          description: ok
+  
+  /settings/network:
+    get:
+      description: Get current network settings
+      tags:
+        - settings
       responses:
         '200':
           description: ok
@@ -107,159 +376,212 @@ paths:
                 dns: 192.168.1.1
                 remoteAccess: true
                 remoteAccessSupport: 0
-  
-  /api/devices:
-    get:
-      description: return complete device tree
+    put:
+      description: Modify current network settings
       tags:
-        - General
+        - settings
+      responses:
+        '200':
+          description: ok
+  
+  /settings/network/enableRemoteAccessSupport:
+    post:
+      description: Enable remote access support timeout
+      tags:
+        - settings
+      responses:
+        '200':
+          description: ok
+  
+  /settings/network/disableRemoteAccessSupport:
+    post:
+      description: Disable remote access support timeout
+      tags:
+        - settings
+      responses:
+        '200':
+          description: ok
+  
+  /settings/recovery:
+    get:
+      description: Get recovery state
+      tags:
+        - settings
+      responses:
+        '200':
+          description: ok
+    post:
+      description: Verify recovery checksum
+      tags:
+        - settings
+      responses:
+        '200':
+          description: ok
+  
+  
+  
+  /loginStatus:
+    get:
+      description: Get login status, return status = false if no user is logged in
+      tags:
+        - loginStatus
       responses:
         '200':
           description: ok
           content:
             application/json:
               example:
-                - id: 1
-                  name: zwave
-                  roomID: 0
-                  type: com.fibaro.zwavePrimaryController
-                  baseType: ''
-                  enabled: true
-                  visible: false
-                  isPlugin: false
-                  parentId: 0
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - zwave
-                  properties:
-                    UIMessageSendTime: '0'
-                    autoConfig: '0'
-                    configured: true
-                    date: a
-                    dead: 'false'
-                    deviceControlType: '0'
-                    deviceIcon: '28'
-                    disabled: '1'
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    endPoint: '0'
-                    endPointId: '0'
-                    homeIdHash: cebf407769af35003e6d21896cc320726501e4cb
-                    log: ''
-                    logTemp: ''
-                    manufacturer: ''
-                    markAsDead: 'true'
-                    model: ''
-                    nodeID: '1'
-                    nodeId: '0'
-                    parameters: []
-                    parametersTemplate: '0'
+                status: true
+                userID: 2
+                username: philip.schell@fit.fraunhofer.de
+                type: superuser
+                analyticsUserIdHash: 798adf6ec68de5e939f236fa3f303688
+  
+  
+  
+  /refreshStates:
+    get:
+      parameters:
+        - name: last
+          description: number of the last getted item
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 10000
+      description: Refresh sates
+      tags:
+        - refreshStates
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                status: IDLE
+                last: 383463
+                date: '14:50 | 10.9.2020'
+                timestamp: 1599742224
+                logs:
+                  - '[09:50:44] 4: Requesting neighbor list from the node is in progress'
+                  - '[09:51:05] 4: Getting new neighbor list failed'
+                  - '[09:51:36] 6: Requesting neighbor list from the node is in progress'
+                  - '[09:51:36] 6: New neighbor list received'
+                  - '[13:33:58] 8: Requesting neighbor list from the node is in progress'
+                  - '[13:34:00] 8: New neighbor list received'
+                  - '[14:17:47] 13: Requesting neighbor list from the node is in progress'
+                  - '[14:17:48] 13: New neighbor list received'
+                  - '[14:30:15] 22: Requesting neighbor list from the node is in progress'
+                  - '[14:30:17] 22: New neighbor list received'
+                  - '[09:04:37] 6: Requesting neighbor list from the node is in progress'
+                  - '[09:04:38] 6: New neighbor list received'
+                  - '[09:05:26] 6: Requesting neighbor list from the node is in progress'
+                  - '[09:05:27] 6: New neighbor list received'
+                  - '[13:30:52] ID 4: Received association report from group 1'
+                  - '[13:30:52] ID 4: Received association report from group 2'
+                  - '[13:30:53] ID 4: Received association report from group 3'
+                  - '[13:31:43] ID 6: Received association report from group 1'
+                  - '[13:31:44] ID 6: Received association report from group 2'
+                  - '[13:31:44] ID 6: Received association report from group 3'
+                  - '[13:34:51] ID 18: Received association report from group 1'
+                  - '[13:34:51] ID 18: Received association report from group 2'
+                  - '[13:34:52] ID 18: Received association report from group 3'
+                  - '[13:36:09] ID 6: Received association report from group 1'
+                  - '[13:36:09] ID 6: Received association report from group 2'
+                  - '[13:36:09] ID 6: Received association report from group 3'
+                  - '[13:36:45] ID 4: Received association report from group 1'
+                  - '[13:36:45] ID 4: Received association report from group 2'
+                  - '[13:36:45] ID 4: Received association report from group 3'
+                  - '[14:51:16] ID 22: Received association report from group 1'
+                  - '[14:51:17] ID 22: Received association report from group 2'
+                  - '[14:51:18] ID 22: Received association report from group 3'
+                  - '[14:51:19] ID 22: Received association report from group 4'
+                  - '[14:51:20] ID 22: Received association report from group 5'
+                  - '[14:51:21] ID 22: Received association report from group 6'
+                  - '[14:51:22] ID 22: Received association report from group 7'
+                  - '[15:26:02] ID 8: Received association report from group 1'
+                  - '[15:26:02] ID 8: Received association report from group 2'
+                  - '[15:26:02] ID 8: Received association report from group 3'
+                  - '[17:54:03] ID 13: Received association report from group 1'
+                  - '[17:54:04] ID 13: Received association report from group 2'
+                  - '[17:54:05] ID 13: Received association report from group 3'
+                  - '[21:15:22] ID 18: Application rejected request'
+                events:
+                  - type: DevicePropertyUpdatedEvent
+                    data:
+                      id: 7
+                      property: power
+                      oldValue: 151.1
+                      newValue: 110.6
+                  - type: DevicePropertyUpdatedEvent
+                    data:
+                      id: 7
+                      property: power
+                      oldValue: 110.6
+                      newValue: 153.4
+                  - type: DevicePropertyUpdatedEvent
+                    data:
+                      id: 7
+                      property: power
+                      oldValue: 153.4
+                      newValue: 114.4
+                  - type: DevicePropertyUpdatedEvent
+                    data:
+                      id: 7
+                      property: power
+                      oldValue: 114.4
+                      newValue: 137.5
+                  - type: DevicePropertyUpdatedEvent
+                    data:
+                      id: 7
+                      property: power
+                      oldValue: 137.5
+                      newValue: 235.1
+                  - type: DevicePropertyUpdatedEvent
+                    data:
+                      id: 7
+                      property: icon
+                      oldValue:
+                        path: fibaro/icons/com.fibaro.FGWP_EU/plug8.png
+                        source: HC
+                      newValue:
+                        path: fibaro/icons/com.fibaro.FGWP_EU/plug3.png
+                        source: HC
+                  - type: DevicePropertyUpdatedEvent
+                    data:
+                      id: 7
+                      property: color
+                      oldValue: blue
+                      newValue: green
+                  - type: DevicePropertyUpdatedEvent
+                    data:
+                      id: 7
+                      property: power
+                      oldValue: 235.1
+                      newValue: 130.1
+                  - type: DevicePropertyUpdatedEvent
+                    data:
+                      id: 7
+                      property: icon
+                      oldValue:
+                        path: fibaro/icons/com.fibaro.FGWP_EU/plug3.png
+                        source: HC
+                      newValue:
+                        path: fibaro/icons/com.fibaro.FGWP_EU/plug8.png
+                        source: HC
+                  - type: DevicePropertyUpdatedEvent
+                    data:
+                      id: 7
+                      property: color
+                      oldValue: green
+                      newValue: blue
+                changes:
+                  - id: 1
                     pollingDeadDevice: 'true'
-                    pollingTime: '1354829138'
-                    pollingTimeNext: '1354837724'
-                    pollingTimeSec: 125
-                    productInfo: ''
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    requestNodeNeighborStat: '0'
-                    requestNodeNeighborStatTimeStemp: ''
-                    requestNodeNeighborState: ''
-                    requestNodeNeighborStateTimeStemp: ''
-                    saveLogs: 'true'
-                    serialNumber: ''
-                    showChildren: '1'
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
-                    status: STAT_IDLE
                     sunriseHour: '06:59'
                     sunsetHour: '19:55'
-                    useTemplate: 'true'
-                    userDescription: ''
-                    value: '0'
-                    zwaveBuildVersion: '3.67'
-                    zwaveCompany: Unknown
-                    zwaveInfo: ''
-                    zwaveRegion: EU
-                    zwaveVersion: '4.33'
-                  actions:
-                    pollingDeadDevice: 1
-                    pollingTimeSec: 1
-                    reconfigure: 0
-                    requestNodeNeighborUpdate: 1
-                    turnOff: 0
-                    turnOn: 0
-                  created: 1598718830
-                  modified: 1598718830
-                  sortOrder: 1
-                - id: 2
-                  name: philip.schell@fit.fraunhofer.de
-                  roomID: 0
-                  type: HC_user
-                  baseType: com.fibaro.voipUser
-                  enabled: true
-                  visible: true
-                  isPlugin: false
-                  parentId: 0
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - voip
-                  properties:
-                    Email: philip.schell@fit.fraunhofer.de
-                    HotelModeRoom: '0'
-                    LastPwdChange: '1598369555'
-                    Latitude: '52.43'
-                    Location: 52.4320294933;16.8449900900
-                    LocationTime: '2012-12-06 12:15'
-                    LocationTimestamp: '1354792521'
-                    Longitude: '16.84'
-                    PreviousLatitude: '52.43'
-                    PreviousLocation: 52.4320252015;16.8449947542
-                    PreviousLocationTime: '2012-12-06 12:14'
-                    PreviousLocationTimestamp: '1354792461'
-                    PreviousLongitude: '16.84'
-                    SendNotifications: 'true'
-                    TrackUser: '0'
-                    UserType: superuser
-                    atHome: 'false'
-                    deviceIcon: '91'
-                    fidUuid: ''
-                    firmwareUpdateLevel: '0'
-                    initialWizard: 'false'
-                    saveLogs: '1'
-                    sipDisplayName: _
-                    sipUserID: '1'
-                    sipUserPassword: ''
-                    useOptionalArmPin: 'false'
-                    usePin: 'false'
-                  actions:
-                    sendEmail: 2
-                    sendPush: 1
-                    setSipDisplayName: 1
-                    setSipUserID: 1
-                    setSipUserPassword: 1
-                  created: 1598718833
-                  modified: 1598718833
-                  sortOrder: 2
-                - id: 3
-                  name: YR Weather
-                  roomID: 222
-                  type: com.fibaro.yrWeather
-                  baseType: com.fibaro.weather
-                  enabled: true
-                  visible: true
-                  isPlugin: true
-                  parentId: 0
-                  remoteGatewayId: 0
-                  viewXml: true
-                  configXml: true
-                  interfaces: []
-                  view: []
-                  properties:
+                  - id: 3
                     ConditionCode: '32'
                     ConditionCodeConverted: '32'
                     Humidity: '46.70'
@@ -267,1745 +589,300 @@ paths:
                     Temperature: '19.70'
                     WeatherCondition: clear
                     Wind: '5.04'
-                    categories: '["other"]'
-                    dead: 'false'
-                    deadReason: ''
-                    deviceControlType: '0'
-                    deviceIcon: '28'
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    hidden: 'false'
-                    log: ''
-                    logTemp: ''
-                    manufacturer: ''
-                    model: ''
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    saveLogs: 'true'
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
                     ui.Current_Weather_Label.caption: |-
                       Temp.: 19.7°C
                 
                       Humidity: 46.7%
                 
                       Wind: 5km/h
-                    ui.config.hidden.caption: This device is hidden in the system.
-                    ui.config.hidden.enabled: true
-                    ui.config.section1.caption: Configuration
-                    ui.config.section1.enabled: true
-                    userDescription: ''
-                  actions: {}
-                  created: 1598718833
-                  modified: 1598718833
-                  sortOrder: 3
-                - id: 4
-                  name: Wall Plug
-                  roomID: 220
-                  type: com.fibaro.zwaveDevice
-                  baseType: com.fibaro.device
-                  enabled: true
-                  visible: false
-                  isPlugin: false
-                  parentId: 1
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - polling
-                    - zwave
-                    - zwaveAssociation
-                    - zwaveConfiguration
-                    - zwaveMultiChannelAssociation
-                    - zwaveSlaveRouting
-                  properties:
-                    categories: '["other"]'
-                    configured: true
+                  - id: 4
                     dead: 'false'
                     deadReason: ''
-                    deviceControlType: '0'
-                    deviceIcon: '28'
-                    deviceSpecificData: ''
-                    deviceSpecificIdType: ''
-                    deviceState: Configured
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    endPointId: '0'
-                    lastWorkingRoute: '[1]'
-                    lastWorkingRouteRequestStatus: ok
-                    lastWorkingRouteRequestTimestamp: '0'
                     lastWorkingRouteResponseTimestamp: '1598773844'
                     log: ''
                     logTemp: ''
-                    manufacturer: ''
-                    markAsDead: 'true'
-                    model: ''
-                    neighborList: '[1,6,13,18,22]'
                     neighborListRequestStatus: error
-                    neighborListRequestTimestamp: '0'
-                    neighborListResponseTimestamp: '1598718854'
-                    nodeId: '2'
-                    parameters:
-                      - id: 1
-                        size: 1
-                      - id: 16
-                        size: 1
-                      - id: 34
-                        size: 1
-                      - id: 35
-                        size: 1
-                      - id: 39
-                        size: 2
-                      - id: 40
-                        size: 1
-                      - id: 42
-                        size: 1
-                      - id: 43
-                        size: 1
-                      - id: 45
-                        size: 1
-                      - id: 47
-                        size: 2
-                      - id: 49
-                        size: 1
-                      - id: 50
-                        size: 2
-                      - id: 51
-                        size: 2
-                      - id: 52
-                        size: 1
-                      - id: 60
-                        size: 2
-                      - id: 61
-                        size: 1
-                      - id: 62
-                        size: 1
-                      - id: 63
-                        size: 1
-                      - id: 70
-                        size: 2
-                    parametersTemplate: '718'
-                    pollingInterval: '0'
-                    pollingTimeSec: 0
-                    productInfo: '1,15,6,0,16,0,25,25'
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    saveLogs: 'true'
-                    serialNumber: ''
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
-                    useTemplate: 'true'
-                    userDescription: ''
-                    zwaveCompany: Fibargroup
-                    zwaveInfo: '3,3,52'
-                    zwaveSoftwareVersion: '{}'
-                    zwaveVersion: '25.25'
-                  actions:
-                    getLastWorkingRoute: 0
-                    getNeighborList: 0
-                    getParameter: 1
-                    poll: 0
-                    reconfigure: 0
-                    requestNodeNeighborUpdate: 0
-                    setParameter: 2
-                  created: 1598718833
-                  modified: 1598718833
-                  sortOrder: 4
-                - id: 5
-                  name: Fridge
-                  roomID: 220
-                  type: com.fibaro.FGWP101
-                  baseType: com.fibaro.FGWP
-                  enabled: true
-                  visible: true
-                  isPlugin: false
-                  parentId: 4
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - deviceGrouping
-                    - energy
-                    - fibaroFirmwareUpdate
-                    - power
-                    - zwave
-                    - zwaveMultiChannelAssociation
-                  properties:
-                    pollingTimeSec: 0
-                    zwaveCompany: Fibargroup
-                    zwaveInfo: '3,3,52'
-                    zwaveVersion: '25.25'
-                    categories: '["lights"]'
-                    color: white
-                    configured: true
+                    parameters: '[{"id":1,"size":1},{"id":16,"size":1},{"id":34,"size":1},{"id":35,"size":1},{"id":39,"size":2},{"id":40,"size":1},{"id":42,"size":1},{"id":43,"size":1},{"id":45,"size":1},{"id":47,"size":2},{"id":49,"size":1},{"id":50,"size":2},{"id":51,"size":2},{"id":52,"size":1},{"id":60,"size":2},{"id":61,"size":1},{"id":62,"size":1},{"id":63,"size":1},{"id":70,"size":2}]'
+                  - id: 5
                     dead: 'false'
                     deadReason: ''
-                    deviceControlType: '20'
-                    deviceGroup: '[]'
-                    deviceGroupMaster: '0'
-                    deviceIcon: '124'
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    endPointId: '0'
-                    energy: '5.82'
-                    firmwareUpdate: '{"info":"","progress":0,"status":"UpToDate","updateVersion":"25.25"}'
-                    icon: '{"path":"fibaro/icons/com.fibaro.FGWP_EU/plug1.png","source":"HC"}'
+                    energy: '5.85'
                     log: ''
                     logTemp: ''
-                    manufacturer: ''
-                    markAsDead: 'true'
-                    model: ''
-                    nodeId: '2'
-                    parametersTemplate: '718'
                     power: '0.00'
-                    productInfo: '1,15,6,0,16,0,25,25'
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    saveLogs: 'true'
-                    serialNumber: ''
-                    showEnergy: 'true'
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
-                    updateVersion: ''
-                    useTemplate: 'true'
-                    userDescription: ''
-                    value: 'true'
-                  actions:
-                    abortUpdate: 1
-                    reconfigure: 0
-                    reset: 0
-                    retryUpdate: 1
-                    startUpdate: 1
-                    turnOff: 0
-                    turnOn: 0
-                    updateFirmware: 1
-                  created: 1598718833
-                  modified: 1598718833
-                  sortOrder: 5
-                - id: 6
-                  name: Wall Plug
-                  roomID: 222
-                  type: com.fibaro.zwaveDevice
-                  baseType: com.fibaro.device
-                  enabled: true
-                  visible: false
-                  isPlugin: false
-                  parentId: 1
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - polling
-                    - zwave
-                    - zwaveAssociation
-                    - zwaveConfiguration
-                    - zwaveMultiChannelAssociation
-                    - zwaveSlaveRouting
-                  properties:
-                    categories: '["other"]'
-                    configured: true
+                  - id: 6
                     dead: 'false'
                     deadReason: ''
-                    deviceControlType: '0'
-                    deviceIcon: '28'
-                    deviceSpecificData: ''
-                    deviceSpecificIdType: ''
-                    deviceState: Configured
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    endPointId: '0'
-                    lastWorkingRoute: '[1]'
-                    lastWorkingRouteRequestStatus: ok
-                    lastWorkingRouteRequestTimestamp: '0'
                     lastWorkingRouteResponseTimestamp: '1598943927'
                     log: ''
                     logTemp: ''
-                    manufacturer: ''
-                    markAsDead: 'true'
-                    model: ''
                     neighborList: '[1,13,22]'
                     neighborListRequestStatus: ok
                     neighborListRequestTimestamp: '1598943926'
                     neighborListResponseTimestamp: '1598943927'
-                    nodeId: '3'
-                    parameters:
-                      - id: 1
-                        size: 1
-                      - id: 16
-                        size: 1
-                      - id: 34
-                        size: 1
-                      - id: 35
-                        size: 1
-                      - id: 39
-                        size: 2
-                      - id: 40
-                        size: 1
-                      - id: 42
-                        size: 1
-                      - id: 43
-                        size: 1
-                      - id: 45
-                        size: 1
-                      - id: 47
-                        size: 2
-                      - id: 49
-                        size: 1
-                      - id: 50
-                        size: 2
-                      - id: 51
-                        size: 2
-                      - id: 52
-                        size: 1
-                      - id: 60
-                        size: 2
-                      - id: 61
-                        size: 1
-                      - id: 62
-                        size: 1
-                      - id: 63
-                        size: 1
-                      - id: 70
-                        size: 2
-                    parametersTemplate: '718'
-                    pollingInterval: '0'
-                    pollingTimeSec: 0
-                    productInfo: '1,15,6,0,16,0,25,25'
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    saveLogs: 'true'
-                    serialNumber: ''
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
-                    useTemplate: 'true'
-                    userDescription: ''
-                    zwaveCompany: Fibargroup
-                    zwaveInfo: '3,3,52'
-                    zwaveSoftwareVersion: '{}'
-                    zwaveVersion: '25.25'
-                  actions:
-                    getLastWorkingRoute: 0
-                    getNeighborList: 0
-                    getParameter: 1
-                    poll: 0
-                    reconfigure: 0
-                    requestNodeNeighborUpdate: 0
-                    setParameter: 2
-                  created: 1598718833
-                  modified: 1598718833
-                  sortOrder: 6
-                - id: 7
-                  name: Computer
-                  roomID: 222
-                  type: com.fibaro.FGWP101
-                  baseType: com.fibaro.FGWP
-                  enabled: true
-                  visible: true
-                  isPlugin: false
-                  parentId: 6
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - deviceGrouping
-                    - energy
-                    - fibaroFirmwareUpdate
-                    - power
-                    - zwave
-                    - zwaveMultiChannelAssociation
-                  properties:
-                    pollingTimeSec: 0
-                    zwaveCompany: Fibargroup
-                    zwaveInfo: '3,3,52'
-                    zwaveVersion: '25.25'
-                    categories: '["lights"]'
-                    color: white
-                    configured: true
+                    parameters: '[{"id":1,"size":1},{"id":16,"size":1},{"id":34,"size":1},{"id":35,"size":1},{"id":39,"size":2},{"id":40,"size":1},{"id":42,"size":1},{"id":43,"size":1},{"id":45,"size":1},{"id":47,"size":2},{"id":49,"size":1},{"id":50,"size":2},{"id":51,"size":2},{"id":52,"size":1},{"id":60,"size":2},{"id":61,"size":1},{"id":62,"size":1},{"id":63,"size":1},{"id":70,"size":2}]'
+                  - id: 7
+                    color: blue
                     dead: 'false'
                     deadReason: ''
-                    deviceControlType: '20'
-                    deviceGroup: '[]'
-                    deviceGroupMaster: '0'
-                    deviceIcon: '124'
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    endPointId: '0'
-                    energy: '17.59'
-                    firmwareUpdate: '{"info":"","progress":0,"status":"UpToDate","updateVersion":"25.25"}'
-                    icon: '{"path":"fibaro/icons/com.fibaro.FGWP_EU/plug1.png","source":"HC"}'
+                    energy: '17.74'
+                    icon: '{"path":"fibaro/icons/com.fibaro.FGWP_EU/plug8.png","source":"HC"}'
                     log: ''
                     logTemp: ''
-                    manufacturer: ''
-                    markAsDead: 'true'
-                    model: ''
-                    nodeId: '3'
-                    parametersTemplate: '718'
-                    power: '85.80'
-                    productInfo: '1,15,6,0,16,0,25,25'
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    saveLogs: 'true'
-                    serialNumber: ''
-                    showEnergy: 'true'
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
-                    updateVersion: ''
-                    useTemplate: 'true'
-                    userDescription: ''
-                    value: 'true'
-                  actions:
-                    abortUpdate: 1
-                    reconfigure: 0
-                    reset: 0
-                    retryUpdate: 1
-                    startUpdate: 1
-                    turnOff: 0
-                    turnOn: 0
-                    updateFirmware: 1
-                  created: 1598718833
-                  modified: 1598718833
-                  sortOrder: 7
-                - id: 8
-                  name: Motion Sensor
-                  roomID: 220
-                  type: com.fibaro.zwaveDevice
-                  baseType: com.fibaro.device
-                  enabled: true
-                  visible: false
-                  isPlugin: false
-                  parentId: 1
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - battery
-                    - zwave
-                    - zwaveAssociation
-                    - zwaveConfiguration
-                    - zwaveMultiChannelAssociation
-                    - zwaveSlaveRouting
-                    - zwaveWakeup
-                  properties:
-                    batteryLevel: '100'
-                    batteryLowNotification: 'true'
-                    categories: '["other"]'
-                    configured: true
-                    dead: 'false'
-                    deadReason: ''
-                    defInterval: '0'
-                    deviceControlType: '0'
-                    deviceIcon: '28'
-                    deviceSpecificData: ''
-                    deviceSpecificIdType: ''
-                    deviceState: Configured
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    endPointId: '0'
-                    lastWorkingRoute: '[1]'
-                    lastWorkingRouteRequestStatus: ok
-                    lastWorkingRouteRequestTimestamp: '0'
+                    power: '130.10'
+                  - id: 8
                     lastWorkingRouteResponseTimestamp: '1598787241'
                     log: ''
                     logTemp: ''
-                    manufacturer: ''
-                    markAsDead: 'true'
-                    maxInterval: '0'
-                    minInterval: '0'
-                    model: ''
                     neighborList: '[4]'
                     neighborListRequestStatus: ok
-                    neighborListRequestTimestamp: '0'
                     neighborListResponseTimestamp: '1598787241'
-                    nodeId: '4'
-                    parameters:
-                      - id: 1
-                        size: 1
-                        value: 10
-                      - id: 2
-                        size: 1
-                        value: 2
-                      - id: 3
-                        size: 1
-                        value: 1
-                      - id: 4
-                        size: 1
-                        value: 2
-                      - id: 6
-                        size: 2
-                        value: 5
-                      - id: 8
-                        size: 1
-                        value: 0
-                      - id: 9
-                        size: 2
-                        value: 200
-                      - id: 12
-                        size: 1
-                        value: 0
-                      - id: 14
-                        size: 1
-                        value: 255
-                      - id: 16
-                        size: 1
-                        value: 0
-                      - id: 20
-                        size: 1
-                        value: 15
-                      - id: 22
-                        size: 2
-                        value: 30
-                      - id: 24
-                        size: 1
-                        value: 0
-                      - id: 26
-                        size: 1
-                        value: 0
-                      - id: 40
-                        size: 2
-                        value: 200
-                      - id: 42
-                        size: 2
-                        value: 0
-                      - id: 60
-                        size: 1
-                        value: 10
-                      - id: 62
-                        size: 2
-                        value: 900
-                      - id: 64
-                        size: 2
-                        value: 0
-                      - id: 66
-                        size: 2
-                        value: 0
-                      - id: 80
-                        size: 1
-                        value: 10
-                      - id: 81
-                        size: 1
-                        value: 50
-                      - id: 82
-                        size: 2
-                        value: 100
-                      - id: 83
-                        size: 2
-                        value: 1000
-                      - id: 86
-                        size: 1
-                        value: 18
-                      - id: 87
-                        size: 1
-                        value: 28
-                      - id: 89
-                        size: 1
-                        value: 1
-                    parametersTemplate: '270'
-                    pollingTimeSec: 0
-                    productInfo: '1,15,8,0,16,1,2,8'
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    saveLogs: 'true'
-                    serialNumber: ''
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
-                    stepInterval: '0'
-                    useTemplate: 'true'
-                    userDescription: ''
-                    wakeUpTime: 18000
-                    zwaveCompany: Fibargroup
-                    zwaveInfo: '3,3,67'
-                    zwaveSoftwareVersion: '{}'
-                    zwaveVersion: '2.8'
-                  actions:
-                    getLastWorkingRoute: 0
-                    getNeighborList: 0
-                    getParameter: 1
-                    reconfigure: 0
-                    requestNodeNeighborUpdate: 0
-                    setInterval: 1
-                    setParameter: 2
-                  created: 1598718833
-                  modified: 1598718833
-                  sortOrder: 8
-                - id: 9
-                  name: Move
-                  roomID: 220
-                  type: com.fibaro.FGMS001
-                  baseType: com.fibaro.motionSensor
-                  enabled: true
-                  visible: true
-                  isPlugin: false
-                  parentId: 8
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - battery
-                    - fibaroAlarm
-                    - fibaroAlarmArm
-                    - fibaroBreach
-                    - fibaroFirmwareUpdate
-                    - tamper
-                    - zwave
-                    - zwaveMultiChannelAssociation
-                    - zwaveWakeup
-                  properties:
-                    pollingTimeSec: 0
-                    wakeUpTime: 18000
-                    zwaveCompany: Fibargroup
-                    zwaveInfo: '3,3,67'
-                    zwaveVersion: '2.8'
-                    alarmDelay: '0'
-                    alarmExclude: 'true'
-                    alarmTimeTimestamp: '0'
-                    armConditions: '{"auto":false,"devices":[{"id":9,"propertyName":"value","propertyValue":"0"}],"time":0}'
-                    armConfig: '0'
-                    armDelay: '0'
-                    armError: '{}'
-                    armTimeTimestamp: '0'
-                    armed: 'false'
-                    batteryLevel: '100'
-                    batteryLowNotification: 'true'
-                    categories: '["security"]'
-                    configured: true
-                    dead: 'false'
-                    deadReason: ''
-                    defInterval: '0'
-                    deviceControlType: '0'
-                    deviceIcon: '90'
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    endPointId: '0'
-                    fibaroAlarm: 'false'
-                    firmwareUpdate: '{"info":"","progress":0,"status":"UpToDate","updateVersion":"2.8"}'
+                    parameters: '[{"id":1,"size":1,"value":10},{"id":2,"size":1,"value":2},{"id":3,"size":1,"value":1},{"id":4,"size":1,"value":2},{"id":6,"size":2,"value":5},{"id":8,"size":1,"value":0},{"id":9,"size":2,"value":200},{"id":12,"size":1,"value":0},{"id":14,"size":1,"value":255},{"id":16,"size":1,"value":0},{"id":20,"size":1,"value":15},{"id":22,"size":2,"value":30},{"id":24,"size":1,"value":0},{"id":26,"size":1,"value":0},{"id":40,"size":2,"value":200},{"id":42,"size":2,"value":0},{"id":60,"size":1,"value":10},{"id":62,"size":2,"value":900},{"id":64,"size":2,"value":0},{"id":66,"size":2,"value":0},{"id":80,"size":1,"value":10},{"id":81,"size":1,"value":50},{"id":82,"size":2,"value":100},{"id":83,"size":2,"value":1000},{"id":86,"size":1,"value":18},{"id":87,"size":1,"value":28},{"id":89,"size":1,"value":1}]'
+                  - id: 9
                     lastBreached: '1599737704'
                     log: ''
                     logTemp: ''
-                    manufacturer: ''
-                    markAsDead: 'true'
-                    maxInterval: '0'
-                    minInterval: '0'
-                    model: ''
-                    nodeId: '4'
-                    parametersTemplate: '270'
-                    productInfo: '1,15,8,0,16,1,2,8'
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    saveLogs: 'true'
-                    serialNumber: ''
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
-                    stepInterval: '0'
                     tamper: 'false'
-                    updateVersion: ''
-                    useTemplate: 'true'
-                    userDescription: ''
                     value: 'false'
-                  actions:
-                    abortUpdate: 1
-                    forceArm: 0
-                    meetArmConditions: 0
-                    reconfigure: 0
-                    retryUpdate: 1
-                    setArmed: 1
-                    setInterval: 1
-                    startUpdate: 1
-                    updateFirmware: 1
-                  created: 1598718833
-                  modified: 1598718833
-                  sortOrder: 9
-                - id: 10
-                  name: Temperatur
-                  roomID: 220
-                  type: com.fibaro.temperatureSensor
-                  baseType: com.fibaro.multilevelSensor
-                  enabled: true
-                  visible: true
-                  isPlugin: false
-                  parentId: 8
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - zwave
-                  properties:
-                    pollingTimeSec: 0
-                    wakeUpTime: 18000
-                    zwaveCompany: Fibargroup
-                    zwaveInfo: '3,3,67'
-                    zwaveVersion: '2.8'
-                    categories: '["climate"]'
-                    configured: true
-                    dead: 'false'
-                    deadReason: ''
-                    deviceControlType: '0'
-                    deviceIcon: '30'
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    endPointId: '0'
+                  - id: 10
                     log: ''
                     logTemp: ''
-                    manufacturer: ''
-                    markAsDead: 'true'
-                    model: ''
-                    nodeId: '4'
-                    offset: '0.00'
-                    parametersTemplate: '270'
-                    productInfo: '1,15,8,0,16,1,2,8'
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    saveLogs: 'true'
-                    serialNumber: ''
-                    showFireAlarm: 'true'
-                    showFreezeAlarm: 'false'
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
-                    unit: C
-                    useTemplate: 'true'
-                    userDescription: ''
                     value: '22.60'
-                  actions:
-                    reconfigure: 0
-                  created: 1598718833
-                  modified: 1598718833
-                  sortOrder: 10
-                - id: 11
-                  name: Light
-                  roomID: 220
-                  type: com.fibaro.lightSensor
-                  baseType: com.fibaro.multilevelSensor
-                  enabled: true
-                  visible: true
-                  isPlugin: false
-                  parentId: 8
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - zwave
-                  properties:
-                    pollingTimeSec: 0
-                    wakeUpTime: 18000
-                    zwaveCompany: Fibargroup
-                    zwaveInfo: '3,3,67'
-                    zwaveVersion: '2.8'
-                    categories: '["ambience"]'
-                    configured: true
-                    dead: 'false'
-                    deadReason: ''
-                    deviceControlType: '0'
-                    deviceIcon: '32'
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    endPointId: '0'
+                  - id: 11
                     log: ''
                     logTemp: ''
-                    manufacturer: ''
-                    markAsDead: 'true'
-                    model: ''
-                    nodeId: '4'
-                    parametersTemplate: '270'
-                    productInfo: '1,15,8,0,16,1,2,8'
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    saveLogs: 'true'
-                    serialNumber: ''
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
-                    unit: lux
-                    useTemplate: 'true'
-                    userDescription: ''
-                    value: '30.00'
-                  actions:
-                    reconfigure: 0
-                  created: 1598718834
-                  modified: 1598718834
-                  sortOrder: 11
-                - id: 12
-                  name: Vibration
-                  roomID: 220
-                  type: com.fibaro.seismometer
-                  baseType: com.fibaro.multilevelSensor
-                  enabled: true
-                  visible: true
-                  isPlugin: false
-                  parentId: 8
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - zwave
-                  properties:
-                    pollingTimeSec: 0
-                    wakeUpTime: 18000
-                    zwaveCompany: Fibargroup
-                    zwaveInfo: '3,3,67'
-                    zwaveVersion: '2.8'
-                    categories: '["other"]'
-                    configured: true
-                    dead: 'false'
-                    deadReason: ''
-                    deviceControlType: '0'
-                    deviceIcon: '89'
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    endPointId: '0'
+                  - id: 12
                     log: ''
                     logTemp: ''
-                    manufacturer: ''
-                    markAsDead: 'true'
-                    model: ''
-                    nodeId: '4'
-                    parametersTemplate: '270'
-                    productInfo: '1,15,8,0,16,1,2,8'
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    saveLogs: 'true'
-                    serialNumber: ''
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
-                    unit: ''
-                    useTemplate: 'true'
-                    userDescription: ''
+                    parameters: '[{"id":1,"size":1},{"id":2,"size":1},{"id":3,"size":1},{"id":4,"size":1},{"id":6,"size":2},{"id":8,"size":1},{"id":9,"size":2},{"id":12,"size":1},{"id":14,"size":1},{"id":16,"size":1},{"id":20,"size":1},{"id":22,"size":2},{"id":24,"size":1},{"id":26,"size":1},{"id":40,"size":2},{"id":42,"size":2},{"id":60,"size":1},{"id":62,"size":2},{"id":64,"size":2},{"id":66,"size":2},{"id":80,"size":1},{"id":81,"size":1},{"id":82,"size":2},{"id":83,"size":2},{"id":86,"size":1},{"id":87,"size":1},{"id":89,"size":1}]'
                     value: '0.00'
-                  actions:
-                    reconfigure: 0
-                  created: 1598718834
-                  modified: 1598718834
-                  sortOrder: 12
-                - id: 13
-                  name: Window Sensor 2
-                  roomID: 219
-                  type: com.fibaro.zwaveDevice
-                  baseType: com.fibaro.device
-                  enabled: true
-                  visible: false
-                  isPlugin: false
-                  parentId: 1
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - battery
-                    - zwave
-                    - zwaveAssociation
-                    - zwaveConfiguration
-                    - zwaveMultiChannelAssociation
-                    - zwaveSecurity
-                    - zwaveSlaveRouting
-                    - zwaveWakeup
-                  properties:
+                  - id: 13
                     batteryLevel: '85'
-                    batteryLowNotification: 'true'
-                    categories: '["other"]'
-                    configured: true
-                    dead: 'false'
-                    deadReason: ''
-                    defInterval: '0'
-                    deviceControlType: '0'
-                    deviceIcon: '28'
-                    deviceSpecificData: ''
-                    deviceSpecificIdType: ''
-                    deviceState: Configured
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    endPointId: '0'
-                    lastWorkingRoute: '[1]'
-                    lastWorkingRouteRequestStatus: ok
-                    lastWorkingRouteRequestTimestamp: '0'
                     lastWorkingRouteResponseTimestamp: '1598789868'
                     log: ''
                     logTemp: ''
-                    manufacturer: ''
-                    markAsDead: 'true'
-                    maxInterval: '0'
-                    minInterval: '0'
-                    model: ''
                     neighborList: '[1,4,6,18]'
                     neighborListRequestStatus: ok
-                    neighborListRequestTimestamp: '0'
                     neighborListResponseTimestamp: '1598789868'
-                    nodeId: '5'
-                    parameters:
-                      - id: 1
-                        size: 1
-                        value: 0
-                      - id: 2
-                        size: 1
-                        value: 7
-                      - id: 3
-                        size: 1
-                        value: 3
-                      - id: 11
-                        size: 1
-                        value: 0
-                      - id: 12
-                        size: 2
-                        value: 255
-                      - id: 13
-                        size: 2
-                        value: 0
-                      - id: 14
-                        size: 2
-                        value: 0
-                      - id: 15
-                        size: 2
-                        value: 0
-                      - id: 30
-                        size: 2
-                        value: 5
-                      - id: 31
-                        size: 1
-                        value: 1
-                      - id: 50
-                        size: 2
-                        value: 300
-                      - id: 51
-                        size: 2
-                        value: 10
-                      - id: 52
-                        size: 2
-                        value: 0
-                      - id: 53
-                        size: 2
-                        value: 0
-                      - id: 54
-                        size: 1
-                        value: 3
-                      - id: 55
-                        size: 2
-                        value: 350
-                      - id: 56
-                        size: 2
-                        value: 100
-                    parametersTemplate: '802'
-                    pollingTimeSec: 0
-                    productInfo: '1,15,7,2,16,0,3,2'
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    saveLogs: 'true'
-                    securitySchemes: '[]'
-                    serialNumber: ''
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
-                    stepInterval: '0'
-                    useTemplate: 'true'
-                    userDescription: ''
-                    wakeUpTime: 21600
-                    zwaveCompany: Fibargroup
-                    zwaveInfo: '3,4,38'
-                    zwaveSoftwareVersion: '{}'
-                    zwaveVersion: '3.2'
-                  actions:
-                    getLastWorkingRoute: 0
-                    getNeighborList: 0
-                    reconfigure: 0
-                    requestNodeNeighborUpdate: 0
-                  created: 1598718834
-                  modified: 1598718834
-                  sortOrder: 13
-                - id: 15
-                  name: Window
-                  roomID: 219
-                  type: com.fibaro.windowSensor
-                  baseType: com.fibaro.doorWindowSensor
-                  enabled: true
-                  visible: true
-                  isPlugin: false
-                  parentId: 13
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - battery
-                    - fibaroAlarm
-                    - fibaroAlarmArm
-                    - fibaroBreach
-                    - fibaroFirmwareUpdate
-                    - tamper
-                    - zwave
-                    - zwaveAlarm
-                    - zwaveMultiChannelAssociation
-                    - zwaveWakeup
-                  properties:
-                    pollingTimeSec: 0
-                    wakeUpTime: 21600
-                    zwaveCompany: Fibargroup
-                    zwaveInfo: '3,4,38'
-                    zwaveVersion: '3.2'
-                    alarmDelay: '0'
-                    alarmExclude: 'true'
-                    alarmLevel: '0'
-                    alarmTimeTimestamp: '0'
-                    alarmType: '0'
-                    armConditions: '{"auto":false,"devices":[{"id":15,"propertyName":"value","propertyValue":"0"}],"time":0}'
-                    armConfig: '0'
-                    armDelay: '0'
-                    armError: '{}'
-                    armTimeTimestamp: '0'
-                    armed: 'false'
+                    parameters: '[{"id":1,"size":1,"value":0},{"id":2,"size":1,"value":7},{"id":3,"size":1,"value":3},{"id":11,"size":1,"value":0},{"id":12,"size":2,"value":255},{"id":13,"size":2,"value":0},{"id":14,"size":2,"value":0},{"id":15,"size":2,"value":0},{"id":30,"size":2,"value":5},{"id":31,"size":1,"value":1},{"id":50,"size":2,"value":300},{"id":51,"size":2,"value":10},{"id":52,"size":2,"value":0},{"id":53,"size":2,"value":0},{"id":54,"size":1,"value":3},{"id":55,"size":2,"value":350},{"id":56,"size":2,"value":100}]'
+                  - id: 15
                     batteryLevel: '85'
-                    batteryLowNotification: 'true'
-                    categories: '["security"]'
-                    configured: true
-                    dead: 'false'
-                    deadReason: ''
-                    defInterval: '0'
-                    deviceControlType: '0'
-                    deviceIcon: '53'
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    endPointId: '0'
-                    fibaroAlarm: 'false'
-                    firmwareUpdate: '{"info":"","progress":0,"status":"UpToDate","updateVersion":"3.2"}'
                     lastBreached: '1599573946'
                     log: ''
                     logTemp: ''
-                    manufacturer: ''
-                    markAsDead: 'true'
-                    maxInterval: '0'
-                    minInterval: '0'
-                    model: ''
-                    nodeId: '5'
-                    parametersTemplate: '802'
-                    productInfo: '1,15,7,2,16,0,3,2'
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    saveLogs: 'true'
-                    serialNumber: ''
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
-                    stepInterval: '0'
-                    tamper: 'true'
-                    updateVersion: ''
-                    useTemplate: 'true'
-                    userDescription: ''
                     value: 'true'
-                  actions:
-                    abortUpdate: 1
-                    forceArm: 0
-                    meetArmConditions: 0
-                    reconfigure: 0
-                    retryUpdate: 1
-                    setArmed: 1
-                    setInterval: 1
-                    startUpdate: 1
-                    updateFirmware: 1
-                  created: 1598718834
-                  modified: 1598718834
-                  sortOrder: 14
-                - id: 16
-                  name: Temperatur
-                  roomID: 219
-                  type: com.fibaro.temperatureSensor
-                  baseType: com.fibaro.multilevelSensor
-                  enabled: true
-                  visible: true
-                  isPlugin: false
-                  parentId: 13
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - battery
-                    - zwave
-                    - zwaveWakeup
-                  properties:
-                    pollingTimeSec: 0
-                    wakeUpTime: 21600
-                    zwaveCompany: Fibargroup
-                    zwaveInfo: '3,4,38'
-                    zwaveVersion: '3.2'
+                  - id: 16
                     batteryLevel: '85'
-                    batteryLowNotification: 'true'
-                    categories: '["climate"]'
-                    configured: true
-                    dead: 'false'
-                    deadReason: ''
-                    defInterval: '0'
-                    deviceControlType: '0'
-                    deviceIcon: '30'
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    endPointId: '0'
                     log: ''
                     logTemp: ''
-                    manufacturer: ''
-                    markAsDead: 'true'
-                    maxInterval: '0'
-                    minInterval: '0'
-                    model: ''
-                    nodeId: '5'
-                    offset: '0.00'
-                    parametersTemplate: '802'
-                    productInfo: '1,15,7,2,16,0,3,2'
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    saveLogs: 'true'
-                    serialNumber: ''
-                    showFireAlarm: 'true'
-                    showFreezeAlarm: 'false'
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
-                    stepInterval: '0'
-                    unit: C
-                    useTemplate: 'true'
-                    userDescription: ''
-                    value: '17.00'
-                  actions:
-                    reconfigure: 0
-                    setInterval: 1
-                  created: 1598718834
-                  modified: 1598718834
-                  sortOrder: 15
-                - id: 17
-                  name: Heatalarm
-                  roomID: 219
-                  type: com.fibaro.heatDetector
-                  baseType: com.fibaro.lifeDangerSensor
-                  enabled: true
-                  visible: true
-                  isPlugin: false
-                  parentId: 13
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - battery
-                    - fibaroBreach
-                    - zwave
-                    - zwaveWakeup
-                  properties:
-                    pollingTimeSec: 0
-                    wakeUpTime: 21600
-                    zwaveCompany: Fibargroup
-                    zwaveInfo: '3,4,38'
-                    zwaveVersion: '3.2'
+                    value: '21.30'
+                  - id: 17
                     batteryLevel: '85'
-                    batteryLowNotification: 'true'
-                    categories: '["safety"]'
-                    configured: true
-                    dead: 'false'
-                    deadReason: ''
-                    defInterval: '0'
-                    deviceControlType: '0'
-                    deviceIcon: '88'
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    endPointId: '0'
-                    lastBreached: '0'
                     log: ''
                     logTemp: ''
-                    manufacturer: ''
-                    markAsDead: 'true'
-                    maxInterval: '0'
-                    minInterval: '0'
-                    model: ''
-                    nodeId: '5'
-                    parametersTemplate: '802'
-                    productInfo: '1,15,7,2,16,0,3,2'
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    saveLogs: 'true'
-                    serialNumber: ''
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
-                    stepInterval: '0'
-                    useTemplate: 'true'
-                    userDescription: ''
-                    value: 'false'
-                  actions:
-                    forceArm: 0
-                    meetArmConditions: 0
-                    reconfigure: 0
-                    setArmed: 1
-                    setInterval: 1
-                  created: 1598718834
-                  modified: 1598718834
-                  sortOrder: 16
-                - id: 18
-                  name: Wall Plug
-                  roomID: 221
-                  type: com.fibaro.zwaveDevice
-                  baseType: com.fibaro.device
-                  enabled: true
-                  visible: false
-                  isPlugin: false
-                  parentId: 1
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - polling
-                    - zwave
-                    - zwaveAssociation
-                    - zwaveConfiguration
-                    - zwaveMultiChannelAssociation
-                    - zwaveSlaveRouting
-                  properties:
-                    categories: '["other"]'
-                    configured: true
+                  - id: 18
                     dead: 'true'
                     deadReason: power
-                    deviceControlType: '0'
-                    deviceIcon: '28'
-                    deviceSpecificData: ''
-                    deviceSpecificIdType: ''
-                    deviceState: Configured
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    endPointId: '0'
-                    lastWorkingRoute: '[]'
-                    lastWorkingRouteRequestStatus: ok
-                    lastWorkingRouteRequestTimestamp: '0'
-                    lastWorkingRouteResponseTimestamp: '1598718855'
                     log: ''
                     logTemp: ''
-                    manufacturer: ''
-                    markAsDead: 'true'
-                    model: ''
-                    neighborList: '[1,4,6]'
                     neighborListRequestStatus: error
-                    neighborListRequestTimestamp: '1598377812'
-                    neighborListResponseTimestamp: '1598718855'
-                    nodeId: '6'
-                    parameters:
-                      - id: 1
-                        size: 1
-                        value: 0
-                      - id: 16
-                        size: 1
-                        value: 1
-                      - id: 34
-                        size: 1
-                        value: 63
-                      - id: 35
-                        size: 1
-                        value: 0
-                      - id: 39
-                        size: 2
-                        value: 600
-                      - id: 40
-                        size: 1
-                        value: 80
-                      - id: 42
-                        size: 1
-                        value: 15
-                      - id: 43
-                        size: 1
-                        value: 30
-                      - id: 45
-                        size: 1
-                        value: 10
-                      - id: 47
-                        size: 2
-                        value: 3600
-                      - id: 49
-                        size: 1
-                        value: 0
-                      - id: 50
-                        size: 2
-                        value: 300
-                      - id: 51
-                        size: 2
-                        value: 500
-                      - id: 52
-                        size: 1
-                        value: 6
-                      - id: 60
-                        size: 2
-                        value: 25000
-                      - id: 61
-                        size: 1
-                        value: 1
-                      - id: 62
-                        size: 1
-                        value: 8
-                      - id: 63
-                        size: 1
-                        value: 1
-                      - id: 70
-                        size: 2
-                        value: 65535
-                    parametersTemplate: '718'
-                    pollingInterval: '0'
-                    pollingTimeSec: 0
-                    productInfo: '1,15,6,0,16,0,25,25'
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    saveLogs: 'true'
-                    serialNumber: ''
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
-                    useTemplate: 'true'
-                    userDescription: ''
-                    zwaveCompany: Fibargroup
-                    zwaveInfo: '3,3,52'
-                    zwaveSoftwareVersion: '{}'
-                    zwaveVersion: '25.25'
-                  actions:
-                    getLastWorkingRoute: 0
-                    getNeighborList: 0
-                    getParameter: 1
-                    poll: 0
-                    reconfigure: 0
-                    requestNodeNeighborUpdate: 0
-                    setParameter: 2
-                  created: 1598718834
-                  modified: 1598718834
-                  sortOrder: 17
-                - id: 19
-                  name: Wahser
-                  roomID: 221
-                  type: com.fibaro.FGWP101
-                  baseType: com.fibaro.FGWP
-                  enabled: true
-                  visible: true
-                  isPlugin: false
-                  parentId: 18
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - deviceGrouping
-                    - energy
-                    - fibaroFirmwareUpdate
-                    - power
-                    - zwave
-                    - zwaveMultiChannelAssociation
-                  properties:
-                    pollingTimeSec: 0
-                    zwaveCompany: Fibargroup
-                    zwaveInfo: '3,3,52'
-                    zwaveVersion: '25.25'
-                    categories: '["lights"]'
+                    parameters: '[{"id":1,"size":1,"value":0},{"id":16,"size":1,"value":1},{"id":34,"size":1,"value":63},{"id":35,"size":1,"value":0},{"id":39,"size":2,"value":600},{"id":40,"size":1,"value":80},{"id":42,"size":1,"value":15},{"id":43,"size":1,"value":30},{"id":45,"size":1,"value":10},{"id":47,"size":2,"value":3600},{"id":49,"size":1,"value":0},{"id":50,"size":2,"value":300},{"id":51,"size":2,"value":500},{"id":52,"size":1,"value":6},{"id":60,"size":2,"value":25000},{"id":61,"size":1,"value":1},{"id":62,"size":1,"value":8},{"id":63,"size":1,"value":1},{"id":70,"size":2,"value":65535}]'
+                  - id: 19
                     color: white
-                    configured: true
                     dead: 'true'
                     deadReason: unplugged
-                    deviceControlType: '20'
-                    deviceGroup: '[]'
-                    deviceGroupMaster: '0'
-                    deviceIcon: '124'
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    endPointId: '0'
                     energy: '2.10'
                     firmwareUpdate: '{"info":"","progress":0,"status":"UpToDate","updateVersion":"25.25"}'
                     icon: '{"path":"fibaro/icons/com.fibaro.FGWP_EU/plug1.png","source":"HC"}'
                     log: ''
                     logTemp: ''
-                    manufacturer: ''
-                    markAsDead: 'true'
-                    model: ''
-                    nodeId: '6'
-                    parametersTemplate: '718'
                     power: '0.00'
-                    productInfo: '1,15,6,0,16,0,25,25'
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    saveLogs: 'true'
-                    serialNumber: ''
-                    showEnergy: 'true'
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
-                    updateVersion: ''
-                    useTemplate: 'true'
-                    userDescription: ''
-                    value: 'true'
-                  actions:
-                    abortUpdate: 1
-                    reconfigure: 0
-                    reset: 0
-                    retryUpdate: 1
-                    startUpdate: 1
-                    turnOff: 0
-                    turnOn: 0
-                    updateFirmware: 1
-                  created: 1598718834
-                  modified: 1598718834
-                  sortOrder: 18
-                - id: 22
-                  name: Co Sensor
-                  roomID: 221
-                  type: com.fibaro.zwaveDevice
-                  baseType: com.fibaro.device
-                  enabled: true
-                  visible: false
-                  isPlugin: false
-                  parentId: 1
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - battery
-                    - zwave
-                    - zwaveAssociation
-                    - zwaveConfiguration
-                    - zwaveMultiChannelAssociation
-                    - zwaveSecurity
-                    - zwaveSlaveRouting
-                    - zwaveWakeup
-                  properties:
+                  - id: 22
                     batteryLevel: '90'
-                    batteryLowNotification: 'true'
-                    categories: '["other"]'
-                    configured: true
-                    dead: 'false'
-                    deadReason: ''
-                    defInterval: '0'
-                    deviceControlType: '0'
-                    deviceIcon: '28'
-                    deviceSpecificData: h'0000000000003766
-                    deviceSpecificIdType: Serial Number
-                    deviceState: Configured
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    endPointId: '0'
-                    lastWorkingRoute: '[1]'
-                    lastWorkingRouteRequestStatus: ok
-                    lastWorkingRouteRequestTimestamp: '0'
                     lastWorkingRouteResponseTimestamp: '1598790617'
                     log: ''
                     logTemp: ''
-                    manufacturer: ''
-                    markAsDead: 'true'
-                    maxInterval: '0'
-                    minInterval: '0'
-                    model: ''
-                    neighborList: '[1,4,6]'
                     neighborListRequestStatus: ok
-                    neighborListRequestTimestamp: '0'
                     neighborListResponseTimestamp: '1598790617'
-                    nodeId: '9'
-                    parameters:
-                      - id: 2
-                        size: 1
-                      - id: 3
-                        size: 1
-                        value: 0
-                      - id: 4
-                        size: 1
-                        value: 0
-                      - id: 7
-                        size: 1
-                        value: 63
-                      - id: 10
-                        size: 1
-                        value: 3
-                      - id: 11
-                        size: 2
-                        value: 255
-                      - id: 12
-                        size: 2
-                        value: 0
-                      - id: 13
-                        size: 1
-                        value: 3
-                      - id: 14
-                        size: 2
-                        value: 40
-                      - id: 15
-                        size: 2
-                        value: 0
-                      - id: 16
-                        size: 2
-                        value: 255
-                      - id: 17
-                        size: 2
-                        value: 25
-                      - id: 19
-                        size: 2
-                        value: 0
-                      - id: 20
-                        size: 2
-                        value: 0
-                      - id: 21
-                        size: 1
-                        value: 2
-                      - id: 22
-                        size: 1
-                        value: 55
-                      - id: 23
-                        size: 1
-                        value: 1
-                      - id: 25
-                        size: 1
-                        value: 2
-                      - id: 26
-                        size: 2
-                        value: 30
-                    parametersTemplate: '783'
-                    pollingTimeSec: 0
-                    productInfo: '1,15,18,1,16,1,3,2'
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    saveLogs: 'true'
-                    securitySchemes: '["Security0"]'
-                    serialNumber: h'0000000000003766
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
-                    stepInterval: '0'
-                    useTemplate: 'true'
-                    userDescription: ''
-                    wakeUpTime: 21600
-                    zwaveCompany: Fibargroup
-                    zwaveInfo: '3,4,38'
-                    zwaveSoftwareVersion: '{}'
-                    zwaveVersion: '3.2'
-                  actions:
-                    getLastWorkingRoute: 0
-                    getNeighborList: 0
-                    getParameter: 1
-                    reconfigure: 0
-                    requestNodeNeighborUpdate: 0
-                    setInterval: 1
-                    setParameter: 2
-                  created: 1598718834
-                  modified: 1598718834
-                  sortOrder: 19
-                - id: 23
-                  name: CO - Level
-                  roomID: 221
-                  type: com.fibaro.FGCD001
-                  baseType: com.fibaro.coDetector
-                  enabled: true
-                  visible: true
-                  isPlugin: false
-                  parentId: 22
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - battery
-                    - fibaroBreach
-                    - fibaroFirmwareUpdate
-                    - tamper
-                    - zwave
-                    - zwaveAlarm
-                    - zwaveMultiChannelAssociation
-                    - zwaveWakeup
-                  properties:
-                    pollingTimeSec: 0
-                    wakeUpTime: 21600
-                    zwaveCompany: Fibargroup
-                    zwaveInfo: '3,4,38'
-                    zwaveVersion: '3.2'
-                    alarmLevel: '0'
-                    alarmType: '0'
+                    parameters: '[{"id":2,"size":1},{"id":3,"size":1,"value":0},{"id":4,"size":1,"value":0},{"id":7,"size":1,"value":63},{"id":10,"size":1,"value":3},{"id":11,"size":2,"value":255},{"id":12,"size":2,"value":0},{"id":13,"size":1,"value":3},{"id":14,"size":2,"value":40},{"id":15,"size":2,"value":0},{"id":16,"size":2,"value":255},{"id":17,"size":2,"value":25},{"id":19,"size":2,"value":0},{"id":20,"size":2,"value":0},{"id":21,"size":1,"value":2},{"id":22,"size":1,"value":55},{"id":23,"size":1,"value":1},{"id":25,"size":1,"value":2},{"id":26,"size":2,"value":30}]'
+                  - id: 23
                     batteryLevel: '90'
-                    batteryLowNotification: 'true'
-                    categories: '["safety"]'
-                    concentration: '0'
-                    configured: true
-                    dead: 'false'
-                    deadReason: ''
-                    defInterval: '0'
-                    deviceControlType: '0'
-                    deviceIcon: '118'
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    endPointId: '0'
-                    firmwareUpdate: '{"info":"","progress":0,"status":"UpToDate","updateVersion":"3.2"}'
-                    icon: '{"path":"fibaro/icons/com.fibaro.FGCD001/com.fibaro.FGCD001-healthy.png","source":"HC"}'
-                    lastBreached: '0'
-                    lastHealthy: '0'
-                    lastModerate: '0'
                     log: ''
                     logTemp: ''
-                    manufacturer: ''
-                    markAsDead: 'true'
-                    maxConcentration: '0'
-                    maxInterval: '0'
-                    minInterval: '0'
-                    model: ''
-                    nodeId: '9'
-                    parametersTemplate: '783'
-                    productInfo: '1,15,18,1,16,1,3,2'
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    saveLogs: 'true'
-                    serialNumber: h'0000000000003766
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
-                    state: '0'
-                    stepInterval: '0'
-                    tamper: 'false'
-                    unit: ''
-                    updateVersion: ''
-                    useTemplate: 'true'
-                    userDescription: ''
-                    value: 'false'
-                    warningNotificationActive: 'true'
-                  actions:
-                    abortUpdate: 1
-                    forceArm: 0
-                    meetArmConditions: 0
-                    reconfigure: 0
-                    reset: 0
-                    retryUpdate: 1
-                    setArmed: 1
-                    setInterval: 1
-                    startUpdate: 1
-                    updateFirmware: 1
-                  created: 1598718834
-                  modified: 1598718834
-                  sortOrder: 20
-                - id: 24
-                  name: Temperatur
-                  roomID: 221
-                  type: com.fibaro.temperatureSensor
-                  baseType: com.fibaro.multilevelSensor
-                  enabled: true
-                  visible: true
-                  isPlugin: false
-                  parentId: 22
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - battery
-                    - zwave
-                    - zwaveWakeup
-                  properties:
-                    pollingTimeSec: 0
-                    wakeUpTime: 21600
-                    zwaveCompany: Fibargroup
-                    zwaveInfo: '3,4,38'
-                    zwaveVersion: '3.2'
+                  - id: 24
                     batteryLevel: '90'
-                    batteryLowNotification: 'true'
-                    categories: '["climate"]'
-                    configured: true
-                    dead: 'false'
-                    deadReason: ''
-                    defInterval: '0'
-                    deviceControlType: '0'
-                    deviceIcon: '30'
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    endPointId: '0'
                     log: ''
                     logTemp: ''
-                    manufacturer: ''
-                    markAsDead: 'true'
-                    maxInterval: '0'
-                    minInterval: '0'
-                    model: ''
-                    nodeId: '9'
-                    offset: '0.00'
-                    parametersTemplate: '783'
-                    productInfo: '1,15,18,1,16,1,3,2'
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    saveLogs: 'true'
-                    serialNumber: h'0000000000003766
-                    showFireAlarm: 'true'
-                    showFreezeAlarm: 'false'
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
-                    stepInterval: '0'
-                    unit: C
-                    useTemplate: 'true'
-                    userDescription: ''
                     value: '22.40'
-                  actions:
-                    reconfigure: 0
-                    setInterval: 1
-                  created: 1598718834
-                  modified: 1598718834
-                  sortOrder: 21
-                - id: 25
-                  name: Heatalarm
-                  roomID: 221
-                  type: com.fibaro.heatDetector
-                  baseType: com.fibaro.lifeDangerSensor
-                  enabled: true
-                  visible: true
-                  isPlugin: false
-                  parentId: 22
-                  remoteGatewayId: 0
-                  viewXml: false
-                  configXml: false
-                  interfaces:
-                    - battery
-                    - fibaroBreach
-                    - zwave
-                    - zwaveWakeup
-                  properties:
-                    pollingTimeSec: 0
-                    wakeUpTime: 21600
-                    zwaveCompany: Fibargroup
-                    zwaveInfo: '3,4,38'
-                    zwaveVersion: '3.2'
+                  - id: 25
                     batteryLevel: '90'
-                    batteryLowNotification: 'true'
-                    categories: '["safety"]'
-                    configured: true
-                    dead: 'false'
-                    deadReason: ''
-                    defInterval: '0'
-                    deviceControlType: '0'
-                    deviceIcon: '88'
-                    emailNotificationID: '0'
-                    emailNotificationType: '0'
-                    endPointId: '0'
-                    lastBreached: '0'
                     log: ''
                     logTemp: ''
-                    manufacturer: ''
-                    markAsDead: 'true'
-                    maxInterval: '0'
-                    minInterval: '0'
-                    model: ''
-                    nodeId: '9'
-                    parametersTemplate: '783'
-                    productInfo: '1,15,18,1,16,1,3,2'
-                    pushNotificationID: '0'
-                    pushNotificationType: '0'
-                    remoteGatewayId: '0'
-                    saveLogs: 'true'
-                    serialNumber: h'0000000000003766
-                    smsNotificationID: '0'
-                    smsNotificationType: '0'
-                    stepInterval: '0'
-                    useTemplate: 'true'
-                    userDescription: ''
-                    value: 'false'
-                  actions:
-                    forceArm: 0
-                    meetArmConditions: 0
-                    reconfigure: 0
-                    setArmed: 1
-                    setInterval: 1
-                  created: 1598718834
-                  modified: 1598718834
-                  sortOrder: 22
+                alarmChanges: []
   
-  /api/sections:
+  
+  
+  /devices:
     get:
-      description: return the sections of a building
+      description: Get list of available devices
       tags:
-        - General
+        - devices
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                - actions: ACTIONS
+                  baseType: ''
+                  configXml: bool
+                  created: 0
+                  enabled: bool
+                  id: 0
+                  interfaces: aray
+                  modified: 0
+                  name: ''
+                  parentId: 0
+                  properties: PROPERTIES
+                  remoteGatewayId: 0
+                  roomID: 0
+                  sortOrder: 0
+                  type: ''
+                  viewXml: bool
+                  visible: bool
+    post:
+      description: Create device | Call action
+      tags:
+        - devices
+      responses:
+        '200':
+          description: ok
+  
+  /devices/{deviceID}:
+    get:
+      parameters:
+        - name: deviceID
+          in: path
+          description: id of the device
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      description: Get device object
+      tags:
+        - devices
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                - actions: ACTIONS
+                  baseType: ''
+                  configXml: bool
+                  created: 0
+                  enabled: bool
+                  id: 0
+                  interfaces: aray
+                  modified: 0
+                  name: ''
+                  parentId: 0
+                  properties: PROPERTIES
+                  remoteGatewayId: 0
+                  roomID: 0
+                  sortOrder: 0
+                  type: ''
+                  viewXml: bool
+                  visible: bool
+    put:
+      parameters:
+        - name: deviceID
+          in: path
+          description: id of the device
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      description: Modify device
+      tags:
+        - devices
+      responses:
+        '200':
+          description: ok
+    delete:
+      parameters:
+        - name: deviceID
+          in: path
+          description: id of the device
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      description: Delete device
+      tags:
+        - devices
+      responses:
+        '200':
+          description: ok
+  
+  /devices/{deviceID}/action/{actionName}:
+    post:
+      parameters:
+        - name: deviceID
+          in: path
+          description: id of the device
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+        - name: actionName
+          in: path
+          description: Name of an action
+          required: true
+          schema:
+            type: string
+      description: Call action
+      tags:
+        - devices
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+  
+  /devices/groupAction/{actionName}:
+    post:
+      parameters:
+        - name: actionName
+          in: path
+          description: Name of an action
+          required: true
+          schema:
+            type: string
+      description: Call group action
+      tags:
+        - devices
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+                []
+  
+  
+  
+  /sections:
+    get:
+      description: Get list of all available sections
+      tags:
+        - sections
       responses:
         '200':
           description: ok
@@ -2018,6 +895,19 @@ paths:
                 - id: 220
                   name: Upper floor
                   sortOrder: 2
+    post:
+      description: Create section
+      tags:
+        - sections
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              example:
+               []
+  
+  
   
   /api/rooms:
     get:
@@ -3646,85 +2536,9 @@ paths:
                 fibaroAlarm: false
                 alarmEnabled: false
   
-  /api/panels/energy:
-    get:
-      parameters: 
-        - name: type
-          in: query
-          required: true
-          schema:
-            type: string
-          examples:
-            rooms:
-              value: rooms
-            devices:
-              value: devices
-        - name: id
-          in: query
-          required: true
-          schema:
-            type: integer
-            format: int32
-          example: 1
-      description: return unknown
-      tags:
-        - Panels
-      responses:
-        '200':
-          description: ok
-          content:
-            application/json:
-              example:
-                - id: 7
-                  powerH: 0.07
-                  powerD: 0.87
-                  powerW: 5.29
-                  powerM: 14.09
-                  costH: 0
-                  costD: 0
-                  costW: 0
-                  costM: 0
   
-  /api/panels/temperature:
-    get:
-      parameters: 
-        - name: type
-          in: query
-          required: true
-          schema:
-            type: string
-          examples:
-            rooms:
-              value: rooms
-            devices:
-              value: devices
-        - name: method
-          in: query
-          required: true
-          schema:
-            type: string
-          example: single
-        - name: id
-          in: query
-          required: true
-          schema:
-            type: integer
-            format: int32
-          example: 1
-      description: return unknown
-      tags:
-        - Panels
-      responses:
-        '200':
-          description: ok
-          content:
-            application/json:
-              example:
-                - id: 16
-                  temperatureH: 21.3
-                  temperatureD: 18.85
-                  temperatureW: 20.01
-                  temperatureM: 20.48
+  
+  
   
   /api/panels/event:
     get:
@@ -3796,303 +2610,9 @@ paths:
                 - name: com.fibaro.yrWeather
                   predefined: true
   
-  /api/loginStatus:
-    get:
-      description: return unknown
-      tags:
-        - Other
-      responses:
-        '200':
-          description: ok
-          content:
-            application/json:
-              example:
-                status: true
-                userID: 2
-                username: philip.schell@fit.fraunhofer.de
-                type: superuser
-                analyticsUserIdHash: 798adf6ec68de5e939f236fa3f303688
   
-  /api/refreshStates:
-    get:
-      parameters:
-        - name: last
-          description: number of the last getted item
-          in: query
-          required: true
-          schema:
-            type: integer
-            format: int32
-          example: 10000
-      description: return unknown
-      tags:
-        - Other
-      responses:
-        '200':
-          description: ok
-          content:
-            application/json:
-              example:
-                status: IDLE
-                last: 383463
-                date: '14:50 | 10.9.2020'
-                timestamp: 1599742224
-                logs:
-                  - '[09:50:44] 4: Requesting neighbor list from the node is in progress'
-                  - '[09:51:05] 4: Getting new neighbor list failed'
-                  - '[09:51:36] 6: Requesting neighbor list from the node is in progress'
-                  - '[09:51:36] 6: New neighbor list received'
-                  - '[13:33:58] 8: Requesting neighbor list from the node is in progress'
-                  - '[13:34:00] 8: New neighbor list received'
-                  - '[14:17:47] 13: Requesting neighbor list from the node is in progress'
-                  - '[14:17:48] 13: New neighbor list received'
-                  - '[14:30:15] 22: Requesting neighbor list from the node is in progress'
-                  - '[14:30:17] 22: New neighbor list received'
-                  - '[09:04:37] 6: Requesting neighbor list from the node is in progress'
-                  - '[09:04:38] 6: New neighbor list received'
-                  - '[09:05:26] 6: Requesting neighbor list from the node is in progress'
-                  - '[09:05:27] 6: New neighbor list received'
-                  - '[13:30:52] ID 4: Received association report from group 1'
-                  - '[13:30:52] ID 4: Received association report from group 2'
-                  - '[13:30:53] ID 4: Received association report from group 3'
-                  - '[13:31:43] ID 6: Received association report from group 1'
-                  - '[13:31:44] ID 6: Received association report from group 2'
-                  - '[13:31:44] ID 6: Received association report from group 3'
-                  - '[13:34:51] ID 18: Received association report from group 1'
-                  - '[13:34:51] ID 18: Received association report from group 2'
-                  - '[13:34:52] ID 18: Received association report from group 3'
-                  - '[13:36:09] ID 6: Received association report from group 1'
-                  - '[13:36:09] ID 6: Received association report from group 2'
-                  - '[13:36:09] ID 6: Received association report from group 3'
-                  - '[13:36:45] ID 4: Received association report from group 1'
-                  - '[13:36:45] ID 4: Received association report from group 2'
-                  - '[13:36:45] ID 4: Received association report from group 3'
-                  - '[14:51:16] ID 22: Received association report from group 1'
-                  - '[14:51:17] ID 22: Received association report from group 2'
-                  - '[14:51:18] ID 22: Received association report from group 3'
-                  - '[14:51:19] ID 22: Received association report from group 4'
-                  - '[14:51:20] ID 22: Received association report from group 5'
-                  - '[14:51:21] ID 22: Received association report from group 6'
-                  - '[14:51:22] ID 22: Received association report from group 7'
-                  - '[15:26:02] ID 8: Received association report from group 1'
-                  - '[15:26:02] ID 8: Received association report from group 2'
-                  - '[15:26:02] ID 8: Received association report from group 3'
-                  - '[17:54:03] ID 13: Received association report from group 1'
-                  - '[17:54:04] ID 13: Received association report from group 2'
-                  - '[17:54:05] ID 13: Received association report from group 3'
-                  - '[21:15:22] ID 18: Application rejected request'
-                events:
-                  - type: DevicePropertyUpdatedEvent
-                    data:
-                      id: 7
-                      property: power
-                      oldValue: 151.1
-                      newValue: 110.6
-                  - type: DevicePropertyUpdatedEvent
-                    data:
-                      id: 7
-                      property: power
-                      oldValue: 110.6
-                      newValue: 153.4
-                  - type: DevicePropertyUpdatedEvent
-                    data:
-                      id: 7
-                      property: power
-                      oldValue: 153.4
-                      newValue: 114.4
-                  - type: DevicePropertyUpdatedEvent
-                    data:
-                      id: 7
-                      property: power
-                      oldValue: 114.4
-                      newValue: 137.5
-                  - type: DevicePropertyUpdatedEvent
-                    data:
-                      id: 7
-                      property: power
-                      oldValue: 137.5
-                      newValue: 235.1
-                  - type: DevicePropertyUpdatedEvent
-                    data:
-                      id: 7
-                      property: icon
-                      oldValue:
-                        path: fibaro/icons/com.fibaro.FGWP_EU/plug8.png
-                        source: HC
-                      newValue:
-                        path: fibaro/icons/com.fibaro.FGWP_EU/plug3.png
-                        source: HC
-                  - type: DevicePropertyUpdatedEvent
-                    data:
-                      id: 7
-                      property: color
-                      oldValue: blue
-                      newValue: green
-                  - type: DevicePropertyUpdatedEvent
-                    data:
-                      id: 7
-                      property: power
-                      oldValue: 235.1
-                      newValue: 130.1
-                  - type: DevicePropertyUpdatedEvent
-                    data:
-                      id: 7
-                      property: icon
-                      oldValue:
-                        path: fibaro/icons/com.fibaro.FGWP_EU/plug3.png
-                        source: HC
-                      newValue:
-                        path: fibaro/icons/com.fibaro.FGWP_EU/plug8.png
-                        source: HC
-                  - type: DevicePropertyUpdatedEvent
-                    data:
-                      id: 7
-                      property: color
-                      oldValue: green
-                      newValue: blue
-                changes:
-                  - id: 1
-                    pollingDeadDevice: 'true'
-                    sunriseHour: '06:59'
-                    sunsetHour: '19:55'
-                  - id: 3
-                    ConditionCode: '32'
-                    ConditionCodeConverted: '32'
-                    Humidity: '46.70'
-                    Pressure: '1022.40'
-                    Temperature: '19.70'
-                    WeatherCondition: clear
-                    Wind: '5.04'
-                    ui.Current_Weather_Label.caption: |-
-                      Temp.: 19.7°C
-                
-                      Humidity: 46.7%
-                
-                      Wind: 5km/h
-                  - id: 4
-                    dead: 'false'
-                    deadReason: ''
-                    lastWorkingRouteResponseTimestamp: '1598773844'
-                    log: ''
-                    logTemp: ''
-                    neighborListRequestStatus: error
-                    parameters: '[{"id":1,"size":1},{"id":16,"size":1},{"id":34,"size":1},{"id":35,"size":1},{"id":39,"size":2},{"id":40,"size":1},{"id":42,"size":1},{"id":43,"size":1},{"id":45,"size":1},{"id":47,"size":2},{"id":49,"size":1},{"id":50,"size":2},{"id":51,"size":2},{"id":52,"size":1},{"id":60,"size":2},{"id":61,"size":1},{"id":62,"size":1},{"id":63,"size":1},{"id":70,"size":2}]'
-                  - id: 5
-                    dead: 'false'
-                    deadReason: ''
-                    energy: '5.85'
-                    log: ''
-                    logTemp: ''
-                    power: '0.00'
-                  - id: 6
-                    dead: 'false'
-                    deadReason: ''
-                    lastWorkingRouteResponseTimestamp: '1598943927'
-                    log: ''
-                    logTemp: ''
-                    neighborList: '[1,13,22]'
-                    neighborListRequestStatus: ok
-                    neighborListRequestTimestamp: '1598943926'
-                    neighborListResponseTimestamp: '1598943927'
-                    parameters: '[{"id":1,"size":1},{"id":16,"size":1},{"id":34,"size":1},{"id":35,"size":1},{"id":39,"size":2},{"id":40,"size":1},{"id":42,"size":1},{"id":43,"size":1},{"id":45,"size":1},{"id":47,"size":2},{"id":49,"size":1},{"id":50,"size":2},{"id":51,"size":2},{"id":52,"size":1},{"id":60,"size":2},{"id":61,"size":1},{"id":62,"size":1},{"id":63,"size":1},{"id":70,"size":2}]'
-                  - id: 7
-                    color: blue
-                    dead: 'false'
-                    deadReason: ''
-                    energy: '17.74'
-                    icon: '{"path":"fibaro/icons/com.fibaro.FGWP_EU/plug8.png","source":"HC"}'
-                    log: ''
-                    logTemp: ''
-                    power: '130.10'
-                  - id: 8
-                    lastWorkingRouteResponseTimestamp: '1598787241'
-                    log: ''
-                    logTemp: ''
-                    neighborList: '[4]'
-                    neighborListRequestStatus: ok
-                    neighborListResponseTimestamp: '1598787241'
-                    parameters: '[{"id":1,"size":1,"value":10},{"id":2,"size":1,"value":2},{"id":3,"size":1,"value":1},{"id":4,"size":1,"value":2},{"id":6,"size":2,"value":5},{"id":8,"size":1,"value":0},{"id":9,"size":2,"value":200},{"id":12,"size":1,"value":0},{"id":14,"size":1,"value":255},{"id":16,"size":1,"value":0},{"id":20,"size":1,"value":15},{"id":22,"size":2,"value":30},{"id":24,"size":1,"value":0},{"id":26,"size":1,"value":0},{"id":40,"size":2,"value":200},{"id":42,"size":2,"value":0},{"id":60,"size":1,"value":10},{"id":62,"size":2,"value":900},{"id":64,"size":2,"value":0},{"id":66,"size":2,"value":0},{"id":80,"size":1,"value":10},{"id":81,"size":1,"value":50},{"id":82,"size":2,"value":100},{"id":83,"size":2,"value":1000},{"id":86,"size":1,"value":18},{"id":87,"size":1,"value":28},{"id":89,"size":1,"value":1}]'
-                  - id: 9
-                    lastBreached: '1599737704'
-                    log: ''
-                    logTemp: ''
-                    tamper: 'false'
-                    value: 'false'
-                  - id: 10
-                    log: ''
-                    logTemp: ''
-                    value: '22.60'
-                  - id: 11
-                    log: ''
-                    logTemp: ''
-                  - id: 12
-                    log: ''
-                    logTemp: ''
-                    parameters: '[{"id":1,"size":1},{"id":2,"size":1},{"id":3,"size":1},{"id":4,"size":1},{"id":6,"size":2},{"id":8,"size":1},{"id":9,"size":2},{"id":12,"size":1},{"id":14,"size":1},{"id":16,"size":1},{"id":20,"size":1},{"id":22,"size":2},{"id":24,"size":1},{"id":26,"size":1},{"id":40,"size":2},{"id":42,"size":2},{"id":60,"size":1},{"id":62,"size":2},{"id":64,"size":2},{"id":66,"size":2},{"id":80,"size":1},{"id":81,"size":1},{"id":82,"size":2},{"id":83,"size":2},{"id":86,"size":1},{"id":87,"size":1},{"id":89,"size":1}]'
-                    value: '0.00'
-                  - id: 13
-                    batteryLevel: '85'
-                    lastWorkingRouteResponseTimestamp: '1598789868'
-                    log: ''
-                    logTemp: ''
-                    neighborList: '[1,4,6,18]'
-                    neighborListRequestStatus: ok
-                    neighborListResponseTimestamp: '1598789868'
-                    parameters: '[{"id":1,"size":1,"value":0},{"id":2,"size":1,"value":7},{"id":3,"size":1,"value":3},{"id":11,"size":1,"value":0},{"id":12,"size":2,"value":255},{"id":13,"size":2,"value":0},{"id":14,"size":2,"value":0},{"id":15,"size":2,"value":0},{"id":30,"size":2,"value":5},{"id":31,"size":1,"value":1},{"id":50,"size":2,"value":300},{"id":51,"size":2,"value":10},{"id":52,"size":2,"value":0},{"id":53,"size":2,"value":0},{"id":54,"size":1,"value":3},{"id":55,"size":2,"value":350},{"id":56,"size":2,"value":100}]'
-                  - id: 15
-                    batteryLevel: '85'
-                    lastBreached: '1599573946'
-                    log: ''
-                    logTemp: ''
-                    value: 'true'
-                  - id: 16
-                    batteryLevel: '85'
-                    log: ''
-                    logTemp: ''
-                    value: '21.30'
-                  - id: 17
-                    batteryLevel: '85'
-                    log: ''
-                    logTemp: ''
-                  - id: 18
-                    dead: 'true'
-                    deadReason: power
-                    log: ''
-                    logTemp: ''
-                    neighborListRequestStatus: error
-                    parameters: '[{"id":1,"size":1,"value":0},{"id":16,"size":1,"value":1},{"id":34,"size":1,"value":63},{"id":35,"size":1,"value":0},{"id":39,"size":2,"value":600},{"id":40,"size":1,"value":80},{"id":42,"size":1,"value":15},{"id":43,"size":1,"value":30},{"id":45,"size":1,"value":10},{"id":47,"size":2,"value":3600},{"id":49,"size":1,"value":0},{"id":50,"size":2,"value":300},{"id":51,"size":2,"value":500},{"id":52,"size":1,"value":6},{"id":60,"size":2,"value":25000},{"id":61,"size":1,"value":1},{"id":62,"size":1,"value":8},{"id":63,"size":1,"value":1},{"id":70,"size":2,"value":65535}]'
-                  - id: 19
-                    color: white
-                    dead: 'true'
-                    deadReason: unplugged
-                    energy: '2.10'
-                    firmwareUpdate: '{"info":"","progress":0,"status":"UpToDate","updateVersion":"25.25"}'
-                    icon: '{"path":"fibaro/icons/com.fibaro.FGWP_EU/plug1.png","source":"HC"}'
-                    log: ''
-                    logTemp: ''
-                    power: '0.00'
-                  - id: 22
-                    batteryLevel: '90'
-                    lastWorkingRouteResponseTimestamp: '1598790617'
-                    log: ''
-                    logTemp: ''
-                    neighborListRequestStatus: ok
-                    neighborListResponseTimestamp: '1598790617'
-                    parameters: '[{"id":2,"size":1},{"id":3,"size":1,"value":0},{"id":4,"size":1,"value":0},{"id":7,"size":1,"value":63},{"id":10,"size":1,"value":3},{"id":11,"size":2,"value":255},{"id":12,"size":2,"value":0},{"id":13,"size":1,"value":3},{"id":14,"size":2,"value":40},{"id":15,"size":2,"value":0},{"id":16,"size":2,"value":255},{"id":17,"size":2,"value":25},{"id":19,"size":2,"value":0},{"id":20,"size":2,"value":0},{"id":21,"size":1,"value":2},{"id":22,"size":1,"value":55},{"id":23,"size":1,"value":1},{"id":25,"size":1,"value":2},{"id":26,"size":2,"value":30}]'
-                  - id: 23
-                    batteryLevel: '90'
-                    log: ''
-                    logTemp: ''
-                  - id: 24
-                    batteryLevel: '90'
-                    log: ''
-                    logTemp: ''
-                    value: '22.40'
-                  - id: 25
-                    batteryLevel: '90'
-                    log: ''
-                    logTemp: ''
-                alarmChanges: []
+  
+  
   
   /api/weather:
     get:
@@ -4140,50 +2660,7 @@ paths:
                       system: '2611904'
                       idle: '90102786'
   
-  /api/energy/{from}/{to}/summary-graph/devices/power/{deviceid}:
-    get:
-      parameters:
-        - name: from
-          in: path
-          description: Can be unix timestamp or now-seconds = "now-15"
-          required: true
-          schema:
-              anyOf:
-                - type: string
-                - type: integer
-          example: now-15
-        - name: to
-          in: path
-          description: Can be unix timestamp or now-seconds = "now-15"
-          required: true
-          schema:
-              anyOf:
-                - type: string
-                - type: integer
-          example: now
-        - name: deviceid
-          in: path
-          description: id of the device
-          required: true
-          schema:
-            type: integer
-            format: int32
-          example: 1
-      description: return unknown
-      tags:
-        - Undocumented
-      responses:
-        '200':
-          description: ok
-          content:
-            application/json:
-              example:
-                - - 1599742993000
-                  - 245.5
-                - - 1599743003000
-                  - 133.9
-                - - 1599743008000
-                  - 133.9
+  
   
   /api/zwaveSettings:
     get:
@@ -7619,4 +6096,6 @@ paths:
               example:
                 value: 0
                 currency: ''
+  
+  
                 
