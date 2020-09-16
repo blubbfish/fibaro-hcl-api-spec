@@ -1,4 +1,5 @@
 openapi: "3.0.0"
+
 info:
   version: 1.0.0
   title: Fibaro-Gatway Light
@@ -9,37 +10,78 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
+
 servers:
   - url: http://gateway.linksmart.eu:8090/api
+
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+  responses:
+    UnauthorizedError:
+      description: Authentication information is missing or invalid
+      headers:
+        WWW_Authenticate:
+          schema:
+            type: string
+
 paths:
   /panels/energy:
     get:
       parameters: 
         - name: type
+          description: Type of monitored section (rooms/devices)
           in: query
           required: true
           schema:
             type: string
           examples:
-            rooms:
-              value: rooms
             devices:
               value: devices
+            rooms:
+              value: rooms
         - name: id
+          description: ID(s) of room(s) or device(s)
           in: query
           required: true
           schema:
             type: integer
-            format: int32
-          example: 1
+          example: 7
       description: Get energy
       tags:
         - consumption
+      security: 
+        - basicAuth: []
       responses:
-        '200':
+        200:
           description: ok
           content:
             application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    powerH:
+                      type: number
+                    powerD: 
+                      type: number
+                    powerW: 
+                      type: number
+                    powerM: 
+                      type: number
+                    costH:
+                      type: number
+                    costD: 
+                      type: number
+                    costW: 
+                      type: number
+                    costM: 
+                      type: number
               example:
                 - id: 7
                   powerH: 0.07
@@ -50,22 +92,26 @@ paths:
                   costD: 0
                   costW: 0
                   costM: 0
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
   
   /panels/temperature:
     get:
       parameters: 
         - name: type
           in: query
+          description: Type of monitored section (rooms/devices)
           required: true
           schema:
             type: string
           examples:
-            rooms:
-              value: rooms
             devices:
               value: devices
+            rooms:
+              value: rooms
         - name: method
           in: query
+          description: 	Method of monitored section (single/compare)
           required: true
           schema:
             type: string
@@ -76,96 +122,125 @@ paths:
               value: compare
         - name: id
           in: query
+          description: ID(s) of room(s) or device(s)
           required: true
           schema:
             type: integer
-            format: int32
-          example: 1
+          example: 16
       description: Get temperature
       tags:
         - consumption
+      security: 
+        - basicAuth: []
       responses:
-        '200':
+        200:
           description: ok
           content:
             application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    temperatureH:
+                      type: number
+                    temperatureD: 
+                      type: number
+                    temperatureW: 
+                      type: number
+                    temperatureM: 
+                      type: number
               example:
                 - id: 16
                   temperatureH: 21.3
                   temperatureD: 18.85
                   temperatureW: 20.01
                   temperatureM: 20.48
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
   
-  /energy/{from}/{to}/{dataset}/{type}/{unit}/{deviceid}:
+  /energy/{timestampFrom}/{timestampTo}/{dataSet}/{type}/{unit}/{id}:
     get:
       parameters:
-        - name: from
+        - name: timestampFrom
           in: path
-          description: Can be unix timestamp or now-seconds = "now-15"
+          description: Timestamp - from when we wanna have data. If from now type 'now-3600'
           required: true
           schema:
               anyOf:
                 - type: string
                 - type: integer
           example: now-15
-        - name: to
+        - name: timestampTo
           in: path
-          description: Can be unix timestamp or now-seconds = "now-15"
+          description: Timestamp - for when we wanna have data. If for now type 'now'
           required: true
           schema:
               anyOf:
                 - type: string
                 - type: integer
           example: now
-        - name: dataset
+        - name: dataSet
           in: path
-          description: Type of set data
+          description: Type of set data (summary-graph/compare)
           required: true
           schema:
             type: string
           examples:
-            summary:
+            summary-graph:
               value: summary-graph
             compare:
               value: compare
         - name: type
           in: path
-          description: Type of monitored section
+          description: Type of monitored section (rooms/devices)
           required: true
           schema:
             type: string
           examples:
-            rooms:
-              value: rooms
             devices:
               value: devices
+            rooms:
+              value: rooms
         - name: unit
           in: path
-          description: Unit what we wanna get
+          description: Unit what we wanna get (money/power)
           required: true
           schema:
             type: string
           examples:
-            money:
-              value: money
             power:
               value: power
-        - name: deviceid
+            money:
+              value: money
+        - name: id
           in: path
-          description: id of the device
+          description: ID(s) of room(s) or device(s)
           required: true
           schema:
             type: integer
             format: int32
-          example: 1
+          example: 7
       description: Get energy from/to
       tags:
         - consumption
+      security: 
+        - basicAuth: []
       responses:
-        '200':
+        200:
           description: ok
           content:
             application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+                  items:
+                    type: number
+                  minItems: 2
+                  maxItems: 2
               example:
                 - - 1599742993000
                   - 245.5
@@ -173,66 +248,78 @@ paths:
                   - 133.9
                 - - 1599743008000
                   - 133.9
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
   
-  /temperature/{from}/{to}/{dataset}/{type}/temperature/{deviceid}:
+  /temperature/{timestampFrom}/{timestampTo}/{dataSet}/{type}/temperature/{id}:
     get:
       parameters:
-        - name: from
+        - name: timestampFrom
           in: path
-          description: Can be unix timestamp or now-seconds = "now-15"
+          description: Timestamp - from when we wanna have data. If from now type 'now-3600'
           required: true
           schema:
               anyOf:
                 - type: string
                 - type: integer
           example: now-15
-        - name: to
+        - name: timestampTo
           in: path
-          description: Can be unix timestamp or now-seconds = "now-15"
+          description: Timestamp - for when we wanna have data. If for now type 'now'
           required: true
           schema:
               anyOf:
                 - type: string
                 - type: integer
           example: now
-        - name: dataset
+        - name: dataSet
           in: path
-          description: Type of set data
+          description: Type of set data (summary-graph/compare)
           required: true
           schema:
             type: string
           examples:
-            summary:
+            summary-graph:
               value: summary-graph
             compare:
               value: compare
         - name: type
           in: path
-          description: Type of monitored section
+          description: Type of monitored section (rooms/devices)
           required: true
           schema:
             type: string
           examples:
-            rooms:
-              value: rooms
             devices:
               value: devices
-        - name: deviceid
+            rooms:
+              value: rooms
+        - name: id
           in: path
-          description: id of the device
+          description: ID(s) of room(s) or device(s)
           required: true
           schema:
             type: integer
             format: int32
-          example: 1
+          example: 16
       description: Get temperature from/to
       tags:
         - consumption
+      security: 
+        - basicAuth: []
       responses:
-        '200':
+        200:
           description: ok
           content:
             application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+                  items:
+                    type: number
+                  minItems: 2
+                  maxItems: 2
               example:
                 - - 1600097238000
                   - 30.5
