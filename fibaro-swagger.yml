@@ -193,6 +193,8 @@ paths:
               value: summary-graph
             compare:
               value: compare
+            comparison-graph:
+              value: comparison-graph
         - name: type
           in: path
           description: Type of monitored section (rooms/devices)
