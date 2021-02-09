@@ -2,8 +2,8 @@ openapi: "3.0.0"
 
 info:
   version: 1.0.0
-  title: Fibaro-Gatway Light
-  description: Swagger-File for the Fibaro-GW Light
+  title: Fibaro Home Center Lite (HCL) API
+  description: OpenAPI Spec FIBARO HCL's HTTP API
   contact:
     name: Philip Schell
     email: philip.schell@fit.fraunhofer.de
